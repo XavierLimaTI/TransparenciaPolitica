@@ -90,17 +90,27 @@ class GovernmentAPI {
 
     // Helper to call Portal da Transparência which requires an API key
     async fetchPortal(endpoint, params = {}) {
-        if (!this.portalKey) {
-            console.warn('Portal da Transparência API key not set. Register and call setPortalKey(key) to enable.');
-            return { error: 'API_KEY_MISSING' };
+        // If a proxy base is configured, call the proxy endpoint and let the proxy
+        // inject the `chave-api-dados` header server-side. In that case the client
+        // should NOT be required to hold the API key.
+        let url;
+        const headers = Object.assign({}, this.headers);
+
+        if (this.proxyBase) {
+            url = new URL(`${this.proxyBase}${endpoint}`);
+        } else {
+            // Direct call to Portal: require portalKey and send it in headers
+            if (!this.portalKey) {
+                console.warn('Portal da Transparência API key not set. Register and call setPortalKey(key) to enable.');
+                return { error: 'API_KEY_MISSING' };
+            }
+            url = new URL(`https://api.portaldatransparencia.gov.br/api-de-dados${endpoint}`);
+            headers['chave-api-dados'] = this.portalKey;
         }
 
-    const url = this.proxyBase ? new URL(`${this.proxyBase}${endpoint}`) : new URL(`https://api.portaldatransparencia.gov.br/api-de-dados${endpoint}`);
         Object.keys(params).forEach(k => {
             if (params[k] !== undefined && params[k] !== null) url.searchParams.append(k, params[k]);
         });
-
-        const headers = Object.assign({}, this.headers, { 'chave-api-dados': this.portalKey });
 
         const maxAttempts = 3;
         let attempt = 0;
@@ -111,7 +121,6 @@ class GovernmentAPI {
                 const response = await fetch(url.toString(), { method: 'GET', headers });
 
                 if (response.status === 429) {
-                    // Rate limited: respect Retry-After header if present
                     const retryAfter = response.headers.get('Retry-After');
                     const wait = retryAfter ? parseInt(retryAfter, 10) * 1000 : (500 * attempt);
                     console.warn(`Portal rate-limited. Retry after ${wait}ms`);
@@ -129,7 +138,6 @@ class GovernmentAPI {
             } catch (err) {
                 console.error(`Portal fetch attempt ${attempt} error:`, err);
                 if (attempt >= maxAttempts) return null;
-                // exponential backoff before retry
                 const backoff = 300 * Math.pow(2, attempt);
                 await new Promise(r => setTimeout(r, backoff));
             }
@@ -364,6 +372,27 @@ class GovernmentAPI {
     // Portal da Transparência: despesas por favorecido/parlamentar
     // params: { cpf, nome, pagina, itens, ano, mes }
     async getDespesasPorParlamentar(params = {}) {
+        // If local despesas were loaded (CSV fallback), use them first.
+        if (this._localDespesas && Array.isArray(this._localDespesas) && this._localDespesas.length > 0) {
+            // Apply basic filtering by cpf or nome (case-insensitive contains)
+            let results = this._localDespesas;
+            if (params.cpf) {
+                const cpfNorm = String(params.cpf).replace(/\D/g, '');
+                results = results.filter(d => (d.cnpjCpf || '').toString().replace(/\D/g, '').includes(cpfNorm));
+            } else if (params.nome) {
+                const nomeLower = String(params.nome).toLowerCase();
+                results = results.filter(d => (d.favorecido || d.descricao || '').toString().toLowerCase().includes(nomeLower));
+            }
+
+            // pagination
+            const pagina = Math.max(1, parseInt(params.pagina || params.page || 1, 10));
+            const itens = Math.max(1, parseInt(params.itens || params.pageSize || 10, 10));
+            const start = (pagina - 1) * itens;
+            const pageItems = results.slice(start, start + itens);
+
+            return pageItems;
+        }
+
         // Map our params to Portal API query parameters
         const query = {};
         if (params.cpf) query.cpf = params.cpf;
@@ -400,6 +429,66 @@ class GovernmentAPI {
         }));
 
         return normalized;
+    }
+
+    // Fallback: carregar despesas de um CSV no cliente. CSV simples com cabeçalho.
+    // Retorna array normalizado (mesma forma que getDespesasPorParlamentar)
+    loadDespesasFromCSV(text) {
+        if (!text) return [];
+        const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+        if (lines.length === 0) return [];
+        const header = lines[0].split(/,|;|\t/).map(h => h.trim().toLowerCase());
+
+        // robust split: handle quoted fields (simple implementation)
+        function splitLine(line) {
+            const parts = [];
+            let cur = '';
+            let inQuotes = false;
+            for (let i = 0; i < line.length; i++) {
+                const ch = line[i];
+                if (ch === '"') {
+                    if (inQuotes && line[i+1] === '"') { cur += '"'; i++; continue; }
+                    inQuotes = !inQuotes;
+                    continue;
+                }
+                if (!inQuotes && (ch === ',' || ch === ';' || ch === '\t')) {
+                    parts.push(cur.trim());
+                    cur = '';
+                    continue;
+                }
+                cur += ch;
+            }
+            parts.push(cur.trim());
+            return parts;
+        }
+
+        const rows = lines.slice(1).map(line => {
+            const parts = splitLine(line);
+            const obj = {};
+            for (let i = 0; i < header.length; i++) {
+                obj[header[i]] = parts[i] || '';
+            }
+            return obj;
+        });
+
+        // Normalize common column names
+        const normalized = rows.map(r => ({
+            dataDocumento: r.data || r.datadoc || r.data_documento || r.data_document || null,
+            descricao: r.descricao || r.historico || r.tipo || r.historico || '',
+            // normalize numeric values: remove thousand separators and convert comma decimal
+            valor: Number(String(r.valor || r.valor_documento || r.valor_pagamento || '0').replace(/\./g, '').replace(/,/g, '.').replace(/[^0-9\-\.]/g, '')) || 0,
+            favorecido: r.favorecido || r.nome || r.nome_favorecido || r.fornecedor || '',
+            cnpjCpf: r.cpf || r.cnpj || r.cpfcnpj || null,
+            origem: r.orgao || r.unidade || r.orgao_origem || null,
+            detalhe: r
+        }));
+
+        return normalized;
+    }
+
+    // Set local despesas fallback (array of normalized despesas)
+    useLocalDespesas(despesasArray) {
+        this._localDespesas = Array.isArray(despesasArray) ? despesasArray : [];
     }
 
     // Métodos auxiliares
@@ -491,7 +580,27 @@ class GovernmentAPI {
             window.dispatchEvent(new CustomEvent('dadosAtualizados', {
                 detail: dados
             }));
-            
+            // If a proxy base is configured, call the proxy endpoint and let the proxy
+            // inject the `chave-api-dados` header server-side. In that case the client
+            // should NOT be required to hold the API key.
+            let url;
+            let headers = Object.assign({}, this.headers);
+
+            if (this.proxyBase) {
+                url = new URL(`${this.proxyBase}${endpoint}`);
+            } else {
+                // Direct call to Portal: require portalKey and send it in headers
+                if (!this.portalKey) {
+                    console.warn('Portal da Transparência API key not set. Register and call setPortalKey(key) to enable.');
+                    return { error: 'API_KEY_MISSING' };
+                }
+                url = new URL(`https://api.portaldatransparencia.gov.br/api-de-dados${endpoint}`);
+                headers['chave-api-dados'] = this.portalKey;
+            }
+
+            Object.keys(params).forEach(k => {
+                if (params[k] !== undefined && params[k] !== null) url.searchParams.append(k, params[k]);
+            });
             // Salvar no localStorage
             localStorage.setItem('dadosPoliticos', JSON.stringify(dados));
             localStorage.setItem('ultimaAtualizacao', dados.ultimaAtualizacao);

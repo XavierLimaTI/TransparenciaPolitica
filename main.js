@@ -11,7 +11,7 @@ const candidatos = [
         partido: "PT",
         estado: "SP",
         cargo: "Deputado Federal",
-        foto: "resources/politician-avatars.png",
+            foto: "resources/politician-avatars.svg",
         votacoes: [
             { materia: "PEC da Bandidagem", voto: "Contra", data: "2024-03-15", importancia: "Alta" },
             { materia: "Reforma Tributária", voto: "A favor", data: "2024-02-20", importancia: "Alta" },
@@ -26,7 +26,7 @@ const candidatos = [
         partido: "PSDB",
         estado: "RJ",
         cargo: "Senadora",
-        foto: "resources/politician-avatars.png",
+            foto: "resources/politician-avatars.svg",
         votacoes: [
             { materia: "PEC da Bandidagem", voto: "A favor", data: "2024-03-15", importancia: "Alta" },
             { materia: "Reforma Tributária", voto: "A favor", data: "2024-02-20", importancia: "Alta" },
@@ -41,7 +41,7 @@ const candidatos = [
         partido: "MDB",
         estado: "MG",
         cargo: "Deputado Federal",
-        foto: "resources/politician-avatars.png",
+            foto: "resources/politician-avatars.svg",
         votacoes: [
             { materia: "PEC da Bandidagem", voto: "Abstenção", data: "2024-03-15", importancia: "Alta" },
             { materia: "Reforma Tributária", voto: "A favor", data: "2024-02-20", importancia: "Alta" },
@@ -56,7 +56,7 @@ const candidatos = [
         partido: "PSOL",
         estado: "BA",
         cargo: "Deputada Federal",
-        foto: "resources/politician-avatars.png",
+            foto: "resources/politician-avatars.svg",
         votacoes: [
             { materia: "PEC da Bandidagem", voto: "Contra", data: "2024-03-15", importancia: "Alta" },
             { materia: "Reforma Tributária", voto: "Contra", data: "2024-02-20", importancia: "Alta" },
@@ -71,7 +71,7 @@ const candidatos = [
         partido: "PL",
         estado: "RS",
         cargo: "Senador",
-        foto: "resources/politician-avatars.png",
+            foto: "resources/politician-avatars.svg",
         votacoes: [
             { materia: "PEC da Bandidagem", voto: "A favor", data: "2024-03-15", importancia: "Alta" },
             { materia: "Reforma Tributária", voto: "Contra", data: "2024-02-20", importancia: "Alta" },
@@ -86,7 +86,7 @@ const candidatos = [
         partido: "PDT",
         estado: "PE",
         cargo: "Deputada Federal",
-        foto: "resources/politician-avatars.png",
+            foto: "resources/politician-avatars.svg",
         votacoes: [
             { materia: "PEC da Bandidagem", voto: "Contra", data: "2024-03-15", importancia: "Alta" },
             { materia: "Reforma Tributária", voto: "A favor", data: "2024-02-20", importancia: "Alta" },
@@ -1069,6 +1069,92 @@ document.addEventListener('DOMContentLoaded', async () => {
         footerHelp.style.bottom = '12px';
         footerHelp.style.zIndex = 40;
         footerHelp.innerHTML = `<a href="server/PROXY_README.md" target="_blank" style="background:#111827;color:#fff;padding:6px 8px;border-radius:6px;text-decoration:none;font-size:12px;">Proxy local: como usar</a>`;
+        const rm = document.createElement('button');
+        rm.textContent = 'Remover chave';
+        rm.style.marginLeft = '8px';
+        rm.className = 'px-3 py-1 bg-red-600 text-white rounded';
+        rm.addEventListener('click', async () => {
+            const admin = prompt('Token admin para proxy (se configurado):') || '';
+            const confirmed = confirm('Remover a chave persistida na proxy?');
+            if (!confirmed) return;
+            try {
+                const headers = { 'Content-Type': 'application/json' };
+                if (admin) headers['x-proxy-admin'] = admin;
+                const res = await fetch('http://localhost:3001/unset-key', { method: 'POST', headers });
+                if (!res.ok) {
+                    const txt = await res.text();
+                    alert('Erro: ' + txt);
+                    return;
+                }
+                alert('Chave removida da proxy.');
+            } catch (err) {
+                console.error('Erro ao remover chave via footer:', err);
+                alert('Não foi possível contactar a proxy.');
+            }
+        });
+    footerHelp.appendChild(rm);
+    // CSV upload control
+        const uploadLabel = document.createElement('label');
+        uploadLabel.style.marginLeft = '8px';
+        uploadLabel.className = 'px-3 py-1 bg-blue-600 text-white rounded cursor-pointer';
+        uploadLabel.textContent = 'Carregar CSV de despesas';
+        const uploadInput = document.createElement('input');
+        uploadInput.type = 'file';
+        uploadInput.accept = '.csv,text/csv';
+        uploadInput.style.display = 'none';
+        uploadLabel.addEventListener('click', () => uploadInput.click());
+        uploadInput.addEventListener('change', async (ev) => {
+            const f = ev.target.files && ev.target.files[0];
+            if (!f) return;
+            const txt = await f.text();
+            try {
+                if (window.governmentAPI && typeof window.governmentAPI.loadDespesasFromCSV === 'function') {
+                    const parsed = window.governmentAPI.loadDespesasFromCSV(txt);
+                    window.governmentAPI.useLocalDespesas(parsed);
+                    alert('CSV carregado com ' + (parsed.length) + ' registros. Agora abra um candidato e clique em Ver gastos.');
+                } else {
+                    alert('Função de parsing não disponível.');
+                }
+            } catch (err) {
+                console.error('Erro ao processar CSV', err);
+                alert('Erro ao processar o CSV. Ver console para detalhes.');
+            }
+        });
+        footerHelp.appendChild(uploadLabel);
+        footerHelp.appendChild(uploadInput);
+        // Add Export JSON and Clear buttons
+        const exportBtn = document.createElement('button');
+        exportBtn.className = 'ml-2 px-3 py-1 bg-green-600 text-white rounded';
+        exportBtn.textContent = 'Exportar JSON';
+        exportBtn.addEventListener('click', () => {
+            try {
+                if (window.governmentAPI && window.governmentAPI._localDespesas && window.governmentAPI._localDespesas.length) {
+                    const blob = new Blob([JSON.stringify(window.governmentAPI._localDespesas, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url; a.download = 'despesas-local.json'; document.body.appendChild(a); a.click(); a.remove();
+                    URL.revokeObjectURL(url);
+                } else {
+                    alert('Nenhuma despesa local carregada.');
+                }
+            } catch (e) { console.error(e); alert('Erro exportando'); }
+        });
+
+        const clearBtn = document.createElement('button');
+        clearBtn.className = 'ml-2 px-3 py-1 bg-red-600 text-white rounded';
+        clearBtn.textContent = 'Limpar despesas locais';
+        clearBtn.addEventListener('click', () => {
+            if (!confirm('Remover despesas locais carregadas?')) return;
+            try {
+                if (window.governmentAPI && typeof window.governmentAPI.useLocalDespesas === 'function') {
+                    window.governmentAPI.useLocalDespesas([]);
+                    alert('Despesas locais removidas.');
+                }
+            } catch (e) { console.error(e); alert('Erro ao limpar'); }
+        });
+
+        footerHelp.appendChild(exportBtn);
+        footerHelp.appendChild(clearBtn);
         document.body.appendChild(footerHelp);
     } catch (e) {
         /* ignore UI footer errors */

@@ -14,7 +14,8 @@
     "start:prod": "npx http-server ./dist -p 8000",
   "start-proxy": "node server/proxy.js",
   "start-proxy:local": "node server/proxy.js",
-  "verify-proxy": "node scripts/verify-proxy.js"
+    "verify-proxy": "node scripts/verify-proxy.js",
+    "test": "node scripts/test-csv-parse.js"
   },
   "keywords": [
     "politica",

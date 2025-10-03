@@ -44,5 +44,8 @@ function copy(src, dest) {
   // Copy resources folder
   copy(path.join(__dirname, 'resources'), path.join(outdir, 'resources'));
 
+  // Copy api-integration.js so pages that include it directly keep working
+  copy(path.join(__dirname, 'api-integration.js'), path.join(outdir, 'api-integration.js'));
+
   console.log('Build finished. Files written to', outdir);
 })();

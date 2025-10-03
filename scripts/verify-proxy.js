@@ -1,4 +1,14 @@
 (async () => {
+  // Ensure fetch exists in Node environments
+  if (typeof fetch === 'undefined') {
+    try {
+      global.fetch = require('node-fetch');
+    } catch (e) {
+      console.error('Global fetch is not available and node-fetch could not be loaded. Please run this script with Node 18+ or install node-fetch.');
+      process.exit(1);
+    }
+  }
+
   const argv = process.argv.slice(2);
   const key = argv[0] || process.env.PROXY_KEY || 'VERIFY_KEY';
   const admin = argv[1] || process.env.PROXY_ADMIN || null;
