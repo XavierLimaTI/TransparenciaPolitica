@@ -434,6 +434,25 @@ class GovernmentAPI {
     // Fallback: carregar despesas de um CSV no cliente. CSV simples com cabeçalho.
     // Retorna array normalizado (mesma forma que getDespesasPorParlamentar)
     loadDespesasFromCSV(text) {
+        // Prefer the shared parser if available (Node or browser global)
+        try {
+            if (typeof module !== 'undefined' && module.exports) {
+                // Node environment
+                try {
+                    const parser = require('./lib/csv-parser');
+                    if (parser && typeof parser.parseDespesasCSV === 'function') return parser.parseDespesasCSV(text);
+                } catch (e) {
+                    // fall through to builtin parser
+                }
+            }
+            if (typeof window !== 'undefined' && window.parseDespesasCSV) {
+                return window.parseDespesasCSV(text);
+            }
+        } catch (err) {
+            // ignore and use fallback
+        }
+
+        // Fallback: original inline parser (kept for backward compatibility)
         if (!text) return [];
         const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
         if (lines.length === 0) return [];

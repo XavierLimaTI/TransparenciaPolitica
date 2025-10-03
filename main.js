@@ -1206,3 +1206,71 @@ function getVotoColor(voto) {
     };
     return colors[voto] || 'text-gray-600 bg-gray-100';
 }
+
+// Dataset loader UI: fetches /resources/data/manifest.json and exposes a small selector in the footer
+async function initDatasetLoaderUI() {
+    try {
+        const resp = await fetch('/resources/data/manifest.json');
+        if (!resp.ok) return;
+        const manifest = await resp.json();
+        const footer = document.querySelector('footer') || document.body;
+        const container = document.createElement('div');
+        container.id = 'dataset-loader';
+        container.style.padding = '8px';
+        container.style.fontSize = '13px';
+        container.innerHTML = `
+            <label style="margin-right:8px;">Datasets locais:</label>
+            <select id="datasetSelect" style="min-width:300px;padding:4px"></select>
+            <button id="loadDatasetBtn" style="margin-left:8px;padding:6px 10px">Carregar</button>
+            <button id="clearLocalDatasetBtn" style="margin-left:6px;padding:6px 8px">Limpar</button>
+            <span id="datasetStatus" style="margin-left:12px"></span>
+        `;
+        footer.appendChild(container);
+
+        const select = container.querySelector('#datasetSelect');
+        const loadBtn = container.querySelector('#loadDatasetBtn');
+        const clearBtn = container.querySelector('#clearLocalDatasetBtn');
+        const status = container.querySelector('#datasetStatus');
+
+        manifest.files.forEach(f => {
+            if (!f || f === 'manifest.json' || f.endsWith('/manifest.json')) return;
+            const opt = document.createElement('option');
+            opt.value = '/resources/data/' + f;
+            opt.textContent = f;
+            select.appendChild(opt);
+        });
+
+        loadBtn.addEventListener('click', async () => {
+            const url = select.value;
+            if (!url) return;
+            status.textContent = 'Carregando...';
+            try {
+                const r = await fetch(url);
+                if (!r.ok) throw new Error('Fetch failed ' + r.status);
+                const text = await r.text();
+                if (url.toLowerCase().endsWith('.zip')) {
+                    status.textContent = 'Arquivo ZIP detectado: extraia localmente e carregue o CSV.';
+                    return;
+                }
+                const parsed = window.governmentAPI.loadDespesasFromCSV(text);
+                window.governmentAPI.useLocalDespesas(parsed);
+                status.textContent = `Carregado ${parsed.length} registros.`;
+            } catch (err) {
+                console.error('Erro ao carregar dataset', err);
+                status.textContent = 'Erro ao carregar dataset.';
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            window.governmentAPI.useLocalDespesas([]);
+            status.textContent = 'Despesas locais limpas.';
+        });
+    } catch (err) {
+        // noop
+    }
+}
+
+// Initialize dataset loader when page has loaded
+document.addEventListener('DOMContentLoaded', () => {
+    try { initDatasetLoaderUI(); } catch (e) { /* ignore */ }
+});

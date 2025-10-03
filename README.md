@@ -233,4 +233,57 @@ Parar o servidor Python (se em background):
 Get-Process -Name python | Stop-Process
 ```
 
+## Proxy local e fallback CSV
+
+O projeto pode integrar o Portal da Transparência sem expor a chave API no navegador.
+
+- Rodar o proxy local (insere a chave do Portal nas requisições server-side):
+
+```powershell
+Set-Location -LiteralPath 'h:\TransparenciaPolitica'
+npm run start-proxy
+```
+
+- Definir a chave da API no proxy (opcionalmente com um token admin):
+
+```powershell
+# Exemplo: node scripts/post-proxy-key.js <SUA_CHAVE>
+node scripts/post-proxy-key.js "SUA_CHAVE_AQUI"
+```
+
+- Remover a chave do proxy:
+
+```powershell
+node scripts/unset-proxy-key.js
+```
+
+- Fallback local (CSV): se você não tiver a chave do Portal, pode baixar os dados públicos em CSV/ZIP e colocá-los em `resources/data/`.
+
+O repositório já inclui um downloader simples e alguns datasets baixados como exemplo:
+
+```powershell
+# Baixar manualmente com o script (exemplo):
+node scripts/download_portal_datasets.js https://portaldatransparencia.gov.br/download-de-dados/despesas/20250101
+
+# Os arquivos baixados são salvos em resources/data/
+```
+
+- Exemplo de datasets já presentes em `resources/data/`:
+
+	- `20250101_Despesas.zip` (extraído em `resources/data/20250101_extracted/`)
+	- `auxilio-brasil.csv`
+	- `auxilio-emergencial.csv`
+	- `auxilio-reconstrucao.csv`
+	- `bolsa-familia-pagamentos.csv`
+	- `bolsa-familia-saques.csv`
+	- `novo-bolsa-familia.csv`
+
+Integração com o app:
+
+- Para usar esses CSVs localmente no app, você pode arrastar e soltar ou usar o input de upload disponível no rodapé (quando implementado), ou copiar um CSV para `resources/data/` e chamar `window.governmentAPI.loadDespesasFromCSV()` via console para popular o fallback local (`governmentAPI.useLocalDespesas(...)`).
+
+Se quiser, eu posso:
+
+1. Integrar automaticamente os CSVs de `resources/data/` ao build (copiá-los para `dist/resources/data/`) e adicionar um pequeno carregador que detecta e registra automaticamente os arquivos encontrados.
+2. Adicionar documentação passo-a-passo com capturas de tela e exemplos de uso no navegador.
 Se quiser, eu posso também adicionar um pequeno script `npm ci`/`start` mais completo ou configurar um arquivo `serve.json` para `http-server`.
