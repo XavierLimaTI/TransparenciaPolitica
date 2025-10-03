@@ -119,3 +119,6 @@ Thumbs.db
 
 # Vercel
 .vercel
+
+# Do not commit local persisted portal API key
+server/portal_key.json

@@ -858,6 +858,8 @@ class PoliticaApp {
                 <h3 class="text-lg font-semibold mb-3">Configurar chave do Portal da Transparência</h3>
                 <p class="text-sm text-gray-600 mb-3">Cole sua chave de API (será salva no navegador).</p>
                 <input id="portalKeyInput" class="w-full border px-3 py-2 rounded mb-3" placeholder="Chave da API" />
+                <input id="proxyAdminInput" class="w-full border px-3 py-2 rounded mb-3" placeholder="Token admin para proxy (opcional)" />
+                <div id="proxySaveStatus" class="text-sm text-gray-600 mb-3" style="min-height:1.25rem"></div>
                 <div class="flex justify-end space-x-2">
                     <button id="portalKeyCancel" class="px-4 py-2 bg-gray-200 rounded">Cancelar</button>
                     <button id="portalKeySave" class="px-4 py-2 bg-blue-600 text-white rounded">Salvar</button>
@@ -885,31 +887,96 @@ class PoliticaApp {
         saveProxyBtn.textContent = 'Salvar na proxy local';
         modal.querySelector('div').appendChild(saveProxyBtn);
 
+        // Add Remove from proxy button
+        const removeProxyBtn = document.createElement('button');
+        removeProxyBtn.className = 'mt-3 ml-2 px-4 py-2 bg-red-600 text-white rounded';
+        removeProxyBtn.textContent = 'Remover chave da proxy';
+        modal.querySelector('div').appendChild(removeProxyBtn);
+
+        removeProxyBtn.addEventListener('click', async () => {
+            const confirmed = confirm('Remover a chave da proxy? Esta ação irá apagar a chave persistida localmente.');
+            if (!confirmed) return;
+            const admin = document.getElementById('proxyAdminInput').value.trim();
+            const statusEl = document.getElementById('proxySaveStatus');
+            statusEl.textContent = 'Removendo chave da proxy...';
+            try {
+                const headers = { 'Content-Type': 'application/json' };
+                if (admin) headers['x-proxy-admin'] = admin;
+                const res = await fetch('http://localhost:3001/unset-key', {
+                    method: 'POST',
+                    headers
+                });
+                if (!res.ok) {
+                    const text = await res.text();
+                    let msg = text;
+                    try { const j = JSON.parse(text); msg = j && (j.message || j.error) ? (j.message || j.error) : JSON.stringify(j); } catch (e) {}
+                    statusEl.textContent = 'Erro: ' + (msg || res.statusText || res.status);
+                    return;
+                }
+                // clear local storage and notify
+                localStorage.removeItem('portal_api_key');
+                statusEl.textContent = 'Chave removida.';
+                try { const ev = new CustomEvent('proxyKeyRemoved'); window.dispatchEvent(ev); } catch(e){}
+                setTimeout(() => { try { document.body.removeChild(modal); } catch (e) {} }, 700);
+            } catch (err) {
+                console.error('Erro removendo chave da proxy:', err);
+                statusEl.textContent = 'Não foi possível contatar a proxy.';
+            }
+        });
+
         saveProxyBtn.addEventListener('click', async () => {
             const v = document.getElementById('portalKeyInput').value.trim();
-            if (!v) return alert('Informe a chave antes de salvar na proxy.');
+            const admin = document.getElementById('proxyAdminInput').value.trim();
+            const statusEl = document.getElementById('proxySaveStatus');
+            if (!v) return statusEl.textContent = 'Informe a chave antes de salvar na proxy.';
+            statusEl.textContent = 'Enviando para proxy...';
             try {
+                const headers = { 'Content-Type': 'application/json' };
+                if (admin) headers['x-proxy-admin'] = admin;
                 const res = await fetch('http://localhost:3001/set-key', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers,
                     body: JSON.stringify({ key: v })
                 });
                 if (!res.ok) {
                     const text = await res.text();
-                    throw new Error(text || 'Erro ao salvar na proxy');
+                    // Try to parse JSON message or show text
+                    let msg = text;
+                    try { const j = JSON.parse(text); msg = j && (j.message || j.error) ? (j.message || j.error) : JSON.stringify(j); } catch (e) {}
+                    statusEl.textContent = 'Erro: ' + (msg || res.statusText || res.status);
+                    console.error('Erro ao salvar na proxy', res.status, msg);
+                    return;
                 }
                 // Configure client to use proxy
                 localStorage.setItem('portal_api_key', v);
                 if (window.governmentAPI && typeof window.governmentAPI.setProxy === 'function') {
                     window.governmentAPI.setProxy('http://localhost:3001');
                 }
-                document.body.removeChild(modal);
-                alert('Chave enviada para proxy local e proxy configurada.');
+                statusEl.textContent = 'Chave enviada com sucesso. Configurando...';
+                // Dispatch a global event so UI can react (e.g. auto-open gastos)
+                try {
+                    const ev = new CustomEvent('proxyKeySaved', { detail: { key: v } });
+                    window.dispatchEvent(ev);
+                } catch (e) { console.warn('Could not dispatch proxyKeySaved', e); }
+                // brief delay so user sees success message
+                setTimeout(() => {
+                    try { document.body.removeChild(modal); } catch (e) {}
+                    alert('Chave enviada para proxy local e proxy configurada.');
+                }, 700);
             } catch (err) {
                 console.error('Erro salvando na proxy:', err);
-                alert('Não foi possível conectar à proxy local. Verifique se está rodando em http://localhost:3001');
+                statusEl.textContent = 'Não foi possível conectar à proxy local. Verifique se está rodando em http://localhost:3001';
             }
         });
+            // If a proxy key is saved elsewhere in the app, we can auto-trigger the gastos flow
+            window.addEventListener('proxyKeySaved', () => {
+                try {
+                    const btn = document.getElementById('verGastosBtn');
+                    if (btn && !btn.disabled) {
+                        btn.click();
+                    }
+                } catch (e) { /* ignore */ }
+            });
     }
 }
 
@@ -926,11 +993,49 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (probe && probe.status !== 404 && window.governmentAPI && typeof window.governmentAPI.setProxy === 'function') {
                 window.governmentAPI.setProxy('http://localhost:3001');
                 console.log('Using local proxy at http://localhost:3001');
+                // show a small banner to make proxy discoverable
+                try { showProxyBanner(); } catch (e) { console.warn('Could not show proxy banner', e); }
             }
         } catch (e) {
             // no proxy detected
         }
     })();
+
+    // Show a top banner when proxy is detected to help users configure keys
+    function showProxyBanner() {
+        if (document.getElementById('proxyDetectedBanner')) return;
+        const b = document.createElement('div');
+        b.id = 'proxyDetectedBanner';
+        b.style.position = 'fixed';
+        b.style.top = '12px';
+        b.style.left = '50%';
+        b.style.transform = 'translateX(-50%)';
+        b.style.zIndex = 60;
+        b.style.background = '#0f766e';
+        b.style.color = 'white';
+        b.style.padding = '8px 12px';
+        b.style.borderRadius = '6px';
+        b.style.boxShadow = '0 4px 12px rgba(0,0,0,0.12)';
+        b.innerHTML = `<span style="margin-right:10px;">Proxy local detectado</span>`;
+        const btn = document.createElement('button');
+        btn.textContent = 'Configurar chave';
+        btn.style.marginRight = '8px';
+        btn.className = 'px-3 py-1 bg-white text-teal-700 rounded';
+        btn.addEventListener('click', () => createPortalKeyModal());
+        const close = document.createElement('button');
+        close.textContent = '×';
+        close.style.marginLeft = '8px';
+        close.style.background = 'transparent';
+        close.style.color = 'white';
+        close.style.border = 'none';
+        close.style.fontSize = '18px';
+        close.addEventListener('click', () => { try { b.remove(); } catch(e){} });
+        b.appendChild(btn);
+        b.appendChild(close);
+        document.body.appendChild(b);
+        // Auto-hide after 12s
+        setTimeout(() => { try { b.remove(); } catch(e){} }, 12000);
+    }
     if (USE_REAL_DATA && window.governmentAPI) {
         // Tentar carregar dados reais primeiro
         try {
@@ -955,6 +1060,19 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const targetVotacoes = (typeof votacoes !== 'undefined') ? votacoes : window.votacoes || [];
                         targetVotacoes.length = 0;
                         if (Array.isArray(dadosReais.votacoes)) {
+
+    // Add a small help link in the footer for proxy docs
+    try {
+        const footerHelp = document.createElement('div');
+        footerHelp.style.position = 'fixed';
+        footerHelp.style.right = '12px';
+        footerHelp.style.bottom = '12px';
+        footerHelp.style.zIndex = 40;
+        footerHelp.innerHTML = `<a href="server/PROXY_README.md" target="_blank" style="background:#111827;color:#fff;padding:6px 8px;border-radius:6px;text-decoration:none;font-size:12px;">Proxy local: como usar</a>`;
+        document.body.appendChild(footerHelp);
+    } catch (e) {
+        /* ignore UI footer errors */
+    }
                             targetVotacoes.push(...dadosReais.votacoes);
                         }
                     }
