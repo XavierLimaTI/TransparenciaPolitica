@@ -286,4 +286,22 @@ Se quiser, eu posso:
 
 1. Integrar automaticamente os CSVs de `resources/data/` ao build (copiá-los para `dist/resources/data/`) e adicionar um pequeno carregador que detecta e registra automaticamente os arquivos encontrados.
 2. Adicionar documentação passo-a-passo com capturas de tela e exemplos de uso no navegador.
+
+## Testes
+
+Executar os testes unitários (Jest):
+
+```powershell
+npm run test:unit
+```
+
+Smoke test do parser (rápido):
+
+```powershell
+npm test
+```
+
+## Página Admin
+
+Após `npm run build` e `npm run preview`, abra `http://localhost:8000/admin.html` para pré-visualizar datasets no `dist/resources/data/` e carregar um dataset no app aberto em outra aba.
 Se quiser, eu posso também adicionar um pequeno script `npm ci`/`start` mais completo ou configurar um arquivo `serve.json` para `http-server`.

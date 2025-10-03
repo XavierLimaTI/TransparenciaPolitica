@@ -63,7 +63,7 @@
         <meta name="viewport"               content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimum-scale=1">
         <meta name="author"                 content=""/>
         <meta name="description" content="">
-        <title>Auxílio Reconstrução</title>
+        <title>Favorecidos - Pessoa Jurídica</title>
         <script>
             function handleVerMais(id) {
                 document.querySelectorAll("ul#" + id + " li[role='presentation']").forEach((e, index) => {
@@ -386,7 +386,7 @@
             <div class="row">
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     
-                    <h2 class="py-0 px-0 mx-0 mt-0 mb-2 mb-md-0 pb-0 text-left">Auxílio Reconstrução</h2>
+                    <h2 class="py-0 px-0 mx-0 mt-0 mb-2 mb-md-0 pb-0 text-left">Favorecidos - Pessoa Jurídica</h2>
                 </div>
 
                     <div class="col-md-2 col-sm-6 col-xs-6" id="divButtonHeader"></div>
@@ -417,7 +417,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-8">
-                <p>Selecione o exercício e o mês desejados e clique em Baixar.</p><p>Será gerado o arquivo do Auxílio Reconstrução, que possui a estrutura descrita no<span style="font-size: 10.5pt; font-family: Arial, sans-serif;"> <a href="https://portaldatransparencia.gov.br/pagina-interna/605621-dicionario-auxilio-reconstrucao" style="color: rgb(35, 82, 124); text-decoration-line: underline; outline: 0px;">dicionário de dados</a></span>.</p>
+                <p>Selecione o exercício e o mês desejados e clique em Baixar.</p><p>Será gerado o arquivo de Favorecidos - Pessoa Jurídica, que possui a estrutura descrita no<span style="font-size: 10.5pt; font-family: Arial, sans-serif;">&nbsp;<a href="http://transparencia.gov.br/pagina-interna/603483-dicionario-de-dados-favorecidos-pessoa-juridica">dicionário de dados</a>.&nbsp;</span></p>
 
                 <div id="arquivo-unico" class="box-dados-ano" style="margin-top: 15px; display: none;">
                     <p class="download-title">Dados disponíveis</p>
@@ -467,7 +467,7 @@
         });
     </script>
 
-    <span style="display: none">portal-web-p-deployment-7cbcb488b8-hlb6w</span>
+    <span style="display: none">portal-web-p-deployment-7cbcb488b8-9nlqz</span>
 
 
 <div class="sessao-duvidas" id="duvidas">
@@ -1267,10 +1267,10 @@
 
     var arquivos = [];
 
-        arquivos.push({"ano" : "2025", "mes" : "07", "dia" : "10", "origem" :  "AuxilioReconstrucao"});
+        arquivos.push({"ano" : "2025", "mes" : "09", "dia" : "", "origem" :  "FavorecidosPJ"});
 
-    var url = springUrl + "download-de-dados/auxilio-reconstrucao/";
-    var download = new DownloadPlanilhas("auxilio-reconstrucao", arquivos, "DIA", url);
+    var url = springUrl + "download-de-dados/favorecidos-pj/";
+    var download = new DownloadPlanilhas("favorecidos-pj", arquivos, "ANO_MES", url);
     download.criarLinksIniciais();
 </script>
 

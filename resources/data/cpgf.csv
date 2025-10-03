@@ -63,7 +63,7 @@
         <meta name="viewport"               content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimum-scale=1">
         <meta name="author"                 content=""/>
         <meta name="description" content="">
-        <title>Auxílio Reconstrução</title>
+        <title>Cartão de Pagamento do Governo Federal (CPGF)</title>
         <script>
             function handleVerMais(id) {
                 document.querySelectorAll("ul#" + id + " li[role='presentation']").forEach((e, index) => {
@@ -386,7 +386,7 @@
             <div class="row">
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     
-                    <h2 class="py-0 px-0 mx-0 mt-0 mb-2 mb-md-0 pb-0 text-left">Auxílio Reconstrução</h2>
+                    <h2 class="py-0 px-0 mx-0 mt-0 mb-2 mb-md-0 pb-0 text-left">Cartão de Pagamento do Governo Federal (CPGF)</h2>
                 </div>
 
                     <div class="col-md-2 col-sm-6 col-xs-6" id="divButtonHeader"></div>
@@ -417,7 +417,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-8">
-                <p>Selecione o exercício e o mês desejados e clique em Baixar.</p><p>Será gerado o arquivo do Auxílio Reconstrução, que possui a estrutura descrita no<span style="font-size: 10.5pt; font-family: Arial, sans-serif;"> <a href="https://portaldatransparencia.gov.br/pagina-interna/605621-dicionario-auxilio-reconstrucao" style="color: rgb(35, 82, 124); text-decoration-line: underline; outline: 0px;">dicionário de dados</a></span>.</p>
+                <p>Selecione o exercício e o mês desejados e clique em Baixar. </p><p><span style="box-sizing: border-box; color: rgb(0, 0, 0); font-family: "Open Sans", sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;">Será gerado o arquivo<span> </span></span>CPGF, que possui a estrutura descrita no <a href="https://www.portaldatransparencia.gov.br/pagina-interna/603393-dicionario-de-dados-cpgf" style="box-sizing: border-box; background-color: transparent; color: rgb(51, 122, 183); text-decoration: none;">dicionário de dados</a>.<span> </span><span><br></span></p>
 
                 <div id="arquivo-unico" class="box-dados-ano" style="margin-top: 15px; display: none;">
                     <p class="download-title">Dados disponíveis</p>
@@ -467,7 +467,7 @@
         });
     </script>
 
-    <span style="display: none">portal-web-p-deployment-7cbcb488b8-hlb6w</span>
+    <span style="display: none">portal-web-p-deployment-7cbcb488b8-d22cf</span>
 
 
 <div class="sessao-duvidas" id="duvidas">
@@ -1267,10 +1267,162 @@
 
     var arquivos = [];
 
-        arquivos.push({"ano" : "2025", "mes" : "07", "dia" : "10", "origem" :  "AuxilioReconstrucao"});
+        arquivos.push({"ano" : "2013", "mes" : "01", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2013", "mes" : "02", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2013", "mes" : "03", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2013", "mes" : "04", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2013", "mes" : "05", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2013", "mes" : "06", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2013", "mes" : "07", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2013", "mes" : "08", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2013", "mes" : "09", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2013", "mes" : "10", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2013", "mes" : "11", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2013", "mes" : "12", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2014", "mes" : "01", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2014", "mes" : "02", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2014", "mes" : "03", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2014", "mes" : "04", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2014", "mes" : "05", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2014", "mes" : "06", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2014", "mes" : "07", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2014", "mes" : "08", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2014", "mes" : "09", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2014", "mes" : "10", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2014", "mes" : "11", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2014", "mes" : "12", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2015", "mes" : "01", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2015", "mes" : "02", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2015", "mes" : "03", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2015", "mes" : "04", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2015", "mes" : "05", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2015", "mes" : "06", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2015", "mes" : "07", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2015", "mes" : "08", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2015", "mes" : "09", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2015", "mes" : "10", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2015", "mes" : "11", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2015", "mes" : "12", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2016", "mes" : "01", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2016", "mes" : "02", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2016", "mes" : "03", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2016", "mes" : "04", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2016", "mes" : "05", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2016", "mes" : "06", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2016", "mes" : "07", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2016", "mes" : "08", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2016", "mes" : "09", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2016", "mes" : "10", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2016", "mes" : "11", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2016", "mes" : "12", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2017", "mes" : "01", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2017", "mes" : "02", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2017", "mes" : "03", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2017", "mes" : "04", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2017", "mes" : "05", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2017", "mes" : "06", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2017", "mes" : "07", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2017", "mes" : "08", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2017", "mes" : "09", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2017", "mes" : "10", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2017", "mes" : "11", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2017", "mes" : "12", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2018", "mes" : "01", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2018", "mes" : "02", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2018", "mes" : "03", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2018", "mes" : "04", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2018", "mes" : "05", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2018", "mes" : "06", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2018", "mes" : "07", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2018", "mes" : "08", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2018", "mes" : "09", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2018", "mes" : "10", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2018", "mes" : "11", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2018", "mes" : "12", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2019", "mes" : "01", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2019", "mes" : "02", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2019", "mes" : "03", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2019", "mes" : "04", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2019", "mes" : "05", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2019", "mes" : "06", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2019", "mes" : "07", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2019", "mes" : "08", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2019", "mes" : "09", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2019", "mes" : "10", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2019", "mes" : "11", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2019", "mes" : "12", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2020", "mes" : "01", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2020", "mes" : "02", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2020", "mes" : "03", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2020", "mes" : "04", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2020", "mes" : "05", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2020", "mes" : "06", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2020", "mes" : "07", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2020", "mes" : "08", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2020", "mes" : "09", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2020", "mes" : "10", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2020", "mes" : "11", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2020", "mes" : "12", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2021", "mes" : "01", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2021", "mes" : "02", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2021", "mes" : "03", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2021", "mes" : "04", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2021", "mes" : "05", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2021", "mes" : "06", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2021", "mes" : "07", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2021", "mes" : "08", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2021", "mes" : "09", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2021", "mes" : "10", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2021", "mes" : "11", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2021", "mes" : "12", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2022", "mes" : "01", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2022", "mes" : "02", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2022", "mes" : "03", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2022", "mes" : "04", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2022", "mes" : "05", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2022", "mes" : "06", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2022", "mes" : "07", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2022", "mes" : "08", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2022", "mes" : "09", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2022", "mes" : "10", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2022", "mes" : "11", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2022", "mes" : "12", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2023", "mes" : "01", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2023", "mes" : "02", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2023", "mes" : "03", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2023", "mes" : "04", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2023", "mes" : "05", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2023", "mes" : "06", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2023", "mes" : "07", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2023", "mes" : "08", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2023", "mes" : "09", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2023", "mes" : "10", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2023", "mes" : "11", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2023", "mes" : "12", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2024", "mes" : "01", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2024", "mes" : "02", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2024", "mes" : "03", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2024", "mes" : "04", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2024", "mes" : "05", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2024", "mes" : "06", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2024", "mes" : "07", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2024", "mes" : "08", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2024", "mes" : "09", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2024", "mes" : "10", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2024", "mes" : "11", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2024", "mes" : "12", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2025", "mes" : "01", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2025", "mes" : "02", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2025", "mes" : "03", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2025", "mes" : "04", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2025", "mes" : "05", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2025", "mes" : "06", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2025", "mes" : "07", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2025", "mes" : "08", "dia" : "", "origem" :  "CPGF"});
+        arquivos.push({"ano" : "2025", "mes" : "09", "dia" : "", "origem" :  "CPGF"});
 
-    var url = springUrl + "download-de-dados/auxilio-reconstrucao/";
-    var download = new DownloadPlanilhas("auxilio-reconstrucao", arquivos, "DIA", url);
+    var url = springUrl + "download-de-dados/cpgf/";
+    var download = new DownloadPlanilhas("cpgf", arquivos, "ANO_MES", url);
     download.criarLinksIniciais();
 </script>
 

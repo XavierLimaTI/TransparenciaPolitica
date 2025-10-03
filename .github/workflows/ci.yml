@@ -22,7 +22,10 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Run tests (CSV parser smoke test)
+    - name: Run unit tests (Jest)
+      run: npm run test:unit
+
+    - name: Run smoke test (parser)
       run: npm test
 
     - name: Build

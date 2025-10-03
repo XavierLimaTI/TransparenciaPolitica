@@ -66,9 +66,10 @@ function followAndDownload(url, dest) {
     const outDir = path.resolve(__dirname, '..', 'resources', 'data');
     if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
 
+    const maxArg = parseInt(process.argv[2], 10) || 6;
     let count = 0;
     for (const url of candidates) {
-        if (count >= 6) break; // limit
+        if (count >= maxArg) break; // limit
         try {
             const parsed = new URL(url);
             const name = path.basename(parsed.pathname) || ('download_' + count);

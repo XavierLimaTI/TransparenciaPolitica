@@ -88,5 +88,66 @@ app.get('/despesas', async (req, res) => {
   }
 });
 
+// List dataset files under resources/data
+app.get('/data-files', (req, res) => {
+  try {
+    const dataDir = path.resolve(__dirname, '..', 'resources', 'data');
+    if (!fs.existsSync(dataDir)) return res.json({ files: [] });
+    function walk(dir, base = '') {
+      const out = [];
+      for (const f of fs.readdirSync(dir)) {
+        const p = path.join(dir, f);
+        const stat = fs.statSync(p);
+        if (stat.isDirectory()) {
+          out.push(...walk(p, path.join(base, f)));
+        } else {
+          out.push(path.join(base, f).replace(/\\\\/g, '/'));
+        }
+      }
+      return out;
+    }
+    const files = walk(dataDir, '');
+    return res.json({ files });
+  } catch (err) {
+    console.error('data-files error', err);
+    return res.status(500).json({ error: 'internal' });
+  }
+});
+
+// Extract a ZIP present under resources/data on the server.
+// Body: { path: '20250101_Despesas.zip' }
+app.post('/extract-zip', (req, res) => {
+  const body = req.body || {};
+  const zipPath = body.path;
+  if (!zipPath) return res.status(400).json({ error: 'missing_path' });
+
+  const dataDir = path.resolve(__dirname, '..', 'resources', 'data');
+  const absZip = path.join(dataDir, zipPath);
+  if (!absZip.startsWith(dataDir)) return res.status(400).json({ error: 'invalid_path' });
+  if (!fs.existsSync(absZip)) return res.status(404).json({ error: 'not_found' });
+
+  const extractDir = absZip + '_extracted';
+  try {
+    // Use PowerShell Expand-Archive on Windows when available
+    const { execSync } = require('child_process');
+    try {
+      execSync(`powershell -NoProfile -Command "Expand-Archive -LiteralPath '${absZip.replace(/\\'/g, "''")}' -DestinationPath '${extractDir.replace(/\\'/g, "''")}' -Force"`, { stdio: 'ignore' });
+    } catch (e) {
+      // Fallback: try node's built-in unzip via adm-zip if installed, or unzip command
+      try {
+        execSync(`unzip -o "${absZip}" -d "${extractDir}"`, { stdio: 'ignore' });
+      } catch (e2) {
+        console.error('Extraction failed', e, e2);
+        return res.status(500).json({ error: 'extract_failed', detail: String(e) });
+      }
+    }
+
+    return res.json({ ok: true, extractedTo: extractDir });
+  } catch (err) {
+    console.error('extract-zip error', err);
+    return res.status(500).json({ error: 'internal' });
+  }
+});
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Portal proxy server listening on http://localhost:${PORT}`));

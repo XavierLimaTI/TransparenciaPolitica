@@ -63,7 +63,7 @@
         <meta name="viewport"               content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimum-scale=1">
         <meta name="author"                 content=""/>
         <meta name="description" content="">
-        <title>Auxílio Reconstrução</title>
+        <title>Pé-de-Meia</title>
         <script>
             function handleVerMais(id) {
                 document.querySelectorAll("ul#" + id + " li[role='presentation']").forEach((e, index) => {
@@ -386,7 +386,7 @@
             <div class="row">
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     
-                    <h2 class="py-0 px-0 mx-0 mt-0 mb-2 mb-md-0 pb-0 text-left">Auxílio Reconstrução</h2>
+                    <h2 class="py-0 px-0 mx-0 mt-0 mb-2 mb-md-0 pb-0 text-left">Pé-de-Meia</h2>
                 </div>
 
                     <div class="col-md-2 col-sm-6 col-xs-6" id="divButtonHeader"></div>
@@ -417,7 +417,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-8">
-                <p>Selecione o exercício e o mês desejados e clique em Baixar.</p><p>Será gerado o arquivo do Auxílio Reconstrução, que possui a estrutura descrita no<span style="font-size: 10.5pt; font-family: Arial, sans-serif;"> <a href="https://portaldatransparencia.gov.br/pagina-interna/605621-dicionario-auxilio-reconstrucao" style="color: rgb(35, 82, 124); text-decoration-line: underline; outline: 0px;">dicionário de dados</a></span>.</p>
+                <p><span style="color: rgb(0, 0, 0); font-size: 14px;">Selecione o exercício e o mês desejados e clique em Baixar.</span><br style="color: rgb(0, 0, 0); font-size: 14px;"><br style="color: rgb(0, 0, 0); font-size: 14px;"><span style="color: rgb(0, 0, 0); font-size: 14px;">Será gerado o arquivo, que possui a estrutura descrita no </span><a href="/dicionario-de-dados/pe-de-meia" target="_blank" style="color: rgb(19, 81, 180); text-decoration-line: none; --focus-offset: 4px; font-size: 14px;">dicionário de dados</a><span style="color: rgb(0, 0, 0); font-size: 14px;">.</span></p>
 
                 <div id="arquivo-unico" class="box-dados-ano" style="margin-top: 15px; display: none;">
                     <p class="download-title">Dados disponíveis</p>
@@ -467,7 +467,7 @@
         });
     </script>
 
-    <span style="display: none">portal-web-p-deployment-7cbcb488b8-hlb6w</span>
+    <span style="display: none">portal-web-p-deployment-7cbcb488b8-d22cf</span>
 
 
 <div class="sessao-duvidas" id="duvidas">
@@ -1267,10 +1267,22 @@
 
     var arquivos = [];
 
-        arquivos.push({"ano" : "2025", "mes" : "07", "dia" : "10", "origem" :  "AuxilioReconstrucao"});
+        arquivos.push({"ano" : "2024", "mes" : "01", "dia" : "", "origem" :  "PeDeMeia"});
+        arquivos.push({"ano" : "2024", "mes" : "02", "dia" : "", "origem" :  "PeDeMeia"});
+        arquivos.push({"ano" : "2024", "mes" : "03", "dia" : "", "origem" :  "PeDeMeia"});
+        arquivos.push({"ano" : "2024", "mes" : "04", "dia" : "", "origem" :  "PeDeMeia"});
+        arquivos.push({"ano" : "2024", "mes" : "05", "dia" : "", "origem" :  "PeDeMeia"});
+        arquivos.push({"ano" : "2024", "mes" : "06", "dia" : "", "origem" :  "PeDeMeia"});
+        arquivos.push({"ano" : "2024", "mes" : "07", "dia" : "", "origem" :  "PeDeMeia"});
+        arquivos.push({"ano" : "2024", "mes" : "08", "dia" : "", "origem" :  "PeDeMeia"});
+        arquivos.push({"ano" : "2024", "mes" : "09", "dia" : "", "origem" :  "PeDeMeia"});
+        arquivos.push({"ano" : "2024", "mes" : "10", "dia" : "", "origem" :  "PeDeMeia"});
+        arquivos.push({"ano" : "2024", "mes" : "11", "dia" : "", "origem" :  "PeDeMeia"});
+        arquivos.push({"ano" : "2024", "mes" : "12", "dia" : "", "origem" :  "PeDeMeia"});
+        arquivos.push({"ano" : "2025", "mes" : "01", "dia" : "", "origem" :  "PeDeMeia"});
 
-    var url = springUrl + "download-de-dados/auxilio-reconstrucao/";
-    var download = new DownloadPlanilhas("auxilio-reconstrucao", arquivos, "DIA", url);
+    var url = springUrl + "download-de-dados/pe-de-meia/";
+    var download = new DownloadPlanilhas("pe-de-meia", arquivos, "ANO_MES", url);
     download.criarLinksIniciais();
 </script>
 

@@ -63,7 +63,7 @@
         <meta name="viewport"               content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimum-scale=1">
         <meta name="author"                 content=""/>
         <meta name="description" content="">
-        <title>Auxílio Reconstrução</title>
+        <title>Convênios</title>
         <script>
             function handleVerMais(id) {
                 document.querySelectorAll("ul#" + id + " li[role='presentation']").forEach((e, index) => {
@@ -386,7 +386,7 @@
             <div class="row">
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     
-                    <h2 class="py-0 px-0 mx-0 mt-0 mb-2 mb-md-0 pb-0 text-left">Auxílio Reconstrução</h2>
+                    <h2 class="py-0 px-0 mx-0 mt-0 mb-2 mb-md-0 pb-0 text-left">Convênios</h2>
                 </div>
 
                     <div class="col-md-2 col-sm-6 col-xs-6" id="divButtonHeader"></div>
@@ -417,7 +417,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-8">
-                <p>Selecione o exercício e o mês desejados e clique em Baixar.</p><p>Será gerado o arquivo do Auxílio Reconstrução, que possui a estrutura descrita no<span style="font-size: 10.5pt; font-family: Arial, sans-serif;"> <a href="https://portaldatransparencia.gov.br/pagina-interna/605621-dicionario-auxilio-reconstrucao" style="color: rgb(35, 82, 124); text-decoration-line: underline; outline: 0px;">dicionário de dados</a></span>.</p>
+                <p>Clique sobre o botão com a data referente aos dados disponíveis.&nbsp;</p><p><span style="font-size: 10.5pt; font-family: Arial, sans-serif; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;">Serão gerados os arquivos</span> Convenios e Convenios_OrdensBancarias.</p><p>A estrutura de cada arquivo está descrita no <span style="font-size: 10.5pt; font-family: Arial, sans-serif;"><a href="http://www.portaldatransparencia.gov.br/pagina-interna/603415-dicionario-de-dados-convenios">dicionário de dados</a>.&nbsp;<br></span></p><div><span style="font-size: 10.5pt; font-family: Arial, sans-serif;"><br></span></div><p style="box-sizing: border-box; margin: 0px 0px 10px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;"><span style="box-sizing: border-box; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;"></span></p>
 
                 <div id="arquivo-unico" class="box-dados-ano" style="margin-top: 15px; display: none;">
                     <p class="download-title">Dados disponíveis</p>
@@ -1267,10 +1267,10 @@
 
     var arquivos = [];
 
-        arquivos.push({"ano" : "2025", "mes" : "07", "dia" : "10", "origem" :  "AuxilioReconstrucao"});
+        arquivos.push({"ano" : "2025", "mes" : "09", "dia" : "26", "origem" :  "Convenios"});
 
-    var url = springUrl + "download-de-dados/auxilio-reconstrucao/";
-    var download = new DownloadPlanilhas("auxilio-reconstrucao", arquivos, "DIA", url);
+    var url = springUrl + "download-de-dados/convenios/";
+    var download = new DownloadPlanilhas("convenios", arquivos, "DIA", url);
     download.criarLinksIniciais();
 </script>
 

@@ -63,7 +63,7 @@
         <meta name="viewport"               content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimum-scale=1">
         <meta name="author"                 content=""/>
         <meta name="description" content="">
-        <title>Auxílio Reconstrução</title>
+        <title>Erradicação do Trabalho Infantil - CONSULTA_PETI</title>
         <script>
             function handleVerMais(id) {
                 document.querySelectorAll("ul#" + id + " li[role='presentation']").forEach((e, index) => {
@@ -386,7 +386,7 @@
             <div class="row">
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     
-                    <h2 class="py-0 px-0 mx-0 mt-0 mb-2 mb-md-0 pb-0 text-left">Auxílio Reconstrução</h2>
+                    <h2 class="py-0 px-0 mx-0 mt-0 mb-2 mb-md-0 pb-0 text-left">Erradicação do Trabalho Infantil - CONSULTA_PETI</h2>
                 </div>
 
                     <div class="col-md-2 col-sm-6 col-xs-6" id="divButtonHeader"></div>
@@ -417,7 +417,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-8">
-                <p>Selecione o exercício e o mês desejados e clique em Baixar.</p><p>Será gerado o arquivo do Auxílio Reconstrução, que possui a estrutura descrita no<span style="font-size: 10.5pt; font-family: Arial, sans-serif;"> <a href="https://portaldatransparencia.gov.br/pagina-interna/605621-dicionario-auxilio-reconstrucao" style="color: rgb(35, 82, 124); text-decoration-line: underline; outline: 0px;">dicionário de dados</a></span>.</p>
+                <p>Selecione o exercício e o mês desejados e clique em Baixar.</p><p>Será gerado o arquivo PETI, que possui a estrutura descrita no<span style="font-size: 10.5pt; font-family: Arial, sans-serif;"> <a href="/pagina-interna/603418-dicionario-de-dados-peti">dicionário de dados</a>.</span></p>
 
                 <div id="arquivo-unico" class="box-dados-ano" style="margin-top: 15px; display: none;">
                     <p class="download-title">Dados disponíveis</p>
@@ -467,7 +467,7 @@
         });
     </script>
 
-    <span style="display: none">portal-web-p-deployment-7cbcb488b8-hlb6w</span>
+    <span style="display: none">portal-web-p-deployment-7cbcb488b8-9nlqz</span>
 
 
 <div class="sessao-duvidas" id="duvidas">
@@ -1267,10 +1267,122 @@
 
     var arquivos = [];
 
-        arquivos.push({"ano" : "2025", "mes" : "07", "dia" : "10", "origem" :  "AuxilioReconstrucao"});
+        arquivos.push({"ano" : "2013", "mes" : "01", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2013", "mes" : "02", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2013", "mes" : "03", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2013", "mes" : "04", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2013", "mes" : "05", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2013", "mes" : "06", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2013", "mes" : "07", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2013", "mes" : "08", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2013", "mes" : "09", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2013", "mes" : "10", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2013", "mes" : "11", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2013", "mes" : "12", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2014", "mes" : "01", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2014", "mes" : "02", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2014", "mes" : "03", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2014", "mes" : "04", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2014", "mes" : "05", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2014", "mes" : "06", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2014", "mes" : "07", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2014", "mes" : "08", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2014", "mes" : "09", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2014", "mes" : "10", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2014", "mes" : "11", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2014", "mes" : "12", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2015", "mes" : "01", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2015", "mes" : "02", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2015", "mes" : "03", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2015", "mes" : "04", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2015", "mes" : "05", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2015", "mes" : "06", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2015", "mes" : "07", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2015", "mes" : "08", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2015", "mes" : "09", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2015", "mes" : "10", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2015", "mes" : "11", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2015", "mes" : "12", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2016", "mes" : "01", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2016", "mes" : "02", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2016", "mes" : "03", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2016", "mes" : "04", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2016", "mes" : "05", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2016", "mes" : "06", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2016", "mes" : "07", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2016", "mes" : "08", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2016", "mes" : "09", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2016", "mes" : "10", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2016", "mes" : "11", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2016", "mes" : "12", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2017", "mes" : "01", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2017", "mes" : "02", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2017", "mes" : "03", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2017", "mes" : "04", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2017", "mes" : "05", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2017", "mes" : "06", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2017", "mes" : "07", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2017", "mes" : "08", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2017", "mes" : "09", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2017", "mes" : "10", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2017", "mes" : "11", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2017", "mes" : "12", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2018", "mes" : "01", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2018", "mes" : "02", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2018", "mes" : "03", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2018", "mes" : "04", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2018", "mes" : "05", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2018", "mes" : "06", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2018", "mes" : "07", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2018", "mes" : "08", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2018", "mes" : "09", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2018", "mes" : "10", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2018", "mes" : "11", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2018", "mes" : "12", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2019", "mes" : "01", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2019", "mes" : "02", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2019", "mes" : "03", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2019", "mes" : "04", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2019", "mes" : "05", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2019", "mes" : "06", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2019", "mes" : "07", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2019", "mes" : "08", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2019", "mes" : "09", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2019", "mes" : "10", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2019", "mes" : "11", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2019", "mes" : "12", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2020", "mes" : "01", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2020", "mes" : "02", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2020", "mes" : "03", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2020", "mes" : "04", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2020", "mes" : "05", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2020", "mes" : "06", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2020", "mes" : "07", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2020", "mes" : "08", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2020", "mes" : "09", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2020", "mes" : "10", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2020", "mes" : "11", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2020", "mes" : "12", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2021", "mes" : "01", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2021", "mes" : "02", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2021", "mes" : "03", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2021", "mes" : "04", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2021", "mes" : "05", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2021", "mes" : "06", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2021", "mes" : "07", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2021", "mes" : "08", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2021", "mes" : "09", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2021", "mes" : "10", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2021", "mes" : "11", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2021", "mes" : "12", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2022", "mes" : "01", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2022", "mes" : "02", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2022", "mes" : "03", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2022", "mes" : "04", "dia" : "", "origem" :  "PETI"});
+        arquivos.push({"ano" : "2022", "mes" : "05", "dia" : "", "origem" :  "PETI"});
 
-    var url = springUrl + "download-de-dados/auxilio-reconstrucao/";
-    var download = new DownloadPlanilhas("auxilio-reconstrucao", arquivos, "DIA", url);
+    var url = springUrl + "download-de-dados/peti/";
+    var download = new DownloadPlanilhas("peti", arquivos, "ANO_MES", url);
     download.criarLinksIniciais();
 </script>
 
