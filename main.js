@@ -878,6 +878,38 @@ class PoliticaApp {
             document.body.removeChild(modal);
             alert('Chave salva. Retorne ao candidato e clique em Ver gastos novamente.');
         });
+
+        // Add Save to proxy button
+        const saveProxyBtn = document.createElement('button');
+        saveProxyBtn.className = 'mt-3 px-4 py-2 bg-green-600 text-white rounded';
+        saveProxyBtn.textContent = 'Salvar na proxy local';
+        modal.querySelector('div').appendChild(saveProxyBtn);
+
+        saveProxyBtn.addEventListener('click', async () => {
+            const v = document.getElementById('portalKeyInput').value.trim();
+            if (!v) return alert('Informe a chave antes de salvar na proxy.');
+            try {
+                const res = await fetch('http://localhost:3001/set-key', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ key: v })
+                });
+                if (!res.ok) {
+                    const text = await res.text();
+                    throw new Error(text || 'Erro ao salvar na proxy');
+                }
+                // Configure client to use proxy
+                localStorage.setItem('portal_api_key', v);
+                if (window.governmentAPI && typeof window.governmentAPI.setProxy === 'function') {
+                    window.governmentAPI.setProxy('http://localhost:3001');
+                }
+                document.body.removeChild(modal);
+                alert('Chave enviada para proxy local e proxy configurada.');
+            } catch (err) {
+                console.error('Erro salvando na proxy:', err);
+                alert('Não foi possível conectar à proxy local. Verifique se está rodando em http://localhost:3001');
+            }
+        });
     }
 }
 
@@ -887,6 +919,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         // create a global instance to reuse
         try { window.governmentAPI = new window.GovernmentAPI(); } catch (e) { console.warn('GovernmentAPI init failed', e); }
     }
+    // Try to detect local proxy and configure client to use it
+    (async function detectProxy() {
+        try {
+            const probe = await fetch('http://localhost:3001/despesas?pagina=1&itens=1');
+            if (probe && probe.status !== 404 && window.governmentAPI && typeof window.governmentAPI.setProxy === 'function') {
+                window.governmentAPI.setProxy('http://localhost:3001');
+                console.log('Using local proxy at http://localhost:3001');
+            }
+        } catch (e) {
+            // no proxy detected
+        }
+    })();
     if (USE_REAL_DATA && window.governmentAPI) {
         // Tentar carregar dados reais primeiro
         try {

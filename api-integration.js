@@ -17,6 +17,11 @@ class GovernmentAPI {
         this.cacheTimeout = 5 * 60 * 1000; // 5 minutos
     }
 
+    // Optional local proxy base (e.g., 'http://localhost:3001')
+    setProxy(baseUrl) {
+        this.proxyBase = baseUrl;
+    }
+
     // Portal da Transparência config (token must be set by caller)
     setPortalKey(key) {
         this.portalKey = key;
@@ -90,7 +95,7 @@ class GovernmentAPI {
             return { error: 'API_KEY_MISSING' };
         }
 
-        const url = new URL(`https://api.portaldatransparencia.gov.br/api-de-dados${endpoint}`);
+    const url = this.proxyBase ? new URL(`${this.proxyBase}${endpoint}`) : new URL(`https://api.portaldatransparencia.gov.br/api-de-dados${endpoint}`);
         Object.keys(params).forEach(k => {
             if (params[k] !== undefined && params[k] !== null) url.searchParams.append(k, params[k]);
         });
