@@ -384,6 +384,12 @@
                                 <option value="estado">Ordenar por Estado</option>
                                 <option value="cargo">Ordenar por Cargo</option>
                             </select>
+                            <label for="pageSize" class="sr-only">Itens por página</label>
+                            <select id="pageSize" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="6">6 / página</option>
+                                <option value="10">10 / página</option>
+                                <option value="20">20 / página</option>
+                            </select>
                             
                             <div class="flex border border-gray-300 rounded-lg overflow-hidden">
                                 <button id="gridView" class="px-3 py-2 bg-blue-600 text-white">
@@ -401,19 +407,9 @@
                         <!-- Cards serão renderizados pelo JavaScript -->
                     </div>
                     
-                    <!-- Paginação -->
+                    <!-- Paginação Dinâmica -->
                     <div class="flex justify-center mt-12">
-                        <nav class="flex items-center space-x-2">
-                            <button class="px-3 py-2 text-gray-500 hover:text-gray-700 disabled:opacity-50" disabled>
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg">1</button>
-                            <button class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">2</button>
-                            <button class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">3</button>
-                            <button class="px-3 py-2 text-gray-500 hover:text-gray-700">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </nav>
+                        <div id="paginationControls"></div>
                     </div>
                 </div>
             </div>
@@ -466,20 +462,31 @@
                 ideologias: []
             };
             
+            // Debounce helper
+            function debounce(fn, wait) {
+                let t;
+                return function(...args) {
+                    clearTimeout(t);
+                    t = setTimeout(() => fn.apply(this, args), wait);
+                };
+            }
+
             // Event listeners para filtros
-            searchInput.addEventListener('input', function() {
+            searchInput.addEventListener('input', debounce(function() {
                 filtrosAtivos.search = this.value;
                 aplicarFiltros();
-            });
+            }, 250));
             
             estadoFilter.addEventListener('change', function() {
                 filtrosAtivos.estado = this.value;
                 aplicarFiltros();
+                if (window.politicaApp) window.politicaApp.setPage(1);
             });
             
             cargoFilter.addEventListener('change', function() {
                 filtrosAtivos.cargo = this.value;
                 aplicarFiltros();
+                if (window.politicaApp) window.politicaApp.setPage(1);
             });
             
             sortSelect.addEventListener('change', function() {
@@ -578,6 +585,12 @@
             const gridView = document.getElementById('gridView');
             const listView = document.getElementById('listView');
             const candidatosGrid = document.getElementById('candidatosGrid');
+
+            const pageSizeSelect = document.getElementById('pageSize');
+            pageSizeSelect.addEventListener('change', function() {
+                const size = parseInt(this.value, 10) || 6;
+                if (window.politicaApp) window.politicaApp.setPageSize(size);
+            });
             
             listView.addEventListener('click', function() {
                 gridView.classList.remove('bg-blue-600', 'text-white');

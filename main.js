@@ -104,7 +104,7 @@ const votacoes = [
         descricao: "Proposta de Emenda Constitucional que endurece penas para crimes violentos e limita recursos processuais",
         data: "2024-03-15",
         resultado: "Aprovada",
-        votos: { a favor: 350, contra: 120, abstencao: 15 },
+    votos: { "a favor": 350, contra: 120, abstencao: 15 },
         importancia: "Alta",
         impacto: "Altera fundamentos do Código Penal e processual penal"
     },
@@ -114,7 +114,7 @@ const votacoes = [
         descricao: "Redesign completo do sistema tributário nacional, unificando tributos e simplificando a cobrança",
         data: "2024-02-20",
         resultado: "Aprovada",
-        votos: { a favor: 380, contra: 90, abstencao: 15 },
+    votos: { "a favor": 380, contra: 90, abstencao: 15 },
         importancia: "Alta",
         impacto: "Mudança estrutural na arrecadação e distribuição de recursos"
     },
@@ -124,7 +124,7 @@ const votacoes = [
         descricao: "Criação de marco regulatório favorável ao desenvolvimento de empresas inovadoras",
         data: "2024-01-10",
         resultado: "Aprovada",
-        votos: { a favor: 420, contra: 30, abstencao: 35 },
+    votos: { "a favor": 420, contra: 30, abstencao: 35 },
         importancia: "Média",
         impacto: "Incentivo ao ecossistema de inovação e empreendedorismo"
     }
@@ -136,6 +136,8 @@ class PoliticaApp {
         this.candidatosFiltrados = [...candidatos];
         this.votacoesFiltradas = [...votacoes];
         this.favoritos = JSON.parse(localStorage.getItem('favoritos') || '[]');
+        this.currentPage = 1;
+        this.pageSize = 6; // itens por página
         this.init();
     }
 
@@ -267,8 +269,12 @@ class PoliticaApp {
     renderCandidatos() {
         const grid = document.getElementById('candidatosGrid');
         if (!grid) return;
+        // Paginação: calcular slice
+        const start = (this.currentPage - 1) * this.pageSize;
+        const end = start + this.pageSize;
+        const pageItems = this.candidatosFiltrados.slice(start, end);
 
-        grid.innerHTML = this.candidatosFiltrados.map(candidato => `
+        grid.innerHTML = pageItems.map(candidato => `
             <div class="candidato-card bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <div class="relative">
                     <img src="${candidato.foto}" alt="${candidato.nome}" class="w-full h-48 object-cover">
@@ -301,6 +307,73 @@ class PoliticaApp {
                 </div>
             </div>
         `).join('');
+
+        // Atualizar paginação se houver container
+        this.renderPagination();
+    }
+
+    setPage(page) {
+        const totalPages = Math.max(1, Math.ceil(this.candidatosFiltrados.length / this.pageSize));
+        if (page < 1) page = 1;
+        if (page > totalPages) page = totalPages;
+        this.currentPage = page;
+        this.renderCandidatos();
+    }
+
+    setPageSize(size) {
+        this.pageSize = size;
+        this.currentPage = 1;
+        this.renderCandidatos();
+    }
+
+    renderPagination() {
+        const container = document.getElementById('paginationControls');
+        if (!container) return;
+
+        const totalItems = this.candidatosFiltrados.length;
+        const totalPages = Math.max(1, Math.ceil(totalItems / this.pageSize));
+
+        // Limpar
+        container.innerHTML = '';
+
+        const nav = document.createElement('nav');
+        nav.className = 'flex items-center space-x-2';
+
+        const prev = document.createElement('button');
+        prev.className = 'px-3 py-2 text-gray-500 hover:text-gray-700';
+        prev.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        prev.disabled = this.currentPage === 1;
+        prev.addEventListener('click', () => this.setPage(this.currentPage - 1));
+        nav.appendChild(prev);
+
+        // páginas (limitar a mostrar até 7 páginas de forma simples)
+        const maxButtons = 7;
+        let startPage = Math.max(1, this.currentPage - Math.floor(maxButtons / 2));
+        let endPage = Math.min(totalPages, startPage + maxButtons - 1);
+        if (endPage - startPage + 1 < maxButtons) {
+            startPage = Math.max(1, endPage - maxButtons + 1);
+        }
+
+        for (let p = startPage; p <= endPage; p++) {
+            const btn = document.createElement('button');
+            btn.className = 'px-4 py-2 rounded-lg ' + (p === this.currentPage ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-100');
+            btn.textContent = String(p);
+            btn.setAttribute('aria-label', `Página ${p} de ${totalPages}`);
+            if (p === this.currentPage) {
+                btn.setAttribute('aria-current', 'page');
+            }
+            btn.addEventListener('click', () => this.setPage(p));
+            nav.appendChild(btn);
+        }
+
+        const next = document.createElement('button');
+        next.className = 'px-3 py-2 text-gray-500 hover:text-gray-700';
+        next.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        next.disabled = this.currentPage === totalPages;
+        next.addEventListener('click', () => this.setPage(this.currentPage + 1));
+        nav.appendChild(next);
+
+        container.appendChild(nav);
     }
 
     renderVotacoes() {

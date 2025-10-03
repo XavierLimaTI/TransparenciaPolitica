@@ -5,13 +5,27 @@
   "main": "index.html",
   "scripts": {
     "dev": "python -m http.server 8000",
-    "build": "echo 'Build concluído'",
-    "start": "python -m http.server 8000"
+    "start": "python -m http.server 8000",
+    "start:npm": "npx http-server -c-1 -p 8000",
+    "dev:npm": "npx http-server -c-1 -p 8000",
+    "serve": "npx http-server -c-1 -p 8000",
+    "build": "node build.js",
+    "preview": "npx http-server ./dist -p 8000",
+    "start:prod": "npx http-server ./dist -p 8000"
   },
-  "keywords": ["politica", "transparencia", "brasil", "dados-abertos"],
+  "keywords": [
+    "politica",
+    "transparencia",
+    "brasil",
+    "dados-abertos"
+  ],
   "author": "Política Transparente Brasil",
   "license": "MIT",
   "engines": {
     "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.4",
+    "http-server": "^14.1.1"
   }
 }

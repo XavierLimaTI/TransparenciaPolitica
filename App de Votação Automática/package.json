@@ -5,6 +5,7 @@
   "main": "index.html",
   "scripts": {
     "dev": "python -m http.server 8000",
+    "dev:npm": "npx http-server -c-1 -p 8000",
     "build": "echo 'Build concluído'",
     "start": "python -m http.server 8000"
   },

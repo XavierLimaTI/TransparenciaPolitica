@@ -197,3 +197,40 @@ Este projeto é licenciado sob a MIT License - veja o arquivo LICENSE para detal
 ---
 
 **Política Transparente Brasil** - Fortalecendo a democracia através da informação. 🇧🇷
+
+## Como rodar localmente
+
+Existem duas formas simples de rodar o projeto localmente na porta 8000.
+
+1) Usando Python (já testado neste ambiente)
+
+No PowerShell, execute:
+
+```powershell
+Set-Location -LiteralPath 'h:\TransparenciaPolitica'
+python -m http.server 8000
+```
+
+Depois abra no navegador: http://localhost:8000
+
+2) Usando npm (quando você preferir não depender do Python)
+
+O repositório inclui um script alternativo que usa `npx http-server`.
+
+No PowerShell, execute:
+
+```powershell
+Set-Location -LiteralPath 'h:\TransparenciaPolitica'
+npm install --no-audit --no-fund
+npm run dev:npm
+```
+
+Isto usa `npx http-server -p 8000` e serve os arquivos estáticos na mesma porta.
+
+Parar o servidor Python (se em background):
+
+```powershell
+Get-Process -Name python | Stop-Process
+```
+
+Se quiser, eu posso também adicionar um pequeno script `npm ci`/`start` mais completo ou configurar um arquivo `serve.json` para `http-server`.
