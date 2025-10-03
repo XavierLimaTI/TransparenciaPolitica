@@ -1,0 +1,17 @@
+{
+  "name": "politica-transparente-brasil",
+  "version": "1.0.0",
+  "description": "Plataforma de transparência política brasileira",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "build": "echo 'Build concluído'",
+    "start": "python -m http.server 8000"
+  },
+  "keywords": ["politica", "transparencia", "brasil", "dados-abertos"],
+  "author": "Política Transparente Brasil",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
