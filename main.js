@@ -137,8 +137,102 @@ class PoliticaApp {
         this.votacoesFiltradas = [...votacoes];
         this.favoritos = JSON.parse(localStorage.getItem('favoritos') || '[]');
         this.currentPage = 1;
-        this.pageSize = 6; // itens por página
+        this.pageSize = parseInt(localStorage.getItem('pageSize'), 10) || 6; // itens por página
+        this.viewMode = localStorage.getItem('viewMode') || 'grid';
         this.init();
+    }
+
+    // Carregamento incremental (load more) a partir da API
+    async loadMoreFromAPI(pageSize = 20) {
+        if (!window.governmentAPI) return;
+        this.serverPage = this.serverPage || 1;
+        this.serverHasMore = this.serverHasMore === undefined ? true : this.serverHasMore;
+
+        if (!this.serverHasMore) return;
+
+        try {
+            const nextPage = this.serverPage + 1;
+            // UI: set loading
+            const loadBtn = document.getElementById('loadMoreBtn');
+            if (loadBtn) {
+                loadBtn.disabled = true;
+                loadBtn.textContent = 'Carregando...';
+            }
+
+            const deputies = await window.governmentAPI.getDeputadosPage(nextPage, pageSize);
+            if (deputies && deputies.length > 0) {
+                // anexar aos dados locais
+                if (typeof candidatos !== 'undefined') {
+                    candidatos.push(...deputies);
+                } else if (window.candidatos) {
+                    window.candidatos.push(...deputies);
+                }
+
+                // atualizar view
+                this.candidatosFiltrados = [...this.candidatosFiltrados, ...deputies];
+                this.renderCandidatos();
+                this.serverPage = nextPage;
+                // If returned less than pageSize, assume no more
+                if (deputies.length < pageSize) this.serverHasMore = false;
+            } else {
+                this.serverHasMore = false;
+            }
+        } catch (err) {
+            console.error('Erro ao carregar mais deputados:', err);
+        } finally {
+            // restore UI
+            const loadBtn2 = document.getElementById('loadMoreBtn');
+            if (loadBtn2) {
+                if (!this.serverHasMore) {
+                    loadBtn2.style.display = 'none';
+                } else {
+                    loadBtn2.disabled = false;
+                    loadBtn2.textContent = 'Carregar mais';
+                }
+            }
+        }
+    }
+
+    // Buscar página no servidor aplicando filtros (server-side pagination)
+    // Utility to update load more UI based on serverHasMore
+    updateLoadMoreUI() {
+        const loadBtn = document.getElementById('loadMoreBtn');
+        if (!loadBtn) return;
+        if (this.serverHasMore === false) {
+            loadBtn.style.display = 'none';
+        } else {
+            loadBtn.style.display = '';
+            loadBtn.disabled = false;
+            loadBtn.textContent = 'Carregar mais';
+        }
+    }
+    async fetchServerPage({ nome, estado, partido, ordenarPor } = {}, page = 1, pageSize = 20) {
+        if (!window.governmentAPI) return null;
+        try {
+            const results = await window.governmentAPI.searchDeputados({ page, pageSize, nome, uf: estado, partido, ordenarPor });
+            // Replace or append depending on page
+            if (page === 1) {
+                if (typeof candidatos !== 'undefined') {
+                    candidatos.length = 0;
+                    candidatos.push(...results);
+                } else if (window.candidatos) {
+                    window.candidatos.length = 0;
+                    window.candidatos.push(...results);
+                }
+                this.candidatosFiltrados = [...results];
+            } else {
+                if (typeof candidatos !== 'undefined') candidatos.push(...results);
+                else if (window.candidatos) window.candidatos.push(...results);
+                this.candidatosFiltrados = [...this.candidatosFiltrados, ...results];
+            }
+
+            this.currentPage = page;
+            this.renderCandidatos();
+            return results;
+        } catch (err) {
+            console.error('fetchServerPage error', err);
+            return null;
+        }
     }
 
     init() {
@@ -323,6 +417,7 @@ class PoliticaApp {
     setPageSize(size) {
         this.pageSize = size;
         this.currentPage = 1;
+        localStorage.setItem('pageSize', String(size));
         this.renderCandidatos();
     }
 
@@ -499,8 +594,145 @@ class PoliticaApp {
                         `).join('')}
                     </div>
                 </div>
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold mb-3">Gastos e Despesas</h3>
+                    <div class="mb-4">
+                        <button id="verGastosBtn" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Ver gastos</button>
+                        <span id="gastosStatus" class="ml-3 text-sm text-gray-600"></span>
+                    </div>
+                    <div id="gastosList" class="space-y-2 max-h-64 overflow-y-auto"></div>
+                </div>
             </div>
         `);
+
+        // Wire up gastos button after modal is created
+        setTimeout(async () => {
+            const verBtn = document.getElementById('verGastosBtn');
+            const status = document.getElementById('gastosStatus');
+            const list = document.getElementById('gastosList');
+
+            if (!verBtn) return;
+
+            verBtn.addEventListener('click', async () => {
+                status.textContent = 'Carregando...';
+                list.innerHTML = '';
+                verBtn.disabled = true;
+
+                // Check stored key
+                const key = localStorage.getItem('portal_api_key');
+                if (!key) {
+                    status.textContent = 'Chave do Portal não configurada.';
+                    // create small modal to configure key
+                    createPortalKeyModal();
+                    return;
+                }
+
+                // ensure GovernmentAPI knows the key
+                if (window.governmentAPI && typeof window.governmentAPI.setPortalKey === 'function') {
+                    window.governmentAPI.setPortalKey(key);
+                }
+
+                try {
+                    if (!window.governmentAPI || typeof window.governmentAPI.getDespesasPorParlamentar !== 'function') {
+                        status.textContent = 'Integração não disponível.';
+                        return;
+                    }
+
+                    // Try to get CPF via Câmara API for more precise Portal query
+                    let queryParams = { pagina: 1, itens: 10 };
+                    try {
+                        if (window.governmentAPI && typeof window.governmentAPI.getDeputado === 'function') {
+                            const detalhes = await window.governmentAPI.getDeputado(candidato.id);
+                            if (detalhes && detalhes.cpf) {
+                                queryParams.cpf = detalhes.cpf;
+                            } else {
+                                queryParams.nome = candidato.nome;
+                            }
+                        } else {
+                            queryParams.nome = candidato.nome;
+                        }
+                    } catch (err) {
+                        // fallback to nome
+                        queryParams.nome = candidato.nome;
+                    }
+
+                    const despesas = await window.governmentAPI.getDespesasPorParlamentar(queryParams);
+
+                    if (!despesas) {
+                        status.textContent = 'Erro ao buscar despesas. Tente novamente em alguns segundos.';
+                        verBtn.disabled = false;
+                        return;
+                    }
+
+                    if (despesas.error === 'API_KEY_MISSING') {
+                        status.textContent = 'Chave do Portal não configurada.';
+                        return;
+                    }
+
+                    if (Array.isArray(despesas) && despesas.length === 0) {
+                        status.textContent = 'Nenhuma despesa encontrada.';
+                        verBtn.disabled = false;
+                        return;
+                    }
+
+                    status.textContent = '';
+                    // set page attribute for pagination
+                    list.dataset.despesasPage = '1';
+                    list.innerHTML = despesas.map(d => `
+                        <div class="p-3 border rounded-lg">
+                            <div class="flex justify-between">
+                                <div class="text-sm font-medium">${d.favorecido || d.descricao}</div>
+                                <div class="text-sm text-gray-600">${d.dataDocumento || ''}</div>
+                            </div>
+                            <div class="text-sm text-gray-700">Valor: R$ ${Number(d.valor || 0).toLocaleString('pt-BR')}</div>
+                        </div>
+                    `).join('');
+
+                    // add load more button if not present
+                    if (!document.getElementById('loadMoreDespesasBtn')) {
+                        const moreBtn = document.createElement('button');
+                        moreBtn.id = 'loadMoreDespesasBtn';
+                        moreBtn.className = 'mt-3 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300';
+                        moreBtn.textContent = 'Carregar mais despesas';
+                        moreBtn.addEventListener('click', async () => {
+                            const current = parseInt(list.dataset.despesasPage || '1', 10);
+                            const next = current + 1;
+                            status.textContent = 'Carregando...';
+                            moreBtn.disabled = true;
+                            try {
+                                const more = await window.governmentAPI.getDespesasPorParlamentar({ nome: candidato.nome, pagina: next, itens: 10 });
+                                if (!more || more.length === 0) {
+                                    status.textContent = 'Sem mais despesas.';
+                                    moreBtn.disabled = true;
+                                    return;
+                                }
+                                list.dataset.despesasPage = String(next);
+                                list.innerHTML += more.map(d => `
+                                    <div class="p-3 border rounded-lg">
+                                        <div class="flex justify-between">
+                                            <div class="text-sm font-medium">${d.favorecido || d.descricao}</div>
+                                            <div class="text-sm text-gray-600">${d.dataDocumento || ''}</div>
+                                        </div>
+                                        <div class="text-sm text-gray-700">Valor: R$ ${Number(d.valor || 0).toLocaleString('pt-BR')}</div>
+                                    </div>
+                                `).join('');
+                                status.textContent = '';
+                                moreBtn.disabled = false;
+                            } catch (err) {
+                                console.error('Erro ao carregar mais despesas:', err);
+                                status.textContent = 'Erro ao carregar mais despesas. Tente novamente.';
+                                moreBtn.disabled = false;
+                            }
+                        });
+
+                        list.parentNode.insertBefore(moreBtn, list.nextSibling);
+                    }
+                } catch (err) {
+                    console.error('Erro ao obter despesas:', err);
+                    status.textContent = 'Erro ao obter despesas.';
+                }
+            });
+        }, 50);
     }
 
     showVotacaoDetails(id) {
@@ -616,11 +848,46 @@ class PoliticaApp {
             observer.observe(el);
         });
     }
+
+    // Small modal to configure Portal da Transparência API key
+    createPortalKeyModal() {
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+        modal.innerHTML = `
+            <div class="bg-white rounded-lg p-6 max-w-lg w-full">
+                <h3 class="text-lg font-semibold mb-3">Configurar chave do Portal da Transparência</h3>
+                <p class="text-sm text-gray-600 mb-3">Cole sua chave de API (será salva no navegador).</p>
+                <input id="portalKeyInput" class="w-full border px-3 py-2 rounded mb-3" placeholder="Chave da API" />
+                <div class="flex justify-end space-x-2">
+                    <button id="portalKeyCancel" class="px-4 py-2 bg-gray-200 rounded">Cancelar</button>
+                    <button id="portalKeySave" class="px-4 py-2 bg-blue-600 text-white rounded">Salvar</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        document.getElementById('portalKeyCancel').addEventListener('click', () => document.body.removeChild(modal));
+        document.getElementById('portalKeySave').addEventListener('click', () => {
+            const v = document.getElementById('portalKeyInput').value.trim();
+            if (!v) return;
+            localStorage.setItem('portal_api_key', v);
+            if (window.governmentAPI && typeof window.governmentAPI.setPortalKey === 'function') {
+                window.governmentAPI.setPortalKey(v);
+            }
+            document.body.removeChild(modal);
+            alert('Chave salva. Retorne ao candidato e clique em Ver gastos novamente.');
+        });
+    }
 }
 
 // Inicializar aplicação quando DOM estiver carregado
 document.addEventListener('DOMContentLoaded', async () => {
-    if (USE_REAL_DATA && window.GovernmentAPI) {
+    if (window.GovernmentAPI) {
+        // create a global instance to reuse
+        try { window.governmentAPI = new window.GovernmentAPI(); } catch (e) { console.warn('GovernmentAPI init failed', e); }
+    }
+    if (USE_REAL_DATA && window.governmentAPI) {
         // Tentar carregar dados reais primeiro
         try {
             const governmentAPI = new window.GovernmentAPI();
@@ -628,22 +895,41 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             if (dadosReais) {
                 console.log('Dados reais carregados com sucesso!');
-                // Substituir dados simulados pelos reais
-                window.candidatos = dadosReais.parlamentares;
-                window.votacoes = dadosReais.votacoes;
-                
-                // Adicionar histórico de votos para cada parlamentar
-                for (let candidato of window.candidatos) {
-                    if (candidato.cargo === 'Deputado Federal') {
-                        const historico = await governmentAPI.getHistoricoVotosDeputado(candidato.id, 10);
-                        candidato.votacoes = historico;
-                    } else {
-                        // Para senadores, usar dados simulados por enquanto
-                        candidato.votacoes = [
-                            { materia: "PEC da Bandidagem", voto: "A favor", data: "2024-03-15", importancia: "Alta" },
-                            { materia: "Reforma Tributária", voto: "Contra", data: "2024-02-20", importancia: "Alta" }
-                        ];
+                // Mutate existing arrays so references in the app keep working
+                try {
+                    // candidatos is a const array defined as fallback; clear and push
+                    if (Array.isArray(window.candidatos) || typeof candidatos !== 'undefined') {
+                        // Use local candidatos variable if present, otherwise window.candidatos
+                        const targetCandidatos = (typeof candidatos !== 'undefined') ? candidatos : window.candidatos || [];
+                        targetCandidatos.length = 0;
+                        if (Array.isArray(dadosReais.parlamentares)) {
+                            targetCandidatos.push(...dadosReais.parlamentares);
+                        }
                     }
+
+                    if (Array.isArray(window.votacoes) || typeof votacoes !== 'undefined') {
+                        const targetVotacoes = (typeof votacoes !== 'undefined') ? votacoes : window.votacoes || [];
+                        targetVotacoes.length = 0;
+                        if (Array.isArray(dadosReais.votacoes)) {
+                            targetVotacoes.push(...dadosReais.votacoes);
+                        }
+                    }
+
+                    // Enriquecer histórico de votos para deputados
+                    for (let i = 0; i < (typeof candidatos !== 'undefined' ? candidatos.length : 0); i++) {
+                        const candidato = candidatos[i];
+                        if (!candidato) continue;
+                        if (candidato.cargo && candidato.cargo.toLowerCase().includes('deputado')) {
+                            try {
+                                const historico = await governmentAPI.getHistoricoVotosDeputado(candidato.id, 10);
+                                candidato.votacoes = historico || candidato.votacoes || [];
+                            } catch (err) {
+                                // keep existing votacoes on error
+                            }
+                        }
+                    }
+                } catch (err) {
+                    console.error('Erro ao aplicar dados reais:', err);
                 }
             }
         } catch (error) {

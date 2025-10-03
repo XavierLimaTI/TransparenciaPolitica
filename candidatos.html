@@ -411,6 +411,9 @@
                     <div class="flex justify-center mt-12">
                         <div id="paginationControls"></div>
                     </div>
+                    <div class="flex justify-center mt-6">
+                        <button id="loadMoreBtn" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg">Carregar mais</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -532,9 +535,26 @@
             
             function aplicarFiltros() {
                 if (!window.politicaApp) return;
-                
+
+                const nome = filtrosAtivos.search || '';
+                const estado = filtrosAtivos.estado || '';
+                const partido = (filtrosAtivos.partidos && filtrosAtivos.partidos.length > 0) ? filtrosAtivos.partidos[0] : '';
+
+                // If we have a governmentAPI available, prefer server-side search/pagination
+                if (window.governmentAPI) {
+                    // show loading state (simple)
+                    document.getElementById('resultCount').textContent = '...';
+                    window.politicaApp.fetchServerPage({ nome, estado, partido, ordenarPor: sortSelect.value }, 1, parseInt(document.getElementById('pageSize').value, 10) || 6)
+                        .then(results => {
+                            document.getElementById('resultCount').textContent = results ? results.length : 0;
+                            document.getElementById('candidatosFiltrados').textContent = results ? results.length : 0;
+                        });
+                    return;
+                }
+
+                // Fallback client-side filtering when API not available
                 let candidatosFiltrados = [...candidatos];
-                
+
                 // Filtro de busca
                 if (filtrosAtivos.search) {
                     candidatosFiltrados = candidatosFiltrados.filter(c => 
@@ -543,39 +563,39 @@
                         c.cargo.toLowerCase().includes(filtrosAtivos.search.toLowerCase())
                     );
                 }
-                
+
                 // Filtro de estado
                 if (filtrosAtivos.estado) {
                     candidatosFiltrados = candidatosFiltrados.filter(c => 
                         c.estado === filtrosAtivos.estado
                     );
                 }
-                
+
                 // Filtro de cargo
                 if (filtrosAtivos.cargo) {
                     candidatosFiltrados = candidatosFiltrados.filter(c => 
                         c.cargo === filtrosAtivos.cargo
                     );
                 }
-                
+
                 // Filtro de partidos
                 if (filtrosAtivos.partidos.length > 0) {
                     candidatosFiltrados = candidatosFiltrados.filter(c => 
                         filtrosAtivos.partidos.includes(c.partido)
                     );
                 }
-                
+
                 // Filtro de ideologias
                 if (filtrosAtivos.ideologias.length > 0) {
                     candidatosFiltrados = candidatosFiltrados.filter(c => 
                         filtrosAtivos.ideologias.includes(c.ideologia)
                     );
                 }
-                
+
                 // Atualizar contadores
                 document.getElementById('resultCount').textContent = candidatosFiltrados.length;
                 document.getElementById('candidatosFiltrados').textContent = candidatosFiltrados.length;
-                
+
                 // Atualizar grid
                 window.politicaApp.candidatosFiltrados = candidatosFiltrados;
                 window.politicaApp.renderCandidatos();
@@ -601,6 +621,8 @@
                 
                 candidatosGrid.classList.remove('grid-cols-1', 'md:grid-cols-2', 'xl:grid-cols-3');
                 candidatosGrid.classList.add('grid-cols-1');
+                // Persist view preference
+                try { localStorage.setItem('viewMode', 'list'); } catch (e) { /* ignore */ }
             });
             
             gridView.addEventListener('click', function() {
@@ -612,6 +634,35 @@
                 
                 candidatosGrid.classList.remove('grid-cols-1');
                 candidatosGrid.classList.add('grid-cols-1', 'md:grid-cols-2', 'xl:grid-cols-3');
+                // Persist view preference
+                try { localStorage.setItem('viewMode', 'grid'); } catch (e) { /* ignore */ }
+            });
+
+            // Restorar preferências salvas (viewMode, pageSize)
+            (function restorePreferences() {
+                try {
+                    const savedView = localStorage.getItem('viewMode') || 'grid';
+                    if (savedView === 'list') {
+                        listView.click();
+                    } else {
+                        gridView.click();
+                    }
+
+                    const savedPageSize = parseInt(localStorage.getItem('pageSize'), 10) || 6;
+                    pageSizeSelect.value = String(savedPageSize);
+                    if (window.politicaApp) window.politicaApp.setPageSize(savedPageSize);
+                } catch (e) {
+                    // ignore storage errors
+                }
+            })();
+
+            // Carregar mais (incremental)
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            loadMoreBtn.addEventListener('click', function() {
+                const size = parseInt(document.getElementById('pageSize').value, 10) || 6;
+                if (window.politicaApp) {
+                    window.politicaApp.loadMoreFromAPI(size);
+                }
             });
         });
     </script>

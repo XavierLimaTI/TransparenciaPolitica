@@ -17,6 +17,11 @@ class GovernmentAPI {
         this.cacheTimeout = 5 * 60 * 1000; // 5 minutos
     }
 
+    // Portal da Transparência config (token must be set by caller)
+    setPortalKey(key) {
+        this.portalKey = key;
+    }
+
     // Sistema de cache para otimizar requisições
     getCacheKey(endpoint, params) {
         return `${endpoint}_${JSON.stringify(params)}`;
@@ -78,6 +83,56 @@ class GovernmentAPI {
         }
     }
 
+    // Helper to call Portal da Transparência which requires an API key
+    async fetchPortal(endpoint, params = {}) {
+        if (!this.portalKey) {
+            console.warn('Portal da Transparência API key not set. Register and call setPortalKey(key) to enable.');
+            return { error: 'API_KEY_MISSING' };
+        }
+
+        const url = new URL(`https://api.portaldatransparencia.gov.br/api-de-dados${endpoint}`);
+        Object.keys(params).forEach(k => {
+            if (params[k] !== undefined && params[k] !== null) url.searchParams.append(k, params[k]);
+        });
+
+        const headers = Object.assign({}, this.headers, { 'chave-api-dados': this.portalKey });
+
+        const maxAttempts = 3;
+        let attempt = 0;
+
+        while (attempt < maxAttempts) {
+            attempt++;
+            try {
+                const response = await fetch(url.toString(), { method: 'GET', headers });
+
+                if (response.status === 429) {
+                    // Rate limited: respect Retry-After header if present
+                    const retryAfter = response.headers.get('Retry-After');
+                    const wait = retryAfter ? parseInt(retryAfter, 10) * 1000 : (500 * attempt);
+                    console.warn(`Portal rate-limited. Retry after ${wait}ms`);
+                    await new Promise(r => setTimeout(r, wait));
+                    continue; // retry
+                }
+
+                if (!response.ok) {
+                    const text = await response.text();
+                    throw new Error(`Portal API error ${response.status}: ${text}`);
+                }
+
+                const data = await response.json();
+                return data;
+            } catch (err) {
+                console.error(`Portal fetch attempt ${attempt} error:`, err);
+                if (attempt >= maxAttempts) return null;
+                // exponential backoff before retry
+                const backoff = 300 * Math.pow(2, attempt);
+                await new Promise(r => setTimeout(r, backoff));
+            }
+        }
+
+        return null;
+    }
+
     // Buscar deputados atuais
     async getDeputadosAtuais() {
         const data = await this.fetchData('camara', '/deputados', {
@@ -85,6 +140,86 @@ class GovernmentAPI {
             ordenarPor: 'nome'
         });
 
+        if (!data || !data.dados) return [];
+
+        return data.dados.map(deputado => ({
+            id: deputado.id,
+            nome: deputado.nome,
+            partido: deputado.siglaPartido,
+            estado: deputado.siglaUf,
+            foto: deputado.urlFoto,
+            email: deputado.email,
+            cargo: 'Deputado Federal',
+            ideologia: this.classificarIdeologia(deputado.siglaPartido),
+            dataNascimento: deputado.dataNascimento,
+            situacao: 'Exercício'
+        }));
+    }
+
+    // Obter detalhes completos de um deputado pelo id
+    async getDeputado(id) {
+        if (!id) return null;
+        const data = await this.fetchData('camara', `/deputados/${id}`);
+        if (!data || !data.dados) return null;
+
+        const d = data.dados;
+        return {
+            id: d.id,
+            nome: d.nomeCivil || d.ultimoStatus && d.ultimoStatus.nome || d.nome,
+            partido: d.ultimoStatus ? d.ultimoStatus.siglaPartido : d.siglaPartido || '',
+            estado: d.ultimoStatus ? d.ultimoStatus.siglaUf : d.siglaUf || '',
+            foto: d.ultimoStatus && d.ultimoStatus.urlFoto || d.urlFoto || null,
+            email: d.email || (d.ultimoStatus && d.ultimoStatus.email) || null,
+            cpf: d.cpf || null,
+            dataNascimento: d.dataNascimento || null,
+            situacao: d.ultimoStatus ? d.ultimoStatus.escolaridade : null,
+            raw: d
+        };
+    }
+
+    // Buscar uma página de deputados (para carregamento incremental)
+    // page: 1-based, pageSize: itens por página
+    async getDeputadosPage(page = 1, pageSize = 20) {
+        const offset = (page - 1) * pageSize;
+        const data = await this.fetchData('camara', '/deputados', {
+            ordem: 'ASC',
+            ordenarPor: 'nome',
+            itens: pageSize,
+            pagina: page
+        });
+
+        if (!data || !data.dados) return [];
+
+        return data.dados.map(deputado => ({
+            id: deputado.id,
+            nome: deputado.nome,
+            partido: deputado.siglaPartido,
+            estado: deputado.siglaUf,
+            foto: deputado.urlFoto,
+            email: deputado.email,
+            cargo: 'Deputado Federal',
+            ideologia: this.classificarIdeologia(deputado.siglaPartido),
+            dataNascimento: deputado.dataNascimento,
+            situacao: 'Exercício'
+        }));
+    }
+
+    // Buscar deputados com filtros e paginação (search + pagination)
+    // params: { page, pageSize, nome, uf, partido, ordenarPor }
+    async searchDeputados(params = {}) {
+        const { page = 1, pageSize = 20, nome, uf, partido, ordenarPor } = params;
+
+        const query = {
+            itens: pageSize,
+            pagina: page
+        };
+
+        if (nome) query.nome = nome;
+        if (uf) query.siglaUf = uf;
+        if (partido) query.siglaPartido = partido;
+        if (ordenarPor) query.ordenarPor = ordenarPor;
+
+        const data = await this.fetchData('camara', '/deputados', query);
         if (!data || !data.dados) return [];
 
         return data.dados.map(deputado => ({
@@ -219,6 +354,47 @@ class GovernmentAPI {
             voto: this.traduzirVoto(voto.tipoVoto),
             importancia: this.classificarImportancia(voto.siglaOrgao)
         }));
+    }
+
+    // Portal da Transparência: despesas por favorecido/parlamentar
+    // params: { cpf, nome, pagina, itens, ano, mes }
+    async getDespesasPorParlamentar(params = {}) {
+        // Map our params to Portal API query parameters
+        const query = {};
+        if (params.cpf) query.cpf = params.cpf;
+        if (params.nome) query.nome = params.nome;
+        if (params.pagina) query.pagina = params.pagina;
+        if (params.itens) query.itens = params.itens;
+        if (params.ano) query.ano = params.ano;
+        if (params.mes) query.mes = params.mes;
+
+        const data = await this.fetchPortal('/despesas', query);
+
+        if (!data) return null;
+        if (data.error === 'API_KEY_MISSING') return { error: 'API_KEY_MISSING' };
+
+        // Normalize different shapes to an array of despesas
+        let items = [];
+        // Some endpoints return an array directly
+        if (Array.isArray(data)) items = data;
+        // Some endpoints may return an object with 'lista' or 'dados'
+        else if (data.lista) items = data.lista;
+        else if (data.dados) items = data.dados;
+        else if (data.length) items = data;
+        else items = [data];
+
+        // Map to simplified shape where possible
+        const normalized = items.map(it => ({
+            dataDocumento: it.dataDocumento || it.data || it.dataEmissao || null,
+            descricao: it.descricao || it.historico || it.tipo || '',
+            valor: it.valor || it.valorDocumento || it.valorPagamento || 0,
+            favorecido: it.favorecido || it.nomeFavorecido || it.nome || '',
+            cnpjCpf: it.cpfCnpj || it.cpf || it.cnpj || null,
+            origem: it.orgao || it.unidade || null,
+            detalhe: it
+        }));
+
+        return normalized;
     }
 
     // Métodos auxiliares
