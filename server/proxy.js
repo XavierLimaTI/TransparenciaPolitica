@@ -9,10 +9,26 @@ app.use(express.json());
 
 const KEY_FILE = path.resolve(__dirname, 'portal_key.json');
 
-// Load persisted key if present
+// DB integration (optional)
+let db = null;
+const USE_DB = String(process.env.USE_DB || '').toLowerCase() === 'true';
+if (USE_DB) {
+  try {
+    db = require('./db');
+    db.init();
+  } catch (e) {
+    console.warn('Could not initialize DB, falling back to file persistence:', e && e.message);
+    db = null;
+  }
+}
+
+// Load persisted key if present (DB first, then file)
 let portalKey = process.env.PORTAL_API_KEY || null;
 try {
-  if (fs.existsSync(KEY_FILE)) {
+  if (db) {
+    const key = db.getPortalKey();
+    if (key) portalKey = key;
+  } else if (fs.existsSync(KEY_FILE)) {
     const raw = fs.readFileSync(KEY_FILE, 'utf8');
     const parsed = JSON.parse(raw || '{}');
     if (parsed && parsed.key) portalKey = parsed.key;
@@ -37,11 +53,15 @@ app.post('/set-key', (req, res) => {
   if (!key) return res.status(400).json({ error: 'missing_key' });
   portalKey = key;
 
-  // persist to disk (best-effort)
+  // persist to DB or disk (best-effort)
   try {
-    fs.writeFileSync(KEY_FILE, JSON.stringify({ key: portalKey }, null, 2), { encoding: 'utf8' });
+    if (db) {
+      db.setPortalKey(portalKey);
+    } else {
+      fs.writeFileSync(KEY_FILE, JSON.stringify({ key: portalKey }, null, 2), { encoding: 'utf8' });
+    }
   } catch (err) {
-    console.warn('Could not persist portal key to disk:', err && err.message);
+    console.warn('Could not persist portal key:', err && err.message);
   }
 
   return res.json({ ok: true });
@@ -58,9 +78,12 @@ app.post('/unset-key', (req, res) => {
 
   portalKey = null;
   try {
+    if (db) {
+      db.unsetPortalKey();
+    }
     if (fs.existsSync(KEY_FILE)) fs.unlinkSync(KEY_FILE);
   } catch (err) {
-    console.warn('Could not remove persisted portal key file:', err && err.message);
+    console.warn('Could not remove persisted portal key:', err && err.message);
   }
 
   return res.json({ ok: true });

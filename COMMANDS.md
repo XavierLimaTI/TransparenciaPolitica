@@ -47,7 +47,7 @@ npm run start-proxy
 # (inicia server/proxy.js na porta 3001)
 ```
 
-- Definir a chave do Portal no proxy:
+- Definir a chave do Portal no proxy (persistida server-side):
 
 ```powershell
 node scripts/post-proxy-key.js "SUA_CHAVE_AQUI"
@@ -65,6 +65,20 @@ node scripts/unset-proxy-key.js
 node scripts/verify-proxy.js
 ```
 
+### Endpoints úteis do proxy
+
+- Listar arquivos de dataset disponíveis no servidor (resources/data):
+
+```powershell
+curl http://localhost:3001/data-files
+```
+
+- Extrair um ZIP já presente em `resources/data` no servidor (POST JSON body: { "path": "20250101_Despesas.zip" }):
+
+```powershell
+curl -X POST http://localhost:3001/extract-zip -H "Content-Type: application/json" -d '{"path":"20250101_Despesas.zip"}'
+```
+
 ## Download e gerenciamento de datasets
 
 - Baixar manualmente um arquivo do Portal (segue redirects):
@@ -73,13 +87,28 @@ node scripts/verify-proxy.js
 node scripts/download_portal_datasets.js <URL_DO_PORTAL_ZIP_OU_CSV>
 ```
 
-- Buscar automaticamente alguns datasets (tenta baixar até 6):
+- Buscar automaticamente alguns datasets (aceita um argumento opcional max):
 
 ```powershell
-node scripts/scrape_and_download_portal_datasets.js
+# Ex.: baixar até 20
+node scripts/scrape_and_download_portal_datasets.js 20
 ```
 
 - Os datasets são gravados em `resources/data/`. Durante o build, esses arquivos são copiados para `dist/resources/data/` e um `manifest.json` é gerado para que o frontend os descubra.
+
+## PowerShell helper scripts
+
+- `scripts/start-all.ps1` — inicia proxy e servidor de preview (node + npx http-server)
+- `scripts/stop-all.ps1` — tenta parar processos node/npx encontrados
+- `scripts/update-data.ps1` — executa o scraper (aceita argumento max) e roda `npm run build`
+
+Por exemplo:
+
+```powershell
+.\scripts\start-all.ps1
+.\scripts\update-data.ps1 20
+.\scripts\stop-all.ps1
+```
 
 ## Testes
 
@@ -122,6 +151,5 @@ Stop-Process -Id 12345
 ## Observações finais
 
 - Se você preferir não usar o proxy, faça upload manual dos CSVs via a UI do app (footer) ou coloque os arquivos em `resources/data/` e faça `npm run build` para que fiquem disponíveis na versão `dist/`.
-- Arquivos ZIP precisam ser extraídos localmente; o navegador não descompacta automaticamente.
-
-Se quiser, eu adiciono scripts PowerShell para automatizar as tarefas mais comuns (start-all, stop-all, update-data). Quer que eu crie esses helpers? 
+- Arquivos ZIP podem ser extraídos pelo proxy com o endpoint `/extract-zip` ou manualmente; o navegador não descompacta automaticamente.
+- Se quiser mais automações, posso (a) migrar a extração de ZIPs para uma biblioteca Node (cross-platform), (b) adicionar mais testes de parser, ou (c) produzir instruções para deploy/CI.
