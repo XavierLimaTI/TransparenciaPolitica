@@ -174,3 +174,29 @@ Stop-Process -Id 12345
 - Se você preferir não usar o proxy, faça upload manual dos CSVs via a UI do app (footer) ou coloque os arquivos em `resources/data/` e faça `npm run build` para que fiquem disponíveis na versão `dist/`.
 - Arquivos ZIP podem ser extraídos pelo proxy com o endpoint `/extract-zip` ou manualmente; o navegador não descompacta automaticamente.
 - Se quiser mais automações, posso (a) migrar a extração de ZIPs para uma biblioteca Node (cross-platform), (b) adicionar mais testes de parser, ou (c) produzir instruções para deploy/CI.
+
+## Exportar DB
+
+- Para exportar o estado atual do DB (SQLite ou JSON fallback) para um arquivo legível `server/db.json.export` execute:
+
+```powershell
+node scripts/export-db-to-json.js
+```
+
+Isso cria um snapshot dos metadados (`portal_key` e `datasets`) útil para backup ou inspeção.
+
+## Nota sobre migração para SQLite
+
+- Durante esta sessão o projeto detectou um arquivo `server/db.json` e o migrou automaticamente para SQLite (quando `better-sqlite3` está instalado). Como precaução o arquivo original foi renomeado para `server/db.json.migrated`.
+
+- Estado atual recomendado: usar SQLite como fonte de verdade local (mais robusto). O proxy já tenta `better-sqlite3` primeiro e só usa o fallback JSON se SQLite não estiver disponível.
+
+- Como reverter para JSON-only (desaconselhado para dados maiores):
+  1. Pare o proxy.
+ 2. Apague ou mova `server/data.db` e `server/db.json.migrated` (ou renomeie para `server/db.json` se quiser restaurar o backup).
+ 3. Reinicie o proxy; ele voltará a usar `server/db.json`.
+
+- Como habilitar SQLite (se ainda não instalado):
+  - No Windows a forma mais simples é usar WSL/Ubuntu e instalar Node ali, depois executar `npm install` no projeto; outra alternativa é instalar as Visual Studio Build Tools + Python e rodar `npm i better-sqlite3` no PowerShell. Se quiser, eu documentarei o passo a passo no seu ambiente.
+
+Se precisar, eu removo o arquivo `server/db.json.migrated` (após seu OK) ou deixo como backup permanente.

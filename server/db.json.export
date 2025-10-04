@@ -1,0 +1,240 @@
+{
+  "portal_key": "TEST_KEY_X",
+  "datasets": {
+    "20250101_Despesas.zip_extracted/20250101_Despesas_Empenho.csv": {
+      "extracted": 1,
+      "row_count": 37,
+      "updated_at": "2025-10-04 01:50:17"
+    },
+    "20250101_Despesas.zip_extracted/20250101_Despesas_ItemEmpenho.csv": {
+      "extracted": 1,
+      "row_count": 84,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_Despesas.zip_extracted/20250101_Despesas_ItemEmpenhoHistorico.csv": {
+      "extracted": 1,
+      "row_count": 84,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_Despesas.zip_extracted/20250101_Despesas_Liquidacao.csv": {
+      "extracted": 1,
+      "row_count": 82,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_Despesas.zip_extracted/20250101_Despesas_Liquidacao_EmpenhosImpactados.csv": {
+      "extracted": 1,
+      "row_count": 91,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_Despesas.zip_extracted/20250101_Despesas_Pagamento.csv": {
+      "extracted": 1,
+      "row_count": 1,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_Despesas.zip_extracted/20250101_Despesas_Pagamento_EmpenhosImpactados.csv": {
+      "extracted": 1,
+      "row_count": 1,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_Despesas.zip_extracted/20250101_Despesas_Pagamento_FavorecidosFinais.csv": {
+      "extracted": 1,
+      "row_count": 1,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_Despesas.zip_extracted/20250101_Despesas_Pagamento_ListaBancos.csv": {
+      "extracted": 1,
+      "row_count": 1,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_Despesas.zip_extracted/20250101_Despesas_Pagamento_ListaFaturas.csv": {
+      "extracted": 1,
+      "row_count": 1,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_Despesas.zip_extracted/20250101_Despesas_Pagamento_ListaPrecatorios.csv": {
+      "extracted": 1,
+      "row_count": 1,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_extracted/20250101_Despesas_Empenho.csv": {
+      "extracted": 1,
+      "row_count": 37,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_extracted/20250101_Despesas_ItemEmpenho.csv": {
+      "extracted": 1,
+      "row_count": 84,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_extracted/20250101_Despesas_ItemEmpenhoHistorico.csv": {
+      "extracted": 1,
+      "row_count": 84,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_extracted/20250101_Despesas_Liquidacao.csv": {
+      "extracted": 1,
+      "row_count": 82,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_extracted/20250101_Despesas_Liquidacao_EmpenhosImpactados.csv": {
+      "extracted": 1,
+      "row_count": 91,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_extracted/20250101_Despesas_Pagamento.csv": {
+      "extracted": 1,
+      "row_count": 1,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_extracted/20250101_Despesas_Pagamento_EmpenhosImpactados.csv": {
+      "extracted": 1,
+      "row_count": 1,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_extracted/20250101_Despesas_Pagamento_FavorecidosFinais.csv": {
+      "extracted": 1,
+      "row_count": 1,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_extracted/20250101_Despesas_Pagamento_ListaBancos.csv": {
+      "extracted": 1,
+      "row_count": 1,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_extracted/20250101_Despesas_Pagamento_ListaFaturas.csv": {
+      "extracted": 1,
+      "row_count": 1,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "20250101_extracted/20250101_Despesas_Pagamento_ListaPrecatorios.csv": {
+      "extracted": 1,
+      "row_count": 1,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "after_manual_create.csv": {
+      "extracted": 1,
+      "row_count": 10,
+      "updated_at": "2025-10-04 01:09:28"
+    },
+    "auxilio-brasil.csv": {
+      "extracted": 1,
+      "row_count": 1164,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "auxilio-emergencial.csv": {
+      "extracted": 1,
+      "row_count": 1195,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "auxilio-reconstrucao.csv": {
+      "extracted": 1,
+      "row_count": 1149,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "bolsa-familia-pagamentos.csv": {
+      "extracted": 1,
+      "row_count": 1255,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "bolsa-familia-saques.csv": {
+      "extracted": 1,
+      "row_count": 1254,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "bpc.csv": {
+      "extracted": 1,
+      "row_count": 1228,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "cli_probe_write.csv": {
+      "extracted": 1,
+      "row_count": 5,
+      "updated_at": "2025-10-04 01:47:26"
+    },
+    "convenios.csv": {
+      "extracted": 1,
+      "row_count": 1149,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "cpcc.csv": {
+      "extracted": 1,
+      "row_count": 1243,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "cpdc.csv": {
+      "extracted": 1,
+      "row_count": 1300,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "cpgf.csv": {
+      "extracted": 1,
+      "row_count": 1301,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "despesas-execucao.csv": {
+      "extracted": 1,
+      "row_count": 1289,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "despesas-favorecidos.csv": {
+      "extracted": 1,
+      "row_count": 1290,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "despesas.csv": {
+      "extracted": 1,
+      "row_count": 5417,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "direct_probe.csv": {
+      "extracted": 1,
+      "row_count": 3,
+      "updated_at": "2025-10-04 01:54:20"
+    },
+    "favorecidos-pj.csv": {
+      "extracted": 1,
+      "row_count": 1149,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "garantia-safra.csv": {
+      "extracted": 1,
+      "row_count": 1297,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "manual_test.csv": {
+      "extracted": 1,
+      "row_count": 42,
+      "updated_at": "2025-10-04 01:08:51"
+    },
+    "novo-bolsa-familia.csv": {
+      "extracted": 1,
+      "row_count": 1178,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "pe-de-meia.csv": {
+      "extracted": 1,
+      "row_count": 1161,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "peti.csv": {
+      "extracted": 1,
+      "row_count": 1261,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "probe_test_xyz.csv": {
+      "extracted": 1,
+      "row_count": 7,
+      "updated_at": "2025-10-04 01:43:34"
+    },
+    "seguro-defeso.csv": {
+      "extracted": 1,
+      "row_count": 1300,
+      "updated_at": "2025-10-04 01:50:22"
+    },
+    "transferencias.csv": {
+      "extracted": 1,
+      "row_count": 1289,
+      "updated_at": "2025-10-04 01:50:22"
+    }
+  }
+}

@@ -279,3 +279,42 @@ app.post('/admin/dataset/delete', (req, res) => {
     return res.status(500).json({ error: 'internal' });
   }
 });
+
+// Admin: scan resources/data and ingest CSV metadata into DB
+app.post('/admin/ingest', (req, res) => {
+  if (ADMIN_TOKEN) {
+    const provided = req.get('x-proxy-admin');
+    if (!provided || provided !== ADMIN_TOKEN) return res.status(403).json({ error: 'forbidden', message: 'invalid admin token' });
+  }
+  try {
+    if (!db) return res.status(400).json({ error: 'no_db' });
+    const dataDir = path.resolve(__dirname, '..', 'resources', 'data');
+    function walk(dir) {
+      const out = [];
+      for (const f of fs.readdirSync(dir)) {
+        const p = path.join(dir, f);
+        const st = fs.statSync(p);
+        if (st.isDirectory()) out.push(...walk(p));
+        else if (f.toLowerCase().endsWith('.csv')) out.push(p);
+      }
+      return out;
+    }
+    if (!fs.existsSync(dataDir)) return res.json({ ok: true, ingested: 0 });
+    const csvs = walk(dataDir);
+    let count = 0;
+    for (const csv of csvs) {
+      try {
+        const data = fs.readFileSync(csv, 'utf8');
+        const rows = data.split(/\r?\n/).filter(Boolean).length;
+        const rel = path.relative(dataDir, csv).replace(/\\/g, '/');
+        db.upsertDataset(rel, 1, rows);
+        count++;
+      } catch (e) {
+        console.warn('Ingest failed for', csv, e && e.message);
+      }
+    }
+    return res.json({ ok: true, ingested: count });
+  } catch (e) {
+    return res.status(500).json({ error: 'internal' });
+  }
+});

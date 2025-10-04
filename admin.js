@@ -52,6 +52,27 @@ async function loadManifest() {
 
 loadManifest();
 
+ // ingest button
+ const ingestBtn = document.getElementById('ingestBtn');
+ const ingestStatus = document.getElementById('ingestStatus');
+ ingestBtn.addEventListener('click', async () => {
+   ingestBtn.disabled = true;
+   ingestStatus.textContent = ' Scanning...';
+   try {
+     const res = await authFetch('/admin/ingest', { method: 'POST' });
+     const j = await res.json();
+     if (res.ok) {
+       ingestStatus.textContent = ` Ingested ${j.ingested || 0} files`;
+       await loadDatasets();
+     } else {
+       ingestStatus.textContent = ' Error';
+     }
+   } catch (e) {
+     ingestStatus.textContent = ' Failed';
+   }
+   ingestBtn.disabled = false;
+   setTimeout(() => (ingestStatus.textContent = ''), 4000);
+ });
 // Admin token handling
 let ADMIN_TOKEN = null;
 document.getElementById('saveToken').addEventListener('click', () => {

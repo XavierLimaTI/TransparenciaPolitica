@@ -980,213 +980,264 @@ class PoliticaApp {
     }
 }
 
+// Estado global da aplicação
+const appState = {
+    api: null,
+    candidatosReais: [],
+    votacoesReais: [],
+    loading: false,
+    usingRealData: false
+};
+
+// Função para mostrar loading spinner
+function showLoadingSpinner(text = 'Carregando dados...') {
+    let spinner = document.getElementById('globalLoadingSpinner');
+    if (!spinner) {
+        spinner = document.createElement('div');
+        spinner.id = 'globalLoadingSpinner';
+        spinner.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;background:white;padding:24px;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.15);text-align:center;';
+        spinner.innerHTML = `
+            <div class="animate-spin inline-block w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mb-3"></div>
+            <div id="loadingText" style="color:#1e3a8a;font-weight:600;">${text}</div>
+        `;
+        document.body.appendChild(spinner);
+    } else {
+        document.getElementById('loadingText').textContent = text;
+        spinner.style.display = 'block';
+    }
+}
+
+function hideLoadingSpinner() {
+    const spinner = document.getElementById('globalLoadingSpinner');
+    if (spinner) spinner.style.display = 'none';
+}
+
+// Função para carregar dados reais da API
+async function carregarDadosReais() {
+    if (!appState.api || appState.loading) return false;
+    
+    appState.loading = true;
+    showLoadingSpinner('Carregando deputados e senadores...');
+    
+    try {
+        console.log('🔄 Iniciando carregamento de dados reais...');
+        
+        // Carregar deputados (primeira página para começar)
+        showLoadingSpinner('Carregando deputados...');
+        const deputados = await appState.api.getDeputadosPage(1, 30);
+        console.log('✅ Deputados carregados:', deputados.length);
+        
+        // Carregar senadores
+        showLoadingSpinner('Carregando senadores...');
+        const senadores = await appState.api.getSenadoresAtuais();
+        console.log('✅ Senadores carregados:', senadores.length);
+        
+        // Combinar e atualizar array de candidatos
+        appState.candidatosReais = [...deputados, ...senadores];
+        
+        // Limpar array original e adicionar dados reais
+        candidatos.length = 0;
+        candidatos.push(...appState.candidatosReais);
+        
+        // Carregar votações recentes
+        showLoadingSpinner('Carregando votações recentes...');
+        const votacoesRecentes = await appState.api.getVotacoesCamara(20);
+        console.log('✅ Votações carregadas:', votacoesRecentes.length);
+        
+        appState.votacoesReais = votacoesRecentes;
+        votacoes.length = 0;
+        votacoes.push(...votacoesRecentes);
+        
+        appState.usingRealData = true;
+        hideLoadingSpinner();
+        
+        // Mostrar notificação de sucesso
+        mostrarNotificacao('✅ Dados reais carregados com sucesso!', 'success');
+        
+        console.log('🎉 Total de parlamentares:', candidatos.length);
+        console.log('🎉 Total de votações:', votacoes.length);
+        
+        // Disparar evento para que outras partes da app saibam que dados foram atualizados
+        window.dispatchEvent(new CustomEvent('dadosAtualizados', {
+            detail: { candidatos: candidatos, votacoes: votacoes }
+        }));
+        
+        return true;
+    } catch (error) {
+        console.error('❌ Erro ao carregar dados reais:', error);
+        hideLoadingSpinner();
+        mostrarNotificacao('⚠️ Erro ao carregar dados reais. Usando dados de demonstração.', 'warning');
+        return false;
+    } finally {
+        appState.loading = false;
+    }
+}
+
+// Função para mostrar notificações
+function mostrarNotificacao(mensagem, tipo = 'info') {
+    const notification = document.createElement('div');
+    notification.style.cssText = `position:fixed;top:24px;right:24px;z-index:9998;padding:16px 20px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.15);max-width:400px;animation:slideIn 0.3s ease;`;
+    
+    const colors = {
+        success: 'background:#10b981;color:white;',
+        warning: 'background:#f59e0b;color:white;',
+        error: 'background:#ef4444;color:white;',
+        info: 'background:#3b82f6;color:white;'
+    };
+    
+    notification.style.cssText += colors[tipo] || colors.info;
+    notification.textContent = mensagem;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(100%)';
+        notification.style.transition = 'all 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 4000);
+}
+
 // Inicializar aplicação quando DOM estiver carregado
 document.addEventListener('DOMContentLoaded', async () => {
+    console.log('🚀 Inicializando aplicação...');
+    
+    // Inicializar GovernmentAPI se disponível
     if (window.GovernmentAPI) {
-        // create a global instance to reuse
-        try { window.governmentAPI = new window.GovernmentAPI(); } catch (e) { console.warn('GovernmentAPI init failed', e); }
-    }
-    // Try to detect local proxy and configure client to use it
-    (async function detectProxy() {
         try {
-            const probe = await fetch('http://localhost:3001/despesas?pagina=1&itens=1');
-            if (probe && probe.status !== 404 && window.governmentAPI && typeof window.governmentAPI.setProxy === 'function') {
-                window.governmentAPI.setProxy('http://localhost:3001');
-                console.log('Using local proxy at http://localhost:3001');
-                // show a small banner to make proxy discoverable
-                try { showProxyBanner(); } catch (e) { console.warn('Could not show proxy banner', e); }
+            appState.api = new window.GovernmentAPI();
+            window.governmentAPI = appState.api; // Manter compatibilidade
+            console.log('✅ GovernmentAPI inicializada');
+        } catch (e) {
+            console.warn('⚠️ Falha ao inicializar GovernmentAPI:', e);
+        }
+    }
+    
+    // Detectar e configurar proxy local
+    if (appState.api) {
+        try {
+            const probe = await fetch('http://localhost:3001/despesas?pagina=1&itens=1', {
+                method: 'GET',
+                signal: AbortSignal.timeout(2000)
+            });
+            
+            if (probe && probe.status !== 404) {
+                appState.api.setProxy('http://localhost:3001');
+                console.log('✅ Proxy local detectado e configurado: http://localhost:3001');
+                
+                // Mostrar banner de proxy
+                showProxyBanner();
             }
         } catch (e) {
-            // no proxy detected
+            console.log('ℹ️ Proxy local não detectado (normal se não estiver rodando)');
         }
-    })();
-
-    // Show a top banner when proxy is detected to help users configure keys
-    function showProxyBanner() {
-        if (document.getElementById('proxyDetectedBanner')) return;
-        const b = document.createElement('div');
-        b.id = 'proxyDetectedBanner';
-        b.style.position = 'fixed';
-        b.style.top = '12px';
-        b.style.left = '50%';
-        b.style.transform = 'translateX(-50%)';
-        b.style.zIndex = 60;
-        b.style.background = '#0f766e';
-        b.style.color = 'white';
-        b.style.padding = '8px 12px';
-        b.style.borderRadius = '6px';
-        b.style.boxShadow = '0 4px 12px rgba(0,0,0,0.12)';
-        b.innerHTML = `<span style="margin-right:10px;">Proxy local detectado</span>`;
-        const btn = document.createElement('button');
-        btn.textContent = 'Configurar chave';
-        btn.style.marginRight = '8px';
-        btn.className = 'px-3 py-1 bg-white text-teal-700 rounded';
-        btn.addEventListener('click', () => createPortalKeyModal());
-        const close = document.createElement('button');
-        close.textContent = '×';
-        close.style.marginLeft = '8px';
-        close.style.background = 'transparent';
-        close.style.color = 'white';
-        close.style.border = 'none';
-        close.style.fontSize = '18px';
-        close.addEventListener('click', () => { try { b.remove(); } catch(e){} });
-        b.appendChild(btn);
-        b.appendChild(close);
-        document.body.appendChild(b);
-        // Auto-hide after 12s
-        setTimeout(() => { try { b.remove(); } catch(e){} }, 12000);
     }
-    if (USE_REAL_DATA && window.governmentAPI) {
-        // Tentar carregar dados reais primeiro
-        try {
-            const governmentAPI = new window.GovernmentAPI();
-            const dadosReais = await governmentAPI.carregarDadosCompletos();
-            
-            if (dadosReais) {
-                console.log('Dados reais carregados com sucesso!');
-                // Mutate existing arrays so references in the app keep working
-                try {
-                    // candidatos is a const array defined as fallback; clear and push
-                    if (Array.isArray(window.candidatos) || typeof candidatos !== 'undefined') {
-                        // Use local candidatos variable if present, otherwise window.candidatos
-                        const targetCandidatos = (typeof candidatos !== 'undefined') ? candidatos : window.candidatos || [];
-                        targetCandidatos.length = 0;
-                        if (Array.isArray(dadosReais.parlamentares)) {
-                            targetCandidatos.push(...dadosReais.parlamentares);
-                        }
-                    }
+    
+    // Carregar dados reais se habilitado
+    if (USE_REAL_DATA && appState.api) {
+        await carregarDadosReais();
+    }
+    
+    // Inicializar aplicação principal
+    window.politicaApp = new PoliticaApp();
+});
 
-                    if (Array.isArray(window.votacoes) || typeof votacoes !== 'undefined') {
-                        const targetVotacoes = (typeof votacoes !== 'undefined') ? votacoes : window.votacoes || [];
-                        targetVotacoes.length = 0;
-                        if (Array.isArray(dadosReais.votacoes)) {
+// Função para criar banner de proxy
+function showProxyBanner() {
+    if (document.getElementById('proxyDetectedBanner')) return;
+    const b = document.createElement('div');
+    b.id = 'proxyDetectedBanner';
+    b.style.cssText = 'position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:60;background:#0f766e;color:white;padding:8px 12px;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,0.12);';
+    b.innerHTML = `<span style="margin-right:10px;">✅ Proxy local detectado</span>`;
+    
+    const btn = document.createElement('button');
+    btn.textContent = 'Configurar chave';
+    btn.className = 'px-3 py-1 bg-white text-teal-700 rounded mr-2';
+    btn.addEventListener('click', () => createPortalKeyModal());
+    
+    const close = document.createElement('button');
+    close.textContent = '×';
+    close.style.cssText = 'background:transparent;color:white;border:none;font-size:18px;cursor:pointer;';
+    close.addEventListener('click', () => b.remove());
+    
+    b.appendChild(btn);
+    b.appendChild(close);
+    document.body.appendChild(b);
+    
+    // Auto-hide depois de 12s
+    setTimeout(() => b.remove(), 12000);
+}
 
-    // Add a small help link in the footer for proxy docs
+// Função para criar controles do footer
+function criarFooterControles() {
     try {
         const footerHelp = document.createElement('div');
-        footerHelp.style.position = 'fixed';
-        footerHelp.style.right = '12px';
-        footerHelp.style.bottom = '12px';
-        footerHelp.style.zIndex = 40;
-        footerHelp.innerHTML = `<a href="server/PROXY_README.md" target="_blank" style="background:#111827;color:#fff;padding:6px 8px;border-radius:6px;text-decoration:none;font-size:12px;">Proxy local: como usar</a>`;
-        const rm = document.createElement('button');
-        rm.textContent = 'Remover chave';
-        rm.style.marginLeft = '8px';
-        rm.className = 'px-3 py-1 bg-red-600 text-white rounded';
-        rm.addEventListener('click', async () => {
+        footerHelp.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:40;display:flex;gap:8px;align-items:center;';
+        
+        // Link para docs
+        const docsLink = document.createElement('a');
+        docsLink.href = 'server/PROXY_README.md';
+        docsLink.target = '_blank';
+        docsLink.style.cssText = 'background:#111827;color:#fff;padding:6px 8px;border-radius:6px;text-decoration:none;font-size:12px;';
+        docsLink.textContent = '📖 Docs Proxy';
+        
+        // Botão remover chave
+        const rmBtn = document.createElement('button');
+        rmBtn.textContent = 'Remover chave';
+        rmBtn.className = 'px-3 py-1 bg-red-600 text-white rounded text-sm';
+        rmBtn.addEventListener('click', async () => {
             const admin = prompt('Token admin para proxy (se configurado):') || '';
-            const confirmed = confirm('Remover a chave persistida na proxy?');
-            if (!confirmed) return;
+            if (!confirm('Remover a chave persistida na proxy?')) return;
             try {
                 const headers = { 'Content-Type': 'application/json' };
                 if (admin) headers['x-proxy-admin'] = admin;
                 const res = await fetch('http://localhost:3001/unset-key', { method: 'POST', headers });
                 if (!res.ok) {
-                    const txt = await res.text();
-                    alert('Erro: ' + txt);
+                    alert('Erro: ' + await res.text());
                     return;
                 }
-                alert('Chave removida da proxy.');
+                alert('✅ Chave removida da proxy.');
             } catch (err) {
-                console.error('Erro ao remover chave via footer:', err);
-                alert('Não foi possível contactar a proxy.');
+                console.error('Erro ao remover chave:', err);
+                alert('❌ Não foi possível contactar a proxy.');
             }
         });
-    footerHelp.appendChild(rm);
-    // CSV upload control
+        
+        // Upload CSV
         const uploadLabel = document.createElement('label');
-        uploadLabel.style.marginLeft = '8px';
-        uploadLabel.className = 'px-3 py-1 bg-blue-600 text-white rounded cursor-pointer';
-        uploadLabel.textContent = 'Carregar CSV de despesas';
+        uploadLabel.className = 'px-3 py-1 bg-blue-600 text-white rounded text-sm cursor-pointer';
+        uploadLabel.textContent = 'Carregar CSV';
         const uploadInput = document.createElement('input');
         uploadInput.type = 'file';
         uploadInput.accept = '.csv,text/csv';
         uploadInput.style.display = 'none';
-        uploadLabel.addEventListener('click', () => uploadInput.click());
+        uploadLabel.appendChild(uploadInput);
         uploadInput.addEventListener('change', async (ev) => {
-            const f = ev.target.files && ev.target.files[0];
+            const f = ev.target.files?.[0];
             if (!f) return;
-            const txt = await f.text();
             try {
-                if (window.governmentAPI && typeof window.governmentAPI.loadDespesasFromCSV === 'function') {
+                const txt = await f.text();
+                if (window.governmentAPI?.loadDespesasFromCSV) {
                     const parsed = window.governmentAPI.loadDespesasFromCSV(txt);
                     window.governmentAPI.useLocalDespesas(parsed);
-                    alert('CSV carregado com ' + (parsed.length) + ' registros. Agora abra um candidato e clique em Ver gastos.');
+                    alert(`✅ CSV carregado: ${parsed.length} registros`);
                 } else {
-                    alert('Função de parsing não disponível.');
+                    alert('❌ Função de parsing não disponível.');
                 }
             } catch (err) {
                 console.error('Erro ao processar CSV', err);
-                alert('Erro ao processar o CSV. Ver console para detalhes.');
+                alert('❌ Erro ao processar o CSV.');
             }
         });
+        
+        footerHelp.appendChild(docsLink);
+        footerHelp.appendChild(rmBtn);
         footerHelp.appendChild(uploadLabel);
-        footerHelp.appendChild(uploadInput);
-        // Add Export JSON and Clear buttons
-        const exportBtn = document.createElement('button');
-        exportBtn.className = 'ml-2 px-3 py-1 bg-green-600 text-white rounded';
-        exportBtn.textContent = 'Exportar JSON';
-        exportBtn.addEventListener('click', () => {
-            try {
-                if (window.governmentAPI && window.governmentAPI._localDespesas && window.governmentAPI._localDespesas.length) {
-                    const blob = new Blob([JSON.stringify(window.governmentAPI._localDespesas, null, 2)], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url; a.download = 'despesas-local.json'; document.body.appendChild(a); a.click(); a.remove();
-                    URL.revokeObjectURL(url);
-                } else {
-                    alert('Nenhuma despesa local carregada.');
-                }
-            } catch (e) { console.error(e); alert('Erro exportando'); }
-        });
-
-        const clearBtn = document.createElement('button');
-        clearBtn.className = 'ml-2 px-3 py-1 bg-red-600 text-white rounded';
-        clearBtn.textContent = 'Limpar despesas locais';
-        clearBtn.addEventListener('click', () => {
-            if (!confirm('Remover despesas locais carregadas?')) return;
-            try {
-                if (window.governmentAPI && typeof window.governmentAPI.useLocalDespesas === 'function') {
-                    window.governmentAPI.useLocalDespesas([]);
-                    alert('Despesas locais removidas.');
-                }
-            } catch (e) { console.error(e); alert('Erro ao limpar'); }
-        });
-
-        footerHelp.appendChild(exportBtn);
-        footerHelp.appendChild(clearBtn);
         document.body.appendChild(footerHelp);
     } catch (e) {
-        /* ignore UI footer errors */
+        console.warn('Erro ao criar footer:', e);
     }
-                            targetVotacoes.push(...dadosReais.votacoes);
-                        }
-                    }
-
-                    // Enriquecer histórico de votos para deputados
-                    for (let i = 0; i < (typeof candidatos !== 'undefined' ? candidatos.length : 0); i++) {
-                        const candidato = candidatos[i];
-                        if (!candidato) continue;
-                        if (candidato.cargo && candidato.cargo.toLowerCase().includes('deputado')) {
-                            try {
-                                const historico = await governmentAPI.getHistoricoVotosDeputado(candidato.id, 10);
-                                candidato.votacoes = historico || candidato.votacoes || [];
-                            } catch (err) {
-                                // keep existing votacoes on error
-                            }
-                        }
-                    }
-                } catch (err) {
-                    console.error('Erro ao aplicar dados reais:', err);
-                }
-            }
-        } catch (error) {
-            console.log('Usando dados simulados:', error.message);
-        }
-    }
-    
-    window.politicaApp = new PoliticaApp();
-});
+}
 
 // Funções utilitárias
 function formatDate(dateString) {
