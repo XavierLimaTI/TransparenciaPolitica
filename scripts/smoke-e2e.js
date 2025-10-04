@@ -14,13 +14,14 @@ async function checkUrl(url){
 (async () => {
   console.log('Starting smoke e2e...');
 
-  // start proxy
-  const proxy = spawn('node', ['server/proxy.js'], { stdio: 'inherit' });
-  // start http-server
-  const server = spawn('npx', ['http-server','-c-1','-p','8000'], { stdio: 'inherit' });
+  // start proxy (use shell so Node on Windows resolves correctly)
+  const proxy = spawn('node server/proxy.js', { stdio: 'inherit', shell: true });
+  // start http-server using shell so the system npx/npx.ps1 is resolved on Windows
+  const serverCmd = 'npx http-server -c-1 -p 8000';
+  const server = spawn(serverCmd, { stdio: 'inherit', shell: true });
 
-  // wait a bit
-  await wait(2000);
+  // wait a bit for servers to start
+  await wait(4000);
 
   try {
     console.log('Checking candidates page...');

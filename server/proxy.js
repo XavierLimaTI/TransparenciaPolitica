@@ -133,6 +133,33 @@ app.get('/despesas', async (req, res) => {
   }
 });
 
+// Development proxy for Câmara dos Deputados and Senado to avoid CORS in local preview
+app.use('/camara', async (req, res) => {
+  try {
+    const targetBase = 'https://dadosabertos.camara.leg.br/api/v2';
+    const targetUrl = targetBase + req.originalUrl.replace(/^\/camara/, '');
+    const response = await fetch(targetUrl, { method: req.method, headers: { Accept: 'application/json' } });
+    const text = await response.text();
+    res.status(response.status).set('content-type', response.headers.get('content-type') || 'application/json').send(text);
+  } catch (err) {
+    console.error('Camara proxy error', err);
+    res.status(500).json({ error: 'proxy_error', detail: String(err) });
+  }
+});
+
+app.use('/senado', async (req, res) => {
+  try {
+    const targetBase = 'https://legis.senado.leg.br/dadosabertos';
+    const targetUrl = targetBase + req.originalUrl.replace(/^\/senado/, '');
+    const response = await fetch(targetUrl, { method: req.method, headers: { Accept: 'application/json' } });
+    const text = await response.text();
+    res.status(response.status).set('content-type', response.headers.get('content-type') || 'application/json').send(text);
+  } catch (err) {
+    console.error('Senado proxy error', err);
+    res.status(500).json({ error: 'proxy_error', detail: String(err) });
+  }
+});
+
 // List dataset files under resources/data
 app.get('/data-files', (req, res) => {
   try {
@@ -316,5 +343,15 @@ app.post('/admin/ingest', (req, res) => {
     return res.json({ ok: true, ingested: count });
   } catch (e) {
     return res.status(500).json({ error: 'internal' });
+  }
+});
+
+// Simple health endpoint
+app.get('/health', (req, res) => {
+  try {
+    if (!portalKey) return res.status(200).json({ status: 'ok', portalKey: false });
+    return res.status(200).json({ status: 'ok', portalKey: true });
+  } catch (e) {
+    return res.status(500).json({ status: 'error' });
   }
 });

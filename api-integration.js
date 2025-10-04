@@ -71,8 +71,26 @@ class GovernmentAPI {
             });
 
             console.log(`Fetching: ${url.toString()}`);
-            
-            const response = await fetch(url.toString(), {
+
+            // Development-friendly CORS fallback: when running on localhost and
+            // no proxyBase is configured, route requests through a public CORS proxy
+            // so the browser can fetch resources that don't set Access-Control-Allow-Origin.
+            let fetchUrl = url.toString();
+            if (typeof window !== 'undefined' && window.location && !this.proxyBase) {
+                const host = window.location.hostname;
+                if (host === 'localhost' || host === '127.0.0.1') {
+                    try {
+                        // Use AllOrigins raw endpoint as a development CORS proxy.
+                        const encoded = encodeURIComponent(fetchUrl);
+                        fetchUrl = `https://api.allorigins.win/raw?url=${encoded}`;
+                        console.warn('Development CORS proxy active. Fetching via:', fetchUrl);
+                    } catch (e) {
+                        console.warn('Failed to enable dev CORS proxy:', e);
+                    }
+                }
+            }
+
+            const response = await fetch(fetchUrl, {
                 method: 'GET',
                 headers: this.headers
             });
@@ -285,8 +303,17 @@ class GovernmentAPI {
 
     // Buscar senadores atuais
     async getSenadoresAtuais() {
-        const data = await this.fetchData('senado', '/senador');
-        
+        // Try a couple of known endpoints for Senado data; some mirrors expose different paths
+        let data = await this.fetchData('senado', '/senador');
+        if (!data || !data.ListaParlamentarEmExercicio) {
+            // try alternative endpoint
+            try {
+                data = await this.fetchData('senado', '/senador/listaParlamentarEmExercicio');
+            } catch (e) {
+                // ignore and fallback
+            }
+        }
+
         if (!data || !data.ListaParlamentarEmExercicio || !data.ListaParlamentarEmExercicio.Parlamentares) return [];
 
         return data.ListaParlamentarEmExercicio.Parlamentares.Parlamentar.map(senador => ({

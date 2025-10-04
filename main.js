@@ -654,7 +654,45 @@ class PoliticaApp {
                     createPortalKeyModal();
                     return;
                 }
+                const deputies = await window.governmentAPI.getDeputadosPage(nextPage, pageSize);
+                    // If Portal key / proxy not configured, attempt to auto-load local CSV fallbacks
+                    try {
+                        // If governmentAPI reports missing portal key or proxy not reachable, try local CSVs
+                        const tryLocalDespesas = async () => {
+                            const candidates = ['/resources/data/despesas.csv', '/data/despesas.csv'];
+                            for (const u of candidates) {
+                                try {
+                                    const r = await fetch(u, { method: 'GET' });
+                                    if (!r.ok) continue;
+                                    const txt = await r.text();
+                                    if (window.governmentAPI && typeof window.governmentAPI.loadDespesasFromCSV === 'function') {
+                                        const parsed = window.governmentAPI.loadDespesasFromCSV(txt);
+                                        window.governmentAPI.useLocalDespesas(parsed);
+                                        console.log(`✅ Loaded local despesas fallback from ${u} (${parsed.length} records)`);
+                                        // Update any UI indicators if present
+                                        const status = document.getElementById('dataStatus');
+                                        if (status) {
+                                            status.textContent = 'Modo: dados locais (CSV)';
+                                            status.style.background = '#fff7ed';
+                                            status.style.color = '#7c2d12';
+                                        }
+                                        return true;
+                                    }
+                                } catch (e) {
+                                    // ignore and try next
+                                }
+                            }
+                            return false;
+                        };
 
+                        // Only try if portal key missing or proxy seems unavailable
+                        let needLocal = false;
+                        try {
+                            if (window.governmentAPI && !window.governmentAPI.portalKey) needLocal = true;
+                        } catch (e) { needLocal = true; }
+
+                        if (needLocal) await tryLocalDespesas();
+                    } catch (e) { console.warn('Auto local despesas fallback failed', e); }
                 // ensure GovernmentAPI knows the key
                 if (window.governmentAPI && typeof window.governmentAPI.setPortalKey === 'function') {
                     window.governmentAPI.setPortalKey(key);
@@ -1174,13 +1212,18 @@ async function carregarDadosReais() {
         
         // Carregar deputados (primeira página para começar)
         showLoadingSpinner('Carregando deputados...');
-        const deputados = await appState.api.getDeputadosPage(1, 30);
-        console.log('✅ Deputados carregados:', deputados.length);
+    const deputados = await appState.api.getDeputadosPage(1, 30);
+    if (!Array.isArray(deputados)) throw new Error('Deputados response not an array: ' + String(deputados));
+    console.log('✅ Deputados carregados:', deputados.length);
         
         // Carregar senadores
         showLoadingSpinner('Carregando senadores...');
         const senadores = await appState.api.getSenadoresAtuais();
-        console.log('✅ Senadores carregados:', senadores.length);
+        if (!Array.isArray(senadores)) {
+            console.warn('⚠️ Senadores response not an array, value:', senadores);
+        } else {
+            console.log('✅ Senadores carregados:', senadores.length);
+        }
         
         // Combinar e atualizar array de candidatos
         appState.candidatosReais = [...deputados, ...senadores];
@@ -1192,7 +1235,11 @@ async function carregarDadosReais() {
         // Carregar votações recentes
         showLoadingSpinner('Carregando votações recentes...');
         const votacoesRecentes = await appState.api.getVotacoesCamara(20);
-        console.log('✅ Votações carregadas:', votacoesRecentes.length);
+        if (!Array.isArray(votacoesRecentes)) {
+            console.warn('⚠️ Votações response not an array, value:', votacoesRecentes);
+        } else {
+            console.log('✅ Votações carregadas:', votacoesRecentes.length);
+        }
         
         appState.votacoesReais = votacoesRecentes;
         votacoes.length = 0;
@@ -1214,7 +1261,17 @@ async function carregarDadosReais() {
         
         return true;
     } catch (error) {
-        console.error('❌ Erro ao carregar dados reais:', error);
+        // Try to provide richer diagnostics: if the error contains a response-like object, print status/text
+        try {
+            console.error('❌ Erro ao carregar dados reais:', error && error.message ? error.message : error);
+            if (error && error.response && typeof error.response.text === 'function') {
+                const txt = await error.response.text();
+                console.error('Response body:', txt.slice(0, 1000));
+            }
+        } catch (inner) {
+            console.error('Além disso, falha ao extrair detalhes do erro:', inner);
+        }
+
         hideLoadingSpinner();
         mostrarNotificacao('⚠️ Erro ao carregar dados reais. Usando dados de demonstração.', 'warning');
         return false;
@@ -1271,9 +1328,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 signal: AbortSignal.timeout(2000)
             });
             
-            if (probe && probe.status !== 404) {
+            if (probe && probe.status && probe.status < 500) {
+                // Any reachable response (including 200, 204, 404) is considered evidence the proxy is up
                 appState.api.setProxy('http://localhost:3001');
-                console.log('✅ Proxy local detectado e configurado: http://localhost:3001');
+                console.log('✅ Proxy local detectado e configurado: http://localhost:3001 (status=' + probe.status + ')');
                 
                 // Mostrar banner de proxy
                 showProxyBanner();
@@ -1284,8 +1342,69 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     
     // Carregar dados reais se habilitado
+    // Insert UI status indicator and manual reload control
+    try {
+        const nav = document.querySelector('nav');
+        if (nav && !document.getElementById('dataStatus')) {
+            const status = document.createElement('div');
+            status.id = 'dataStatus';
+            status.style.cssText = 'margin-left:16px;padding:6px 10px;border-radius:6px;background:#f3f4f6;color:#0f172a;font-weight:600;font-size:13px;';
+            status.textContent = 'Modo: carregando...';
+
+            const btn = document.createElement('button');
+            btn.id = 'reloadRealDataBtn';
+            btn.textContent = 'Tentar carregar dados reais';
+            btn.className = 'px-3 py-1 ml-3 bg-blue-600 text-white rounded text-sm';
+            btn.addEventListener('click', async () => {
+                try {
+                    btn.disabled = true;
+                    btn.textContent = 'Carregando...';
+                    const ok = await carregarDadosReais();
+                    if (ok) {
+                        status.textContent = 'Modo: dados reais (carregados)';
+                        status.style.background = '#ecfccb';
+                        status.style.color = '#064e3b';
+                    } else {
+                        status.textContent = 'Modo: demonstração (fallback)';
+                        status.style.background = '#fff7ed';
+                        status.style.color = '#7c2d12';
+                    }
+                } catch (e) {
+                    console.error('Erro ao tentar carregar dados reais via botão:', e);
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = 'Tentar carregar dados reais';
+                }
+            });
+
+            const container = document.createElement('div');
+            container.style.display = 'flex';
+            container.style.alignItems = 'center';
+            container.appendChild(status);
+            container.appendChild(btn);
+
+            // append to right side of nav (if available)
+            const navRight = nav.querySelector('.hidden.md\:block') || nav;
+            navRight.appendChild(container);
+        }
+    } catch (e) { console.warn('Erro ao criar indicador de status:', e); }
+
     if (USE_REAL_DATA && appState.api) {
-        await carregarDadosReais();
+        const ok = await carregarDadosReais();
+        try {
+            const status = document.getElementById('dataStatus');
+            if (status) {
+                if (ok) {
+                    status.textContent = 'Modo: dados reais (carregados)';
+                    status.style.background = '#ecfccb';
+                    status.style.color = '#064e3b';
+                } else {
+                    status.textContent = 'Modo: demonstração (fallback)';
+                    status.style.background = '#fff7ed';
+                    status.style.color = '#7c2d12';
+                }
+            }
+        } catch (e) {}
     }
     
     // Inicializar aplicação principal
