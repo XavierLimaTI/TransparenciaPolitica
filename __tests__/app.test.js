@@ -54,7 +54,7 @@ describe('PoliticaApp.fetchServerPage', () => {
   test('fetchServerPage integrates results into candidatos and sets meta', async () => {
     // mock governmentAPI to return {results, meta}
     const fakeGov = {
-      searchDeputados: jest.fn().mockResolvedValue({ results: [ { id: 101, nome: 'Fulano', partido: 'PT', estado: 'SP', foto: '', cargo: 'Deputado Federal', ideologia: 'Centro' } ], meta: { page: 1, pageSize: 10, total: 1, hasMore: false } })
+      searchDeputados: jest.fn().mockResolvedValue({ results: [ { id: 101, nome: 'Fulano', partido: 'PT', estado: 'SP', foto: '', cargo: 'Deputado Federal', ideologia: 'Centro', votacoes: [], projetos: [] } ], meta: { page: 1, pageSize: 10, total: 1, hasMore: false } })
     };
 
   const PoliticaApp = loadMainWithMocks({ window: { governmentAPI: fakeGov }, module: {} });

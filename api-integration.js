@@ -472,9 +472,12 @@ class GovernmentAPI {
         if (!text) return [];
         const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
         if (lines.length === 0) return [];
-        const header = lines[0].split(/,|;|\t/).map(h => h.trim().toLowerCase());
+        // detect delimiter: prefer semicolon when present, else comma, else tab
+        const headerLine = lines[0];
+        const delimiter = headerLine.indexOf(';') !== -1 ? ';' : (headerLine.indexOf(',') !== -1 ? ',' : '\t');
+        const header = headerLine.split(delimiter).map(h => h.trim().toLowerCase());
 
-        // robust split: handle quoted fields (simple implementation)
+        // robust split: handle quoted fields (simple implementation) honoring detected delimiter
         function splitLine(line) {
             const parts = [];
             let cur = '';
@@ -486,7 +489,7 @@ class GovernmentAPI {
                     inQuotes = !inQuotes;
                     continue;
                 }
-                if (!inQuotes && (ch === ',' || ch === ';' || ch === '\t')) {
+                if (!inQuotes && ch === delimiter) {
                     parts.push(cur.trim());
                     cur = '';
                     continue;

@@ -706,6 +706,8 @@ class PoliticaApp {
                     status.textContent = '';
                     // set page attribute for pagination
                     list.dataset.despesasPage = '1';
+                    // keep last loaded despesas for CSV download and chart details
+                    try { window.__lastDespesasLoaded = despesas; } catch (e) { /* ignore */ }
                     list.innerHTML = despesas.map(d => `
                         <div class="p-3 border rounded-lg">
                             <div class="flex justify-between">
@@ -715,6 +717,43 @@ class PoliticaApp {
                             <div class="text-sm text-gray-700">Valor: R$ ${Number(d.valor || 0).toLocaleString('pt-BR')}</div>
                         </div>
                     `).join('');
+
+                    // Add CSV download button
+                    try {
+                        if (!document.getElementById('downloadDespesasBtn')) {
+                            const dlBtn = document.createElement('button');
+                            dlBtn.id = 'downloadDespesasBtn';
+                            dlBtn.className = 'mt-3 ml-3 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700';
+                            dlBtn.textContent = 'Baixar CSV';
+                            dlBtn.addEventListener('click', () => {
+                                const rows = (window.__lastDespesasLoaded || []).map(r => ({
+                                    data: r.dataDocumento || '',
+                                    descricao: r.descricao || '',
+                                    favorecido: r.favorecido || '',
+                                    valor: r.valor || 0
+                                }));
+                                if (rows.length === 0) return alert('Nenhuma despesa para baixar.');
+                                const header = Object.keys(rows[0]).join(',') + '\n';
+                                const csv = header + rows.map(r => `${String(r.data).replace(/,/g,'')},"${String(r.descricao).replace(/"/g,'""')}","${String(r.favorecido).replace(/"/g,'""')}",${Number(r.valor).toFixed(2)}`).join('\n');
+                                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                                const url = URL.createObjectURL(blob);
+                                const a = document.createElement('a');
+                                a.href = url;
+                                a.download = `despesas_${(new Date()).toISOString().slice(0,10)}.csv`;
+                                document.body.appendChild(a);
+                                a.click();
+                                setTimeout(() => { try { document.body.removeChild(a); URL.revokeObjectURL(url); } catch (e) {} }, 500);
+                            });
+
+                            // Insert next to load more button if present
+                            const loadMoreBtnEl = document.getElementById('loadMoreDespesasBtn');
+                            if (loadMoreBtnEl && loadMoreBtnEl.parentNode) {
+                                loadMoreBtnEl.parentNode.insertBefore(dlBtn, loadMoreBtnEl.nextSibling);
+                            } else {
+                                list.parentNode.insertBefore(dlBtn, list);
+                            }
+                        }
+                    } catch (err) { console.warn('Erro ao criar botão download', err); }
 
                     // Render a small summary chart if ECharts is available
                     try {

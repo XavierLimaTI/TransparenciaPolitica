@@ -16,6 +16,7 @@
     "start-proxy:local": "node server/proxy.js",
     "verify-proxy": "node scripts/verify-proxy.js",
     "test": "node scripts/test-csv-parse.js",
+  "smoke": "node scripts/test-csv-parse.js && npx http-server -c-1 -p 8000 & echo 'Server started'",
     "test:unit": "jest"
   },
   "keywords": [
