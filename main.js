@@ -209,7 +209,19 @@ class PoliticaApp {
     async fetchServerPage({ nome, estado, partido, ordenarPor } = {}, page = 1, pageSize = 20) {
         if (!window.governmentAPI) return null;
         try {
-            const results = await window.governmentAPI.searchDeputados({ page, pageSize, nome, uf: estado, partido, ordenarPor });
+            const resp = await window.governmentAPI.searchDeputados({ page, pageSize, nome, uf: estado, partido, ordenarPor });
+            // normalize response shape: support both array and {results,meta}
+            let results = [];
+            let meta = { page, pageSize, total: null, hasMore: false };
+
+            if (Array.isArray(resp)) {
+                results = resp;
+                meta = { page, pageSize, total: null, hasMore: results.length >= pageSize };
+            } else if (resp && resp.results) {
+                results = resp.results;
+                meta = Object.assign(meta, resp.meta || {});
+            }
+
             // Replace or append depending on page
             if (page === 1) {
                 if (typeof candidatos !== 'undefined') {
@@ -227,8 +239,24 @@ class PoliticaApp {
             }
 
             this.currentPage = page;
+            // update server paging flags
+            this.serverPage = page;
+            this.serverHasMore = !!meta.hasMore;
+
+            // update UI counts if meta.total is present
+            if (meta.total !== null && document.getElementById('totalCandidatos')) {
+                document.getElementById('totalCandidatos').textContent = String(meta.total);
+            }
+
+            // update result count
+            if (document.getElementById('resultCount')) {
+                document.getElementById('resultCount').textContent = String(this.candidatosFiltrados.length);
+            }
+
             this.renderCandidatos();
-            return results;
+            this.updateLoadMoreUI();
+
+            return { results, meta };
         } catch (err) {
             console.error('fetchServerPage error', err);
             return null;
@@ -687,6 +715,44 @@ class PoliticaApp {
                             <div class="text-sm text-gray-700">Valor: R$ ${Number(d.valor || 0).toLocaleString('pt-BR')}</div>
                         </div>
                     `).join('');
+
+                    // Render a small summary chart if ECharts is available
+                    try {
+                        // Aggregate by favorecido and sum values
+                        const agg = {};
+                        (despesas || []).forEach(d => {
+                            const key = (d.favorecido || d.descricao || 'Outros').trim();
+                            const val = Number(d.valor || 0) || 0;
+                            agg[key] = (agg[key] || 0) + val;
+                        });
+
+                        const items = Object.keys(agg).map(k => ({ nome: k, valor: agg[k] }));
+                        items.sort((a, b) => b.valor - a.valor);
+                        const top = items.slice(0, 6);
+
+                        // create chart container
+                        let chartEl = document.getElementById('gastosChart');
+                        if (!chartEl) {
+                            chartEl = document.createElement('div');
+                            chartEl.id = 'gastosChart';
+                            chartEl.style.width = '100%';
+                            chartEl.style.height = '220px';
+                            list.parentNode.insertBefore(chartEl, list);
+                        }
+
+                        if (window.echarts) {
+                            const chart = window.echarts.init(chartEl);
+                            const option = {
+                                tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+                                xAxis: { type: 'category', data: top.map(t => t.nome), axisLabel: { interval: 0, rotate: 30 } },
+                                yAxis: { type: 'value', axisLabel: { formatter: value => 'R$ ' + Number(value).toLocaleString('pt-BR') } },
+                                series: [{ type: 'bar', data: top.map(t => Math.round(t.valor * 100) / 100), itemStyle: { color: '#f59e0b' } }]
+                            };
+                            chart.setOption(option);
+                        }
+                    } catch (err) {
+                        console.warn('Erro ao renderizar gráfico de gastos', err);
+                    }
 
                     // add load more button if not present
                     if (!document.getElementById('loadMoreDespesasBtn')) {
@@ -1322,6 +1388,33 @@ async function initDatasetLoaderUI() {
 }
 
 // Initialize dataset loader when page has loaded
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize dataset loader and app when page has loaded
+document.addEventListener('DOMContentLoaded', async () => {
     try { initDatasetLoaderUI(); } catch (e) { /* ignore */ }
+
+    // Instantiate the main application that controls candidates/votacoes
+    try {
+        // create app instance and expose globally for page scripts
+        window.politicaApp = new PoliticaApp();
+
+        // If governmentAPI already exists, fetch the first server page so the
+        // candidates page uses server-side pagination/search immediately.
+        if (window.governmentAPI) {
+            try {
+                await window.politicaApp.fetchServerPage({}, 1, window.politicaApp.pageSize);
+            } catch (err) {
+                console.warn('Initial server fetch failed:', err);
+            }
+        } else {
+            // Wait for data updater to emit dadosAtualizados (fires when GovernmentAPI finishes loading)
+            const onDados = async () => {
+                if (window.governmentAPI) {
+                    try { await window.politicaApp.fetchServerPage({}, 1, window.politicaApp.pageSize); } catch(e) { /* ignore */ }
+                }
+            };
+            window.addEventListener('dadosAtualizados', onDados, { once: true });
+        }
+    } catch (err) {
+        console.warn('PoliticaApp init failed', err);
+    }
 });

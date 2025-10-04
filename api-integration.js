@@ -231,22 +231,38 @@ class GovernmentAPI {
         if (uf) query.siglaUf = uf;
         if (partido) query.siglaPartido = partido;
         if (ordenarPor) query.ordenarPor = ordenarPor;
+        // Perform fetch directly so we can inspect response headers for pagination
+        try {
+            const url = new URL(`${this.baseURLs.camara}/deputados`);
+            Object.keys(query).forEach(k => { if (query[k] !== undefined && query[k] !== null) url.searchParams.append(k, query[k]); });
 
-        const data = await this.fetchData('camara', '/deputados', query);
-        if (!data || !data.dados) return [];
+            const response = await fetch(url.toString(), { method: 'GET', headers: this.headers });
+            if (!response.ok) return { results: [], meta: { page, pageSize, total: null, hasMore: false } };
+            const data = await response.json();
 
-        return data.dados.map(deputado => ({
-            id: deputado.id,
-            nome: deputado.nome,
-            partido: deputado.siglaPartido,
-            estado: deputado.siglaUf,
-            foto: deputado.urlFoto,
-            email: deputado.email,
-            cargo: 'Deputado Federal',
-            ideologia: this.classificarIdeologia(deputado.siglaPartido),
-            dataNascimento: deputado.dataNascimento,
-            situacao: 'Exercício'
-        }));
+            const results = (data && data.dados ? data.dados : []).map(deputado => ({
+                id: deputado.id,
+                nome: deputado.nome,
+                partido: deputado.siglaPartido,
+                estado: deputado.siglaUf,
+                foto: deputado.urlFoto,
+                email: deputado.email,
+                cargo: 'Deputado Federal',
+                ideologia: this.classificarIdeologia(deputado.siglaPartido),
+                dataNascimento: deputado.dataNascimento,
+                situacao: 'Exercício'
+            }));
+
+            // Try to find total count from headers if present
+            const totalHeader = response.headers.get('X-Total-Count') || response.headers.get('x-total-count') || null;
+            const total = totalHeader ? parseInt(totalHeader, 10) : (data && data['dados'] && data['dados'].length ? null : null);
+            const hasMore = results.length >= pageSize;
+
+            return { results, meta: { page, pageSize, total, hasMore } };
+        } catch (err) {
+            console.error('searchDeputados error', err);
+            return { results: [], meta: { page, pageSize, total: null, hasMore: false } };
+        }
     }
 
     // Buscar senadores atuais
