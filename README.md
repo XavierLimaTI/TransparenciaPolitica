@@ -1,5 +1,8 @@
 # Política Transparente Brasil
 
+[![CI](https://github.com/XavierLimaTI/TransparenciaPolitica/actions/workflows/ci.yml/badge.svg)](https://github.com/XavierLimaTI/TransparenciaPolitica/actions/workflows/ci.yml)
+[![Codecov](https://codecov.io/gh/XavierLimaTI/TransparenciaPolitica/branch/main/graph/badge.svg?token=)](https://codecov.io/gh/XavierLimaTI/TransparenciaPolitica)
+
 ## Descrição
 
 Plataforma web inovadora dedicada à transparência política brasileira, permitindo que eleitores consultem informações detalhadas sobre candidatos, seus votos em matérias importantes da Câmara e Senado, e tomem decisões conscientes para as eleições de 2026.
@@ -102,6 +105,21 @@ Plataforma web inovadora dedicada à transparência política brasileira, permit
 2. **Explorar Votações**: Veja as votações recentes e como cada candidato se posicionou
 3. **Analisar Dados**: Explore os gráficos interativos e estatísticas
 4. **Favoritar**: Marque candidatos para acompanhar (os dados são salvos localmente)
+
+## Proxy de Desenvolvimento (local)
+
+Para rodar o proxy local recomendado (oferece rotas administrativas e fallback):
+
+```powershell
+npm install
+npm run start-proxy
+```
+
+Se preferir uma alternativa sem dependências, há um proxy leve em `server/proxy-light.js` que pode ser executado com:
+
+```powershell
+node server/proxy-light.js
+```
 
 ## Dados de Demonstração
 
