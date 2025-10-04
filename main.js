@@ -1587,10 +1587,26 @@ async function initDatasetLoaderUI() {
         const status = container.querySelector('#datasetStatus');
 
         manifest.files.forEach(f => {
-            if (!f || f === 'manifest.json' || f.endsWith('/manifest.json')) return;
+            if (!f) return;
+            // Support legacy format (string filenames) and new format ({csv,json,count})
+            let csvPath, jsonPath, label;
+            if (typeof f === 'string') {
+                if (f === 'manifest.json' || f.endsWith('/manifest.json')) return;
+                csvPath = f;
+                jsonPath = '/resources/data/' + f;
+                label = f;
+            } else if (typeof f === 'object') {
+                csvPath = f.csv || '';
+                jsonPath = f.json || ('/resources/data/' + (f.csv || ''));
+                label = f.csv || f.json || JSON.stringify(f);
+            } else {
+                return;
+            }
+
             const opt = document.createElement('option');
-            opt.value = '/resources/data/' + f;
-            opt.textContent = f;
+            opt.value = jsonPath;
+            opt.dataset.csv = csvPath;
+            opt.textContent = label;
             select.appendChild(opt);
         });
 
@@ -1606,7 +1622,18 @@ async function initDatasetLoaderUI() {
                     status.textContent = 'Arquivo ZIP detectado: extraia localmente e carregue o CSV.';
                     return;
                 }
-                const parsed = window.governmentAPI.loadDespesasFromCSV(text);
+                // If the file is a JSON produced by ingestion, parse it accordingly
+                let parsed;
+                try {
+                    const maybe = JSON.parse(text);
+                    if (maybe && Array.isArray(maybe.rows)) parsed = maybe.rows;
+                    else if (Array.isArray(maybe)) parsed = maybe;
+                    else parsed = window.governmentAPI.loadDespesasFromCSV ? window.governmentAPI.loadDespesasFromCSV(text) : [];
+                } catch (e) {
+                    // not JSON -> assume CSV
+                    parsed = window.governmentAPI.loadDespesasFromCSV ? window.governmentAPI.loadDespesasFromCSV(text) : [];
+                }
+
                 window.governmentAPI.useLocalDespesas(parsed);
                 status.textContent = `Carregado ${parsed.length} registros.`;
             } catch (err) {
@@ -1614,6 +1641,21 @@ async function initDatasetLoaderUI() {
                 status.textContent = 'Erro ao carregar dataset.';
             }
         });
+
+        // Auto-load despesas dataset if present (first time only)
+        try {
+            const options = Array.from(select.options);
+            const found = options.find(o => (o.dataset.csv || '').toLowerCase().endsWith('despesas.csv')) || options.find(o => o.textContent.toLowerCase().includes('despesas'));
+            if (found) {
+                // Trigger load silently
+                setTimeout(async () => {
+                    try {
+                        select.value = found.value;
+                        loadBtn.click();
+                    } catch (e) { /* ignore */ }
+                }, 300);
+            }
+        } catch (e) { /* ignore */ }
 
         clearBtn.addEventListener('click', () => {
             window.governmentAPI.useLocalDespesas([]);

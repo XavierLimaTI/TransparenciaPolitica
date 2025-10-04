@@ -1,0 +1,214 @@
+{
+  "files": [
+    {
+      "csv": "20250101_Despesas.zip_extracted/20250101_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/20250101_Despesas.zip_extracted__20250101_Despesas_Empenho.csv.json",
+      "count": 36
+    },
+    {
+      "csv": "20250101_Despesas.zip_extracted/20250101_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/20250101_Despesas.zip_extracted__20250101_Despesas_ItemEmpenho.csv.json",
+      "count": 83
+    },
+    {
+      "csv": "20250101_Despesas.zip_extracted/20250101_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/20250101_Despesas.zip_extracted__20250101_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 83
+    },
+    {
+      "csv": "20250101_Despesas.zip_extracted/20250101_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/20250101_Despesas.zip_extracted__20250101_Despesas_Liquidacao.csv.json",
+      "count": 81
+    },
+    {
+      "csv": "20250101_Despesas.zip_extracted/20250101_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/20250101_Despesas.zip_extracted__20250101_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 90
+    },
+    {
+      "csv": "20250101_Despesas.zip_extracted/20250101_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/20250101_Despesas.zip_extracted__20250101_Despesas_Pagamento.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "20250101_Despesas.zip_extracted/20250101_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/20250101_Despesas.zip_extracted__20250101_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "20250101_Despesas.zip_extracted/20250101_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/20250101_Despesas.zip_extracted__20250101_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "20250101_Despesas.zip_extracted/20250101_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/20250101_Despesas.zip_extracted__20250101_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "20250101_Despesas.zip_extracted/20250101_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/20250101_Despesas.zip_extracted__20250101_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "20250101_Despesas.zip_extracted/20250101_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/20250101_Despesas.zip_extracted__20250101_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "20250101_extracted/20250101_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/20250101_extracted__20250101_Despesas_Empenho.csv.json",
+      "count": 36
+    },
+    {
+      "csv": "20250101_extracted/20250101_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/20250101_extracted__20250101_Despesas_ItemEmpenho.csv.json",
+      "count": 83
+    },
+    {
+      "csv": "20250101_extracted/20250101_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/20250101_extracted__20250101_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 83
+    },
+    {
+      "csv": "20250101_extracted/20250101_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/20250101_extracted__20250101_Despesas_Liquidacao.csv.json",
+      "count": 81
+    },
+    {
+      "csv": "20250101_extracted/20250101_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/20250101_extracted__20250101_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 90
+    },
+    {
+      "csv": "20250101_extracted/20250101_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/20250101_extracted__20250101_Despesas_Pagamento.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "20250101_extracted/20250101_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/20250101_extracted__20250101_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "20250101_extracted/20250101_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/20250101_extracted__20250101_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "20250101_extracted/20250101_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/20250101_extracted__20250101_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "20250101_extracted/20250101_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/20250101_extracted__20250101_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "20250101_extracted/20250101_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/20250101_extracted__20250101_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "auxilio-brasil.csv",
+      "json": "/resources/data/ingested/auxilio-brasil.csv.json",
+      "count": 1160
+    },
+    {
+      "csv": "auxilio-emergencial.csv",
+      "json": "/resources/data/ingested/auxilio-emergencial.csv.json",
+      "count": 1191
+    },
+    {
+      "csv": "auxilio-reconstrucao.csv",
+      "json": "/resources/data/ingested/auxilio-reconstrucao.csv.json",
+      "count": 1145
+    },
+    {
+      "csv": "bolsa-familia-pagamentos.csv",
+      "json": "/resources/data/ingested/bolsa-familia-pagamentos.csv.json",
+      "count": 1251
+    },
+    {
+      "csv": "bolsa-familia-saques.csv",
+      "json": "/resources/data/ingested/bolsa-familia-saques.csv.json",
+      "count": 1250
+    },
+    {
+      "csv": "bpc.csv",
+      "json": "/resources/data/ingested/bpc.csv.json",
+      "count": 1224
+    },
+    {
+      "csv": "convenios.csv",
+      "json": "/resources/data/ingested/convenios.csv.json",
+      "count": 1145
+    },
+    {
+      "csv": "cpcc.csv",
+      "json": "/resources/data/ingested/cpcc.csv.json",
+      "count": 1239
+    },
+    {
+      "csv": "cpdc.csv",
+      "json": "/resources/data/ingested/cpdc.csv.json",
+      "count": 1296
+    },
+    {
+      "csv": "cpgf.csv",
+      "json": "/resources/data/ingested/cpgf.csv.json",
+      "count": 1297
+    },
+    {
+      "csv": "despesas-execucao.csv",
+      "json": "/resources/data/ingested/despesas-execucao.csv.json",
+      "count": 1285
+    },
+    {
+      "csv": "despesas-favorecidos.csv",
+      "json": "/resources/data/ingested/despesas-favorecidos.csv.json",
+      "count": 1286
+    },
+    {
+      "csv": "despesas.csv",
+      "json": "/resources/data/ingested/despesas.csv.json",
+      "count": 5413
+    },
+    {
+      "csv": "favorecidos-pj.csv",
+      "json": "/resources/data/ingested/favorecidos-pj.csv.json",
+      "count": 1145
+    },
+    {
+      "csv": "garantia-safra.csv",
+      "json": "/resources/data/ingested/garantia-safra.csv.json",
+      "count": 1293
+    },
+    {
+      "csv": "novo-bolsa-familia.csv",
+      "json": "/resources/data/ingested/novo-bolsa-familia.csv.json",
+      "count": 1174
+    },
+    {
+      "csv": "pe-de-meia.csv",
+      "json": "/resources/data/ingested/pe-de-meia.csv.json",
+      "count": 1157
+    },
+    {
+      "csv": "peti.csv",
+      "json": "/resources/data/ingested/peti.csv.json",
+      "count": 1257
+    },
+    {
+      "csv": "seguro-defeso.csv",
+      "json": "/resources/data/ingested/seguro-defeso.csv.json",
+      "count": 1296
+    },
+    {
+      "csv": "transferencias.csv",
+      "json": "/resources/data/ingested/transferencias.csv.json",
+      "count": 1285
+    }
+  ]
+}
