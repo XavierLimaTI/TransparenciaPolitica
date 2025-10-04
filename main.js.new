@@ -1,0 +1,34 @@
+// Minimal main.js loader for PoliticaApp
+// This file keeps runtime logic intentionally minimal so it can be safely
+// loaded inside the Node VM used by tests. The full browser UI implementation
+// remains in the original codebase; tests rely on lib/politica-app.js.
+
+const _views = (typeof require !== 'undefined') ? (() => { try { return require('./lib/views'); } catch (e) { return (typeof window !== 'undefined' ? window.Views : null); } })() : (typeof window !== 'undefined' ? window.Views : null);
+const _uiHelpers = (typeof require !== 'undefined') ? (() => { try { return require('./lib/ui-helpers'); } catch (e) { return (typeof window !== 'undefined' ? window.UIHelpers : null); } })() : (typeof window !== 'undefined' ? window.UIHelpers : null);
+
+let PoliticaApp = null;
+try {
+    if (typeof module !== 'undefined' && module.exports) {
+        PoliticaApp = require('./lib/politica-app');
+    }
+} catch (e) {
+    // ignore
+}
+
+if (!PoliticaApp && typeof window !== 'undefined' && window.PoliticaApp) PoliticaApp = window.PoliticaApp;
+
+// Export for Node tests
+if (typeof module !== 'undefined' && module.exports) module.exports = PoliticaApp;
+
+// Attach minimal shims to window so the rest of the browser code can call them
+if (typeof window !== 'undefined') {
+    window.showProxyBanner = window.showProxyBanner || function() { if (_views && _views.showProxyBanner) return _views.showProxyBanner(); };
+    window.showLocalDataBanner = window.showLocalDataBanner || function() { if (_views && _views.showLocalDataBanner) return _views.showLocalDataBanner(); };
+    window.initDatasetLoaderUI = window.initDatasetLoaderUI || function() { if (_views && _views.initDatasetLoaderUI) return _views.initDatasetLoaderUI(); };
+    window.carregarDadosReais = window.carregarDadosReais || async function() { return false; };
+    window.mostrarNotificacao = window.mostrarNotificacao || function(msg, type) { console.log('notificacao:', type, msg); };
+    window.showLoadingSpinner = window.showLoadingSpinner || function(){};
+    window.hideLoadingSpinner = window.hideLoadingSpinner || function(){};
+
+    try { if (PoliticaApp && document && document.readyState === 'complete') { window.politicaApp = new PoliticaApp(); } } catch (e) { /* ignore */ }
+}
