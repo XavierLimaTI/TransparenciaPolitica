@@ -62,6 +62,9 @@ class GovernmentAPI {
         }
 
         try {
+            if (typeof window !== 'undefined' && typeof window.showGlobalSpinner === 'function') {
+                try { window.showGlobalSpinner(`Carregando ${endpoint}...`); } catch (e) {}
+            }
             const url = new URL(`${this.baseURLs[base]}${endpoint}`);
             Object.keys(params).forEach(key => {
                 if (params[key]) url.searchParams.append(key, params[key]);
@@ -80,9 +83,15 @@ class GovernmentAPI {
 
             const data = await response.json();
             this.setCache(cacheKey, data);
-            
+            if (typeof window !== 'undefined' && typeof window.hideGlobalSpinner === 'function') {
+                try { window.hideGlobalSpinner(); } catch (e) {}
+            }
+
             return data;
         } catch (error) {
+            if (typeof window !== 'undefined' && typeof window.hideGlobalSpinner === 'function') {
+                try { window.hideGlobalSpinner(); } catch (e) {}
+            }
             console.error(`Error fetching ${endpoint}:`, error);
             return null;
         }
@@ -118,6 +127,9 @@ class GovernmentAPI {
         while (attempt < maxAttempts) {
             attempt++;
             try {
+                if (typeof window !== 'undefined' && typeof window.showGlobalSpinner === 'function') {
+                    try { window.showGlobalSpinner('Consultando Portal da Transparência...'); } catch (e) {}
+                }
                 const response = await fetch(url.toString(), { method: 'GET', headers });
 
                 if (response.status === 429) {
@@ -134,8 +146,14 @@ class GovernmentAPI {
                 }
 
                 const data = await response.json();
+                if (typeof window !== 'undefined' && typeof window.hideGlobalSpinner === 'function') {
+                    try { window.hideGlobalSpinner(); } catch (e) {}
+                }
                 return data;
             } catch (err) {
+                if (typeof window !== 'undefined' && typeof window.hideGlobalSpinner === 'function') {
+                    try { window.hideGlobalSpinner(); } catch (e) {}
+                }
                 console.error(`Portal fetch attempt ${attempt} error:`, err);
                 if (attempt >= maxAttempts) return null;
                 const backoff = 300 * Math.pow(2, attempt);

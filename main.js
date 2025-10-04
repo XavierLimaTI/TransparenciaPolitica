@@ -781,13 +781,58 @@ class PoliticaApp {
 
                         if (window.echarts) {
                             const chart = window.echarts.init(chartEl);
+                            const names = top.map(t => t.nome);
+                            const vals = top.map(t => Math.round(t.valor * 100) / 100);
                             const option = {
                                 tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
-                                xAxis: { type: 'category', data: top.map(t => t.nome), axisLabel: { interval: 0, rotate: 30 } },
+                                xAxis: { type: 'category', data: names, axisLabel: { interval: 0, rotate: 30 } },
                                 yAxis: { type: 'value', axisLabel: { formatter: value => 'R$ ' + Number(value).toLocaleString('pt-BR') } },
-                                series: [{ type: 'bar', data: top.map(t => Math.round(t.valor * 100) / 100), itemStyle: { color: '#f59e0b' } }]
+                                series: [{ type: 'bar', data: vals, itemStyle: { color: '#f59e0b' } }]
                             };
                             chart.setOption(option);
+
+                            // Add click handler to drilldown into monthly series for a favorecido
+                            chart.on('click', async (params) => {
+                                try {
+                                    const favorecido = params.name;
+                                    // aggregate monthly series from current despesas
+                                    const despesas = window.__lastDespesasLoaded || [];
+                                    const byMonth = {};
+                                    despesas.forEach(d => {
+                                        const key = favorecido;
+                                        if ((d.favorecido || d.descricao || '').toString().includes(favorecido)) {
+                                            const dt = new Date(d.dataDocumento || d.data || d.dataDocumento || Date.now());
+                                            const monthKey = `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}`;
+                                            byMonth[monthKey] = (byMonth[monthKey] || 0) + Number(d.valor || 0);
+                                        }
+                                    });
+
+                                    const months = Object.keys(byMonth).sort();
+                                    const series = months.map(m => Math.round((byMonth[m] || 0) * 100)/100);
+
+                                    // create modal with a small chart
+                                    const modalHtml = `<div style="max-width:800px;min-width:320px;background:white;padding:16px;border-radius:8px;">
+                                        <h3 style="font-size:18px;margin-bottom:8px;">Gastos de ${favorecido} por mês</h3>
+                                        <div id="drillChart" style="width:100%;height:300px"></div>
+                                        <div style="text-align:right;margin-top:8px;"><button id="closeDrill" style="padding:6px 10px;background:#ef4444;color:white;border-radius:6px;border:none;">Fechar</button></div>
+                                    </div>`;
+
+                                    createModal(modalHtml);
+                                    setTimeout(() => {
+                                        const el = document.getElementById('drillChart');
+                                        if (!el) return;
+                                        const c = window.echarts.init(el);
+                                        c.setOption({
+                                            tooltip: { trigger: 'axis' },
+                                            xAxis: { type: 'category', data: months },
+                                            yAxis: { type: 'value', axisLabel: { formatter: v => 'R$ ' + Number(v).toLocaleString('pt-BR') } },
+                                            series: [{ type: 'line', data: series, smooth: true }]
+                                        });
+                                        const closeBtn = document.getElementById('closeDrill');
+                                        if (closeBtn) closeBtn.addEventListener('click', () => { const m = document.querySelector('.modal-root'); if (m) m.remove(); });
+                                    }, 80);
+                                } catch (err) { console.warn('drilldown error', err); }
+                            });
                         }
                     } catch (err) {
                         console.warn('Erro ao renderizar gráfico de gastos', err);
@@ -1271,6 +1316,40 @@ function showProxyBanner() {
     
     // Auto-hide depois de 12s
     setTimeout(() => b.remove(), 12000);
+}
+
+// Global spinner utilities (small, unobtrusive)
+function ensureGlobalSpinner() {
+    if (document.getElementById('globalSpinner')) return;
+    const s = document.createElement('div');
+    s.id = 'globalSpinner';
+    s.style.position = 'fixed';
+    s.style.left = '50%';
+    s.style.top = '10%';
+    s.style.transform = 'translateX(-50%)';
+    s.style.zIndex = '9999';
+    s.style.display = 'none';
+    s.innerHTML = `<div style="background:#fff;padding:8px 12px;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,0.12);display:flex;align-items:center;gap:10px;font-family:Inter, sans-serif;font-size:14px;"><div style="width:18px;height:18px;border:3px solid #c7d2fe;border-top-color:#4f46e5;border-radius:50%;animation:spin 1s linear infinite"></div><div id="globalSpinnerMsg">Carregando...</div></div>`;
+    document.body.appendChild(s);
+    // Add simple keyframe for spin
+    const style = document.createElement('style');
+    style.innerHTML = `@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}`;
+    document.head.appendChild(style);
+}
+
+function showGlobalSpinner(msg) {
+    try {
+        ensureGlobalSpinner();
+        const s = document.getElementById('globalSpinner');
+        if (!s) return;
+        const msgEl = document.getElementById('globalSpinnerMsg');
+        if (msg && msgEl) msgEl.textContent = msg;
+        s.style.display = '';
+    } catch (e) { console.warn(e); }
+}
+
+function hideGlobalSpinner() {
+    try { const s = document.getElementById('globalSpinner'); if (s) s.style.display = 'none'; } catch (e) {}
 }
 
 // Função para criar controles do footer

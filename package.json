@@ -17,6 +17,7 @@
     "verify-proxy": "node scripts/verify-proxy.js",
     "test": "node scripts/test-csv-parse.js",
   "smoke": "node scripts/test-csv-parse.js && npx http-server -c-1 -p 8000 & echo 'Server started'",
+  "smoke:e2e": "node scripts/smoke-e2e.js",
     "test:unit": "jest"
   },
   "keywords": [
