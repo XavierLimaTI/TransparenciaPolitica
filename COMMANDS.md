@@ -146,6 +146,66 @@ npm test
 npm run test:unit
 ```
 
+## Despesas, drilldown e comandos relacionados
+
+Os recursos de despesas e drilldown são acessados pela UI (abra um candidato e clique em "Ver gastos"). Abaixo seguem comandos e ações úteis para testar e operar esse fluxo localmente.
+
+- Iniciar proxy local (insere header do Portal da Transparência):
+
+```powershell
+npm run start-proxy
+# ou
+node server/proxy.js
+```
+
+- Servir a aplicação (dev):
+
+```powershell
+npx http-server -c-1 -p 8000
+# abra http://localhost:8000/candidatos.html
+```
+
+- Salvar uma chave do Portal diretamente na proxy (útil para testes automáticos):
+
+```powershell
+node scripts/post-proxy-key.js "SUA_CHAVE_AQUI"
+```
+
+- Smoke E2E (inicia proxy + servidor e checa páginas básicas):
+
+```powershell
+npm run smoke:e2e
+```
+
+- Smoke parser (rápido):
+
+```powershell
+npm test
+```
+
+- Exportar despesas carregadas (via UI):
+
+  - Abra um candidato → Ver gastos → clicar em "Baixar CSV" (botão no modal).
+
+- Exportar DB / snapshot:
+
+```powershell
+node scripts/export-db-to-json.js
+```
+
+- Git & release local (tag):
+
+```powershell
+# Commit
+git add -A
+git commit -m "feat: melhorias despesas, drilldown, spinner e testes"
+# Criar tag local
+git tag v1.1.0
+# Enviar para o remoto (se desejar)
+git push origin main
+git push origin v1.1.0
+```
+
 ## Admin / UI
 
 - Página admin para gerenciar datasets (pré-visualizar / carregar no app):
@@ -191,10 +251,13 @@ Isso cria um snapshot dos metadados (`portal_key` e `datasets`) útil para backu
 
 - Estado atual recomendado: usar SQLite como fonte de verdade local (mais robusto). O proxy já tenta `better-sqlite3` primeiro e só usa o fallback JSON se SQLite não estiver disponível.
 
-- Como reverter para JSON-only (desaconselhado para dados maiores):
-  1. Pare o proxy.
- 2. Apague ou mova `server/data.db` e `server/db.json.migrated` (ou renomeie para `server/db.json` se quiser restaurar o backup).
- 3. Reinicie o proxy; ele voltará a usar `server/db.json`.
+### Como reverter para JSON-only (desaconselhado para dados maiores)
+
+1. Pare o proxy.
+
+2. Apague ou mova `server/data.db` e `server/db.json.migrated` (ou renomeie para `server/db.json` se quiser restaurar o backup).
+
+3. Reinicie o proxy; ele voltará a usar `server/db.json`.
 
 - Como habilitar SQLite (se ainda não instalado):
   - No Windows a forma mais simples é usar WSL/Ubuntu e instalar Node ali, depois executar `npm install` no projeto; outra alternativa é instalar as Visual Studio Build Tools + Python e rodar `npm i better-sqlite3` no PowerShell. Se quiser, eu documentarei o passo a passo no seu ambiente.
