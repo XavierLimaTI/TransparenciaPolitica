@@ -122,3 +122,5 @@ Thumbs.db
 
 # Do not commit local persisted portal API key
 server/portal_key.json
+server/data.db
+server/db.json

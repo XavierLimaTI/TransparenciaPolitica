@@ -1,44 +1,79 @@
 async function loadManifest() {
   try {
-    const r = await fetch('/resources/data/manifest.json');
+    // Show key status
+    try {
+      const k = await fetch('/admin/key');
+      if (k.ok) {
+        const jk = await k.json();
+        const s = document.createElement('div');
+        s.textContent = 'Chave configurada: ' + (jk.keyPresent ? 'Sim' : 'Não');
+        s.style.marginBottom = '12px';
+        document.getElementById('datasets').appendChild(s);
+      }
+    } catch (e) {
+      // ignore
+    }
+
+    const r = await fetch('/admin/datasets');
     if (!r.ok) return document.getElementById('datasets').textContent = 'Nenhum dataset disponível.';
-    const m = await r.json();
+    const j = await r.json();
+    const list = j.datasets || [];
     const container = document.getElementById('datasets');
     container.innerHTML = '';
-    m.files.forEach(f => {
-      if (!f || f.endsWith('manifest.json')) return;
+    if (list.length === 0) container.textContent = 'Nenhum dataset registrado.';
+    list.forEach(item => {
       const d = document.createElement('div');
       d.style.marginBottom = '8px';
-      const btn = document.createElement('button');
-      btn.textContent = 'Pré-visualizar';
-      btn.style.marginRight = '8px';
-      btn.addEventListener('click', async () => {
-        const p = await fetch('/resources/data/' + f);
-        const txt = await p.text();
-        document.getElementById('preview').textContent = txt.split(/\r?\n/).slice(0,50).join('\n');
+      d.textContent = item.path + ' — rows: ' + (item.row_count || 0) + ' — updated: ' + (item.updated_at || '');
+      const del = document.createElement('button');
+      del.textContent = 'Remover metadata';
+      del.style.marginLeft = '8px';
+      del.addEventListener('click', async () => {
+        if (!confirm('Remover metadata para ' + item.path + '?')) return;
+        await fetch('/admin/dataset/delete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ path: item.path, deleteFiles: false }) });
+        loadManifest();
       });
-      const loadBtn = document.createElement('button');
-      loadBtn.textContent = 'Carregar no app';
-      loadBtn.style.marginRight = '8px';
-      loadBtn.addEventListener('click', async () => {
-        const p = await fetch('/resources/data/' + f);
-        const txt = await p.text();
-        if (window.opener && window.opener.governmentAPI && typeof window.opener.governmentAPI.loadDespesasFromCSV === 'function') {
-          const parsed = window.opener.governmentAPI.loadDespesasFromCSV(txt);
-          window.opener.governmentAPI.useLocalDespesas(parsed);
-          alert('Carregado ' + parsed.length + ' registros no app (janela anterior).');
-        } else {
-          alert('Abra a aplicação em outra aba e tente novamente para carregar no app.');
-        }
+      const delFile = document.createElement('button');
+      delFile.textContent = 'Remover arquivo';
+      delFile.style.marginLeft = '8px';
+      delFile.addEventListener('click', async () => {
+        if (!confirm('Remover arquivo e metadata para ' + item.path + '?')) return;
+        await fetch('/admin/dataset/delete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ path: item.path, deleteFiles: true }) });
+        loadManifest();
       });
-      d.textContent = f + ' ';
-      d.appendChild(btn);
-      d.appendChild(loadBtn);
+      d.appendChild(del);
+      d.appendChild(delFile);
       container.appendChild(d);
     });
   } catch (e) {
-    document.getElementById('datasets').textContent = 'Erro ao carregar manifest.';
+    document.getElementById('datasets').textContent = 'Erro ao carregar datasets.';
   }
 }
 
 loadManifest();
+
+// Admin token handling
+let ADMIN_TOKEN = null;
+document.getElementById('saveToken').addEventListener('click', () => {
+  ADMIN_TOKEN = document.getElementById('adminToken').value || null;
+  alert('Token salvo na sessão (não persistido).');
+});
+
+async function authFetch(url, opts = {}) {
+  opts.headers = opts.headers || {};
+  if (ADMIN_TOKEN) opts.headers['x-proxy-admin'] = ADMIN_TOKEN;
+  return fetch(url, opts);
+}
+
+document.getElementById('setKey').addEventListener('click', async () => {
+  const k = prompt('Cole sua chave do Portal da Transparência:');
+  if (!k) return;
+  await authFetch('/set-key', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ key: k }) });
+  alert('Chave enviada ao proxy.');
+});
+
+document.getElementById('unsetKey').addEventListener('click', async () => {
+  if (!confirm('Remover a chave do proxy?')) return;
+  await authFetch('/unset-key', { method: 'POST' });
+  alert('Chave removida.');
+});

@@ -11,15 +11,37 @@ const KEY_FILE = path.resolve(__dirname, 'portal_key.json');
 
 // DB integration (optional)
 let db = null;
-const USE_DB = String(process.env.USE_DB || '').toLowerCase() === 'true';
-if (USE_DB) {
-  try {
-    db = require('./db');
-    db.init();
-  } catch (e) {
-    console.warn('Could not initialize DB, falling back to file persistence:', e && e.message);
-    db = null;
+try {
+  db = require('./db');
+  db.init();
+} catch (e) {
+  console.warn('Could not initialize DB module:', e && e.message);
+  db = null;
+}
+
+// Auto-migrate existing portal_key.json into DB/json store on startup (best-effort)
+try {
+  if (db) {
+    const fileKeyExists = fs.existsSync(KEY_FILE);
+    if (fileKeyExists) {
+      try {
+        const raw = fs.readFileSync(KEY_FILE, 'utf8');
+        const parsed = JSON.parse(raw || '{}');
+        if (parsed && parsed.key) {
+          // only set in DB if not already present
+          const existing = db.getPortalKey();
+          if (!existing) {
+            db.setPortalKey(parsed.key);
+            console.log('Migrated portal_key.json into DB store');
+          }
+        }
+      } catch (e) {
+        console.warn('Failed to migrate portal_key.json:', e && e.message);
+      }
+    }
   }
+} catch (e) {
+  // ignore
 }
 
 // Load persisted key if present (DB first, then file)
@@ -165,6 +187,33 @@ app.post('/extract-zip', (req, res) => {
       }
     }
 
+    // After extraction, scan for CSV files and record metadata
+    try {
+      const csvFiles = [];
+      function walkForCsv(dir) {
+        for (const f of fs.readdirSync(dir)) {
+          const p = path.join(dir, f);
+          const st = fs.statSync(p);
+          if (st.isDirectory()) walkForCsv(p);
+          else if (f.toLowerCase().endsWith('.csv')) csvFiles.push(p);
+        }
+      }
+      walkForCsv(extractDir);
+      for (const csv of csvFiles) {
+        // count lines (simple)
+        try {
+          const data = fs.readFileSync(csv, 'utf8');
+          const rows = data.split(/\r?\n/).filter(Boolean).length;
+          const rel = path.relative(path.resolve(__dirname, '..', 'resources', 'data'), csv).replace(/\\\\/g, '/');
+          if (db) db.upsertDataset(rel, 1, rows);
+        } catch (e) {
+          console.warn('Could not ingest CSV', csv, e && e.message);
+        }
+      }
+    } catch (e) {
+      console.warn('Post-extract ingestion failed', e && e.message);
+    }
+
     return res.json({ ok: true, extractedTo: extractDir });
   } catch (err) {
     console.error('extract-zip error', err);
@@ -174,3 +223,59 @@ app.post('/extract-zip', (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Portal proxy server listening on http://localhost:${PORT}`));
+
+// Admin endpoints
+app.get('/admin/key', (req, res) => {
+  if (ADMIN_TOKEN) {
+    const provided = req.get('x-proxy-admin');
+    if (!provided || provided !== ADMIN_TOKEN) return res.status(403).json({ error: 'forbidden', message: 'invalid admin token' });
+  }
+  try {
+    const keyPresent = !!portalKey;
+    return res.json({ keyPresent });
+  } catch (e) {
+    return res.status(500).json({ error: 'internal' });
+  }
+});
+
+app.get('/admin/datasets', (req, res) => {
+  if (ADMIN_TOKEN) {
+    const provided = req.get('x-proxy-admin');
+    if (!provided || provided !== ADMIN_TOKEN) return res.status(403).json({ error: 'forbidden', message: 'invalid admin token' });
+  }
+  try {
+    if (!db) return res.json({ datasets: [] });
+    const d = db.listDatasets();
+    return res.json({ datasets: d });
+  } catch (e) {
+    return res.status(500).json({ error: 'internal' });
+  }
+});
+
+app.post('/admin/dataset/delete', (req, res) => {
+  if (ADMIN_TOKEN) {
+    const provided = req.get('x-proxy-admin');
+    if (!provided || provided !== ADMIN_TOKEN) return res.status(403).json({ error: 'forbidden', message: 'invalid admin token' });
+  }
+  try {
+    const { path: p, deleteFiles } = req.body || {};
+    if (!p) return res.status(400).json({ error: 'missing_path' });
+    if (!db) return res.status(400).json({ error: 'no_db' });
+    // remove metadata
+    db.deleteDataset(p);
+    // optionally remove files from resources/data
+    if (deleteFiles) {
+      const abs = path.resolve(__dirname, '..', 'resources', 'data', p);
+      if (abs.startsWith(path.resolve(__dirname, '..', 'resources', 'data'))) {
+        try {
+          if (fs.existsSync(abs)) fs.unlinkSync(abs);
+        } catch (e) {
+          console.warn('Could not delete file', abs, e && e.message);
+        }
+      }
+    }
+    return res.json({ ok: true });
+  } catch (e) {
+    return res.status(500).json({ error: 'internal' });
+  }
+});

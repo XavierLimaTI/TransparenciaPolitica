@@ -8,6 +8,14 @@
 </head>
 <body>
   <h1>Admin - Datasets locais</h1>
+  <div>
+    <label>Admin token (se configurado): <input id="adminToken" type="text" placeholder="x-proxy-admin token" style="width:300px"/></label>
+    <button id="saveToken">Usar token</button>
+  </div>
+  <div style="margin-top:12px;">
+    <button id="setKey">Definir chave Portal (prompt)</button>
+    <button id="unsetKey">Remover chave Portal</button>
+  </div>
   <div id="datasets"></div>
   <pre id="preview" style="white-space:pre-wrap; border:1px solid #ddd; padding:8px; max-height:400px; overflow:auto;"></pre>
   <script src="/admin.js"></script>

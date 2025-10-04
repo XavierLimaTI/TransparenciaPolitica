@@ -65,6 +65,27 @@ node scripts/unset-proxy-key.js
 node scripts/verify-proxy.js
 ```
 
+### Usar armazenamento local (DB)
+
+O proxy agora pode persistir a chave e metadados em um banco local. Duas opções:
+
+- JSON (fallback, padrão): o proxy grava em `server/db.json` automaticamente.
+- SQLite (opcional): utilize `better-sqlite3` para um DB local mais robusto.
+
+Ativar SQLite (se você instalou `better-sqlite3`):
+
+```powershell
+$env:USE_DB = 'true'
+node server/proxy.js
+```
+
+Para migrar manualmente uma chave existente de `server/portal_key.json` para o novo armazenamento:
+
+```powershell
+node scripts/migrate-key-to-db.js
+```
+
+
 ### Endpoints úteis do proxy
 
 - Listar arquivos de dataset disponíveis no servidor (resources/data):

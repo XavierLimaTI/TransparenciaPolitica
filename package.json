@@ -30,7 +30,6 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "better-sqlite3": "^8.1.0"
   },
   "devDependencies": {
     "cors": "^2.8.5",
@@ -42,6 +41,5 @@
   },
   "jest": {
     "testEnvironment": "jsdom"
-  },
-}
+  }
 }
