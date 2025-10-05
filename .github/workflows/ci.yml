@@ -38,7 +38,7 @@ jobs:
       - name: Sanity check @playwright/test
         run: |
           echo "Checking @playwright/test..."
-          npm ls @playwright/test || npm install --no-save @playwright/test@^1.55.1
+          npm ls @playwright/test || echo "@playwright/test not found"
 
 
       - name: Run unit tests (Jest)
@@ -92,7 +92,7 @@ jobs:
       - name: Sanity check @playwright/test (e2e)
         run: |
           echo "Checking @playwright/test for e2e..."
-          npm ls @playwright/test || npm install --no-save @playwright/test@^1.55.1
+          npm ls @playwright/test || echo "@playwright/test not found"
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4
