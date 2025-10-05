@@ -34,8 +34,6 @@ jobs:
         env:
           NODE_ENV: development
 
-      - name: Ensure @playwright/test is available (fallback)
-        run: npm install --no-save @playwright/test@^1.55.1
 
       - name: Run unit tests (Jest)
         run: npm test --silent
@@ -81,8 +79,6 @@ jobs:
         env:
           NODE_ENV: development
 
-      - name: Ensure @playwright/test is available (fallback)
-        run: npm install --no-save @playwright/test@^1.55.1
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
