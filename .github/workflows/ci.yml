@@ -102,5 +102,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-playwright-
 
+      - name: E2E debug info
+        run: |
+          echo "Node version:" && node -v
+          echo "NPM version:" && npm -v
+          echo "@playwright/test status:" && npm ls @playwright/test || true
+          echo "Playwright package version:" && npm ls playwright || true
+          echo "List node_modules playwright-related:" && ls -la node_modules | grep playwright || true
+
       - name: Run Playwright tests
         run: npx playwright test tests/e2e --reporter=github
