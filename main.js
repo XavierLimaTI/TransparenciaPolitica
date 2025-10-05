@@ -31,6 +31,60 @@ if (typeof window !== 'undefined') {
     // expose createPortalKeyModal if ui helpers available
     try { if (_uiHelpers && typeof _uiHelpers.createPortalKeyModal === 'function') window.createPortalKeyModal = _uiHelpers.createPortalKeyModal; } catch (e) {}
 
-    try { if (PoliticaApp && document && document.readyState === 'complete') { window.politicaApp = new PoliticaApp(); } } catch (e) { /* ignore */ }
+    // Expose a GovernmentAPI instance for quick console/dev use
+    try {
+        if (typeof window.GovernmentAPI === 'function' && !window.governmentAPI) {
+            try { window.governmentAPI = new window.GovernmentAPI(); } catch (e) { /* ignore */ }
+        }
+    } catch (e) {}
+
+    // Provide an async initializer that can be awaited from the console safely
+    window.initPoliticaApp = window.initPoliticaApp || (async function() {
+        if (window.politicaApp) return window.politicaApp;
+        if (typeof PoliticaApp === 'function') {
+            try {
+                window.politicaApp = new PoliticaApp();
+                if (typeof window.politicaApp.init === 'function') await window.politicaApp.init();
+            } catch (e) {
+                console.error('Falha ao inicializar PoliticaApp:', e);
+            }
+            return window.politicaApp;
+        }
+        throw new Error('PoliticaApp não disponível');
+    });
+
+    // Ensure we initialize after DOM is ready — either immediately or on DOMContentLoaded
+    try {
+        if (typeof document !== 'undefined') {
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                // try to initialize, but don't block if errors happen
+                (async () => { try { await window.initPoliticaApp(); } catch (e) {} })();
+            } else {
+                document.addEventListener('DOMContentLoaded', function() { (async () => { try { await window.initPoliticaApp(); } catch (e) {} })(); });
+            }
+        }
+    } catch (e) { /* ignore */ }
+
+    // Auto-load local CSVs in development or when served from localhost
+    try {
+        (async () => {
+            const isLocalHost = typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+            const isDevEnv = (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'development');
+            if (!isLocalHost && !isDevEnv) return;
+            if (!window.governmentAPI || typeof window.governmentAPI.loadDespesasFromCSV !== 'function' || typeof window.governmentAPI.useLocalDespesas !== 'function') return;
+            try {
+                const path = '/resources/data/despesas.csv';
+                const resp = await fetch(path);
+                if (!resp.ok) { console.warn('Auto-load CSV: arquivo não encontrado em', path); return; }
+                const txt = await resp.text();
+                const parsed = window.governmentAPI.loadDespesasFromCSV(txt);
+                window.governmentAPI.useLocalDespesas(parsed);
+                console.log('Auto-loaded local despesas:', Array.isArray(parsed) ? parsed.length : 'unknown');
+                try { window.showLocalDataBanner && window.showLocalDataBanner(); } catch (e) {}
+            } catch (err) {
+                console.warn('Falha ao auto-carregar CSV local:', err);
+            }
+        })();
+    } catch (e) { /* ignore */ }
 }
  

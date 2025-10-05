@@ -1,0 +1,420 @@
+﻿2025-10-05T00:43:53.1069289Z Current runner version: '2.328.0'
+2025-10-05T00:43:53.1100694Z ##[group]Runner Image Provisioner
+2025-10-05T00:43:53.1101554Z Hosted Compute Agent
+2025-10-05T00:43:53.1102071Z Version: 20250912.392
+2025-10-05T00:43:53.1102670Z Commit: d921fda672a98b64f4f82364647e2f10b2267d0b
+2025-10-05T00:43:53.1103358Z Build Date: 2025-09-12T15:23:14Z
+2025-10-05T00:43:53.1103957Z ##[endgroup]
+2025-10-05T00:43:53.1104466Z ##[group]Operating System
+2025-10-05T00:43:53.1105067Z Ubuntu
+2025-10-05T00:43:53.1105819Z 24.04.3
+2025-10-05T00:43:53.1106244Z LTS
+2025-10-05T00:43:53.1106733Z ##[endgroup]
+2025-10-05T00:43:53.1107198Z ##[group]Runner Image
+2025-10-05T00:43:53.1107769Z Image: ubuntu-24.04
+2025-10-05T00:43:53.1108211Z Version: 20250929.60.1
+2025-10-05T00:43:53.1109306Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250929.60/images/ubuntu/Ubuntu2404-Readme.md
+2025-10-05T00:43:53.1110834Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250929.60
+2025-10-05T00:43:53.1111829Z ##[endgroup]
+2025-10-05T00:43:53.1112938Z ##[group]GITHUB_TOKEN Permissions
+2025-10-05T00:43:53.1114991Z Contents: read
+2025-10-05T00:43:53.1115751Z Metadata: read
+2025-10-05T00:43:53.1116211Z Packages: read
+2025-10-05T00:43:53.1116788Z ##[endgroup]
+2025-10-05T00:43:53.1119028Z Secret source: Actions
+2025-10-05T00:43:53.1119676Z Prepare workflow directory
+2025-10-05T00:43:53.1529125Z Prepare all required actions
+2025-10-05T00:43:53.1584568Z Getting action download info
+2025-10-05T00:43:53.4694002Z Download action repository 'actions/checkout@v4' (SHA:08eba0b27e820071cde6df949e0beb9ba4906955)
+2025-10-05T00:43:53.6814381Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2025-10-05T00:43:53.8321494Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2025-10-05T00:43:54.2750484Z Download action repository 'codecov/codecov-action@v4' (SHA:b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238)
+2025-10-05T00:43:54.6856724Z Complete job name: Unit tests (Jest)
+2025-10-05T00:43:54.7540475Z ##[group]Run actions/checkout@v4
+2025-10-05T00:43:54.7541335Z with:
+2025-10-05T00:43:54.7541791Z   repository: XavierLimaTI/TransparenciaPolitica
+2025-10-05T00:43:54.7542505Z   token: ***
+2025-10-05T00:43:54.7542888Z   ssh-strict: true
+2025-10-05T00:43:54.7543264Z   ssh-user: git
+2025-10-05T00:43:54.7543654Z   persist-credentials: true
+2025-10-05T00:43:54.7544084Z   clean: true
+2025-10-05T00:43:54.7544478Z   sparse-checkout-cone-mode: true
+2025-10-05T00:43:54.7544949Z   fetch-depth: 1
+2025-10-05T00:43:54.7545494Z   fetch-tags: false
+2025-10-05T00:43:54.7545894Z   show-progress: true
+2025-10-05T00:43:54.7546295Z   lfs: false
+2025-10-05T00:43:54.7546658Z   submodules: false
+2025-10-05T00:43:54.7547040Z   set-safe-directory: true
+2025-10-05T00:43:54.7547754Z ##[endgroup]
+2025-10-05T00:43:54.8584994Z Syncing repository: XavierLimaTI/TransparenciaPolitica
+2025-10-05T00:43:54.8587442Z ##[group]Getting Git version info
+2025-10-05T00:43:54.8588416Z Working directory is '/home/runner/work/TransparenciaPolitica/TransparenciaPolitica'
+2025-10-05T00:43:54.8589690Z [command]/usr/bin/git version
+2025-10-05T00:43:54.8672602Z git version 2.51.0
+2025-10-05T00:43:54.8698370Z ##[endgroup]
+2025-10-05T00:43:54.8712071Z Temporarily overriding HOME='/home/runner/work/_temp/d9d16156-3e96-4c77-ae02-173197907847' before making global git config changes
+2025-10-05T00:43:54.8714192Z Adding repository directory to the temporary git global config as a safe directory
+2025-10-05T00:43:54.8724682Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TransparenciaPolitica/TransparenciaPolitica
+2025-10-05T00:43:54.8760375Z Deleting the contents of '/home/runner/work/TransparenciaPolitica/TransparenciaPolitica'
+2025-10-05T00:43:54.8763604Z ##[group]Initializing the repository
+2025-10-05T00:43:54.8767976Z [command]/usr/bin/git init /home/runner/work/TransparenciaPolitica/TransparenciaPolitica
+2025-10-05T00:43:54.8871761Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-10-05T00:43:54.8873624Z hint: is subject to change. To configure the initial branch name to use in all
+2025-10-05T00:43:54.8874833Z hint: of your new repositories, which will suppress this warning, call:
+2025-10-05T00:43:54.8875792Z hint:
+2025-10-05T00:43:54.8876614Z hint: 	git config --global init.defaultBranch <name>
+2025-10-05T00:43:54.8877276Z hint:
+2025-10-05T00:43:54.8877803Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-10-05T00:43:54.8878665Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-10-05T00:43:54.8879347Z hint:
+2025-10-05T00:43:54.8879704Z hint: 	git branch -m <name>
+2025-10-05T00:43:54.8880126Z hint:
+2025-10-05T00:43:54.8880702Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2025-10-05T00:43:54.8882427Z Initialized empty Git repository in /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/.git/
+2025-10-05T00:43:54.8887925Z [command]/usr/bin/git remote add origin https://github.com/XavierLimaTI/TransparenciaPolitica
+2025-10-05T00:43:54.8926308Z ##[endgroup]
+2025-10-05T00:43:54.8927486Z ##[group]Disabling automatic garbage collection
+2025-10-05T00:43:54.8931067Z [command]/usr/bin/git config --local gc.auto 0
+2025-10-05T00:43:54.8959531Z ##[endgroup]
+2025-10-05T00:43:54.8960738Z ##[group]Setting up auth
+2025-10-05T00:43:54.8967056Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-10-05T00:43:54.8997017Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-10-05T00:43:54.9367397Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-10-05T00:43:54.9396306Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-10-05T00:43:54.9611365Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-10-05T00:43:54.9652322Z ##[endgroup]
+2025-10-05T00:43:54.9653128Z ##[group]Fetching the repository
+2025-10-05T00:43:54.9660464Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +1c71c75bf9a88f622a89d94215c89e91abc3b7ed:refs/remotes/origin/main
+2025-10-05T00:43:55.4403486Z From https://github.com/XavierLimaTI/TransparenciaPolitica
+2025-10-05T00:43:55.4405043Z  * [new ref]         1c71c75bf9a88f622a89d94215c89e91abc3b7ed -> origin/main
+2025-10-05T00:43:55.4435037Z ##[endgroup]
+2025-10-05T00:43:55.4435931Z ##[group]Determining the checkout info
+2025-10-05T00:43:55.4437384Z ##[endgroup]
+2025-10-05T00:43:55.4442430Z [command]/usr/bin/git sparse-checkout disable
+2025-10-05T00:43:55.4481833Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-10-05T00:43:55.4508703Z ##[group]Checking out the ref
+2025-10-05T00:43:55.4511919Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2025-10-05T00:43:55.4860539Z Switched to a new branch 'main'
+2025-10-05T00:43:55.4861947Z branch 'main' set up to track 'origin/main'.
+2025-10-05T00:43:55.4873177Z ##[endgroup]
+2025-10-05T00:43:55.4908592Z [command]/usr/bin/git log -1 --format=%H
+2025-10-05T00:43:55.4929265Z 1c71c75bf9a88f622a89d94215c89e91abc3b7ed
+2025-10-05T00:43:55.5167143Z ##[group]Run actions/setup-node@v4
+2025-10-05T00:43:55.5167712Z with:
+2025-10-05T00:43:55.5168089Z   node-version: 18
+2025-10-05T00:43:55.5168489Z   always-auth: false
+2025-10-05T00:43:55.5168907Z   check-latest: false
+2025-10-05T00:43:55.5169473Z   token: ***
+2025-10-05T00:43:55.5169860Z ##[endgroup]
+2025-10-05T00:43:55.7306062Z Found in cache @ /opt/hostedtoolcache/node/18.20.8/x64
+2025-10-05T00:43:55.7311867Z ##[group]Environment details
+2025-10-05T00:43:58.8716474Z node: v18.20.8
+2025-10-05T00:43:58.8718908Z npm: 10.8.2
+2025-10-05T00:43:58.8719314Z yarn: 1.22.22
+2025-10-05T00:43:58.8720256Z ##[endgroup]
+2025-10-05T00:43:58.8821389Z ##[group]Run npm ci
+2025-10-05T00:43:58.8821700Z [36;1mnpm ci[0m
+2025-10-05T00:43:58.8957206Z shell: /usr/bin/bash -e {0}
+2025-10-05T00:43:58.8957516Z ##[endgroup]
+2025-10-05T00:44:07.3550563Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2025-10-05T00:44:07.6295856Z npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2025-10-05T00:44:07.7300595Z npm warn deprecated domexception@4.0.0: Use your platform's native DOMException instead
+2025-10-05T00:44:07.9301084Z npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+2025-10-05T00:44:15.0201501Z 
+2025-10-05T00:44:15.0202861Z added 477 packages, and audited 478 packages in 16s
+2025-10-05T00:44:15.0203925Z 
+2025-10-05T00:44:15.0205431Z 56 packages are looking for funding
+2025-10-05T00:44:15.0214360Z   run `npm fund` for details
+2025-10-05T00:44:15.0282265Z 
+2025-10-05T00:44:15.0282989Z 1 moderate severity vulnerability
+2025-10-05T00:44:15.0283303Z 
+2025-10-05T00:44:15.0283671Z To address all issues (including breaking changes), run:
+2025-10-05T00:44:15.0285689Z   npm audit fix --force
+2025-10-05T00:44:15.0285923Z 
+2025-10-05T00:44:15.0286110Z Run `npm audit` for details.
+2025-10-05T00:44:15.0627700Z ##[group]Run npm test --silent
+2025-10-05T00:44:15.0628005Z [36;1mnpm test --silent[0m
+2025-10-05T00:44:15.0665401Z shell: /usr/bin/bash -e {0}
+2025-10-05T00:44:15.0665658Z ##[endgroup]
+2025-10-05T00:44:15.5784168Z jest-haste-map: Haste module naming collision: politica-transparente-brasil
+2025-10-05T00:44:15.5785957Z   The following files share their name; please adjust your hasteImpl:
+2025-10-05T00:44:15.5786683Z     * <rootDir>/package.json
+2025-10-05T00:44:15.5787949Z     * <rootDir>/App de Votação Automática/package.json
+2025-10-05T00:44:15.5788435Z 
+2025-10-05T00:44:16.8384363Z PASS __tests__/government-api.more.test.js
+2025-10-05T00:44:16.8633111Z   ● Console
+2025-10-05T00:44:16.8633416Z 
+2025-10-05T00:44:16.8633590Z     console.warn
+2025-10-05T00:44:16.8634112Z       Development CORS proxy active.
+2025-10-05T00:44:16.8634457Z 
+2025-10-05T00:44:16.8635609Z     [0m [90m 53 |[39m                 [36mconst[39m host [33m=[39m window[33m.[39mlocation[33m.[39mhostname[33m;[39m
+2025-10-05T00:44:16.8637117Z      [90m 54 |[39m                 [36mif[39m (host [33m===[39m [32m'localhost'[39m [33m||[39m host [33m===[39m [32m'127.0.0.1'[39m) {
+2025-10-05T00:44:16.8640280Z     [31m[1m>[22m[39m[90m 55 |[39m                     [36mtry[39m { fetchUrl [33m=[39m [32m`https://api.allorigins.win/raw?url=${encodeURIComponent(fetchUrl)}`[39m[33m;[39m console[33m.[39mwarn([32m'Development CORS proxy active.'[39m)[33m;[39m } [36mcatch[39m (e) { console[33m.[39mwarn([32m'Failed to enable dev CORS proxy:'[39m[33m,[39m e)[33m;[39m }
+2025-10-05T00:44:16.8642959Z      [90m    |[39m                                                                                                                    [31m[1m^[22m[39m
+2025-10-05T00:44:16.8643652Z      [90m 56 |[39m                 }
+2025-10-05T00:44:16.8644202Z      [90m 57 |[39m             }
+2025-10-05T00:44:16.8644726Z      [90m 58 |[39m[0m
+2025-10-05T00:44:16.8644974Z 
+2025-10-05T00:44:16.8645642Z       at GovernmentAPI.warn [as fetchData] (lib/government-api.js:55:116)
+2025-10-05T00:44:16.8646668Z       at GovernmentAPI.fetchData [as getDeputadosAtuais] (lib/government-api.js:117:33)
+2025-10-05T00:44:16.8647780Z       at Object.getDeputadosAtuais (__tests__/government-api.more.test.js:18:27)
+2025-10-05T00:44:16.8648325Z 
+2025-10-05T00:44:16.8648530Z     console.log
+2025-10-05T00:44:16.8649044Z       Cache hit: /deputados_{"itens":10}
+2025-10-05T00:44:16.8649386Z 
+2025-10-05T00:44:16.8650289Z       at GovernmentAPI.log [as fetchData] (lib/government-api.js:42:31)
+2025-10-05T00:44:16.8650811Z 
+2025-10-05T00:44:17.3133687Z PASS __tests__/app.test.js
+2025-10-05T00:44:17.9803614Z PASS __tests__/views.test.js
+2025-10-05T00:44:18.2829169Z PASS __tests__/ui-helpers.test.js
+2025-10-05T00:44:18.2877250Z   ● Console
+2025-10-05T00:44:18.2877516Z 
+2025-10-05T00:44:18.2877697Z     console.error
+2025-10-05T00:44:18.2878316Z       Error: Not implemented: navigation (except hash changes)
+2025-10-05T00:44:18.2880133Z           at Object.<anonymous>.module.exports (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+2025-10-05T00:44:18.2882359Z           at navigateFetch (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jsdom/lib/jsdom/living/window/navigation.js:77:3)
+2025-10-05T00:44:18.2884550Z           at Object.<anonymous>.exports.navigate (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jsdom/lib/jsdom/living/window/navigation.js:55:3)
+2025-10-05T00:44:18.2886448Z           at /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jsdom/lib/jsdom/living/nodes/HTMLHyperlinkElementUtils-impl.js:81:7
+2025-10-05T00:44:18.2887892Z           at Timeout.task [as _onTimeout] (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jsdom/lib/jsdom/browser/Window.js:520:19)
+2025-10-05T00:44:18.2889172Z           at listOnTimeout (node:internal/timers:569:17)
+2025-10-05T00:44:18.2889814Z           at processTimers (node:internal/timers:512:7) undefined
+2025-10-05T00:44:18.2890251Z 
+2025-10-05T00:44:18.2890826Z       at VirtualConsole.<anonymous> (node_modules/jsdom/lib/jsdom/virtual-console.js:29:45)
+2025-10-05T00:44:18.2892185Z       at Object.<anonymous>.module.exports (node_modules/jsdom/lib/jsdom/browser/not-implemented.js:12:26)
+2025-10-05T00:44:18.2893291Z       at navigateFetch (node_modules/jsdom/lib/jsdom/living/window/navigation.js:77:3)
+2025-10-05T00:44:18.2894469Z       at Object.<anonymous>.exports.navigate (node_modules/jsdom/lib/jsdom/living/window/navigation.js:55:3)
+2025-10-05T00:44:18.2895426Z       at node_modules/jsdom/lib/jsdom/living/nodes/HTMLHyperlinkElementUtils-impl.js:81:7
+2025-10-05T00:44:18.2896044Z       at Timeout.task [as _onTimeout] (node_modules/jsdom/lib/jsdom/browser/Window.js:520:19)
+2025-10-05T00:44:18.2896345Z 
+2025-10-05T00:44:18.3446221Z PASS __tests__/api.test.js
+2025-10-05T00:44:18.3460176Z   ● Console
+2025-10-05T00:44:18.3460388Z 
+2025-10-05T00:44:18.3460537Z     console.warn
+2025-10-05T00:44:18.3461298Z       GovernmentAPI not found on window. Load lib/government-api.js or require the module in Node.
+2025-10-05T00:44:18.3461933Z 
+2025-10-05T00:44:18.3462172Z       at evalmachine.<anonymous>:18:13
+2025-10-05T00:44:18.3462899Z       at Object.runInContext (__tests__/api.test.js:27:8)
+2025-10-05T00:44:18.3463408Z 
+2025-10-05T00:44:18.3463571Z     console.warn
+2025-10-05T00:44:18.3464461Z       GovernmentAPI not found on window. Load lib/government-api.js or require the module in Node.
+2025-10-05T00:44:18.3465452Z 
+2025-10-05T00:44:18.3465717Z       at evalmachine.<anonymous>:18:13
+2025-10-05T00:44:18.3466418Z       at Object.runInContext (__tests__/api.test.js:42:8)
+2025-10-05T00:44:18.3466895Z 
+2025-10-05T00:44:18.9060961Z PASS __tests__/government-api.unit.test.js
+2025-10-05T00:44:19.0240465Z PASS __tests__/governmentapi-local.test.js
+2025-10-05T00:44:20.9160099Z PASS __tests__/government-api.portal.test.js
+2025-10-05T00:44:20.9465030Z   ● Console
+2025-10-05T00:44:20.9465517Z 
+2025-10-05T00:44:20.9465681Z     console.warn
+2025-10-05T00:44:20.9466470Z       Portal da Transparência API key not set.
+2025-10-05T00:44:20.9466906Z 
+2025-10-05T00:44:20.9467850Z     [0m [90m 77 |[39m             url [33m=[39m [36mnew[39m [33mURL[39m([32m`${this.proxyBase}${endpoint}`[39m)[33m;[39m
+2025-10-05T00:44:20.9468938Z      [90m 78 |[39m         } [36melse[39m {
+2025-10-05T00:44:20.9471548Z     [31m[1m>[22m[39m[90m 79 |[39m             [36mif[39m ([33m![39m[36mthis[39m[33m.[39mportalKey) { console[33m.[39mwarn([32m'Portal da Transparência API key not set.'[39m)[33m;[39m [36mreturn[39m { error[33m:[39m [32m'API_KEY_MISSING'[39m }[33m;[39m }
+2025-10-05T00:44:20.9473812Z      [90m    |[39m                                            [31m[1m^[22m[39m
+2025-10-05T00:44:20.9475082Z      [90m 80 |[39m             url [33m=[39m [36mnew[39m [33mURL[39m([32m`https://api.portaldatransparencia.gov.br/api-de-dados${endpoint}`[39m)[33m;[39m
+2025-10-05T00:44:20.9476225Z      [90m 81 |[39m             headers[[32m'chave-api-dados'[39m] [33m=[39m [36mthis[39m[33m.[39mportalKey[33m;[39m
+2025-10-05T00:44:20.9476734Z      [90m 82 |[39m         }[0m
+2025-10-05T00:44:20.9476899Z 
+2025-10-05T00:44:20.9477149Z       at GovernmentAPI.warn [as fetchPortal] (lib/government-api.js:79:44)
+2025-10-05T00:44:20.9477675Z       at Object.fetchPortal (__tests__/government-api.portal.test.js:13:27)
+2025-10-05T00:44:20.9477980Z 
+2025-10-05T00:44:20.9478059Z     console.error
+2025-10-05T00:44:20.9478337Z       Portal fetch attempt 1 error: Error: network fail
+2025-10-05T00:44:20.9479010Z           at /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/__tests__/government-api.portal.test.js:20:78
+2025-10-05T00:44:20.9479925Z           at /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-mock/build/index.js:397:39
+2025-10-05T00:44:20.9481039Z           at /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-mock/build/index.js:404:13
+2025-10-05T00:44:20.9482051Z           at mockConstructor (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-mock/build/index.js:148:19)
+2025-10-05T00:44:20.9483023Z           at GovernmentAPI.fetch [as fetchPortal] (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/lib/government-api.js:91:40)
+2025-10-05T00:44:20.9483993Z           at Object.fetchPortal (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/__tests__/government-api.portal.test.js:22:27)
+2025-10-05T00:44:20.9485006Z           at Promise.then.completed (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-circus/build/utils.js:298:28)
+2025-10-05T00:44:20.9485822Z           at new Promise (<anonymous>)
+2025-10-05T00:44:20.9486466Z           at callAsyncCircusFn (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-circus/build/utils.js:231:10)
+2025-10-05T00:44:20.9487436Z           at _callCircusTest (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-circus/build/run.js:316:40)
+2025-10-05T00:44:20.9488374Z           at _runTest (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-circus/build/run.js:252:3)
+2025-10-05T00:44:20.9489340Z           at _runTestsForDescribeBlock (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-circus/build/run.js:126:9)
+2025-10-05T00:44:20.9490382Z           at _runTestsForDescribeBlock (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-circus/build/run.js:121:9)
+2025-10-05T00:44:20.9491322Z           at run (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-circus/build/run.js:71:3)
+2025-10-05T00:44:20.9492480Z           at runAndTransformResultsToJestFormat (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)
+2025-10-05T00:44:20.9493771Z           at jestAdapter (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)
+2025-10-05T00:44:20.9494847Z           at runTestInternal (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-runner/build/runTest.js:367:16)
+2025-10-05T00:44:20.9495994Z           at runTest (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-runner/build/runTest.js:444:34)
+2025-10-05T00:44:20.9496605Z 
+2025-10-05T00:44:20.9496833Z     [0m [90m 105 |[39m             } [36mcatch[39m (err) {
+2025-10-05T00:44:20.9498032Z      [90m 106 |[39m                 [36mif[39m ([36mtypeof[39m window [33m!==[39m [32m'undefined'[39m [33m&&[39m [36mtypeof[39m window[33m.[39mhideGlobalSpinner [33m===[39m [32m'function'[39m) { [36mtry[39m { window[33m.[39mhideGlobalSpinner()[33m;[39m } [36mcatch[39m (e) {} }
+2025-10-05T00:44:20.9499245Z     [31m[1m>[22m[39m[90m 107 |[39m                 console[33m.[39merror([32m`Portal fetch attempt ${attempt} error:`[39m[33m,[39m err)[33m;[39m
+2025-10-05T00:44:20.9499818Z      [90m     |[39m                         [31m[1m^[22m[39m
+2025-10-05T00:44:20.9500378Z      [90m 108 |[39m                 [36mif[39m (attempt [33m>=[39m maxAttempts) [36mreturn[39m [36mnull[39m[33m;[39m
+2025-10-05T00:44:20.9501167Z      [90m 109 |[39m                 [36mconst[39m backoff [33m=[39m [35m300[39m [33m*[39m [33mMath[39m[33m.[39mpow([35m2[39m[33m,[39m attempt)[33m;[39m
+2025-10-05T00:44:20.9502011Z      [90m 110 |[39m                 [36mawait[39m [36mnew[39m [33mPromise[39m(r [33m=>[39m setTimeout(r[33m,[39m backoff))[33m;[39m[0m
+2025-10-05T00:44:20.9502362Z 
+2025-10-05T00:44:20.9502587Z       at GovernmentAPI.error [as fetchPortal] (lib/government-api.js:107:25)
+2025-10-05T00:44:20.9503186Z       at Object.<anonymous> (__tests__/government-api.portal.test.js:22:17)
+2025-10-05T00:44:20.9503442Z 
+2025-10-05T00:44:20.9503517Z     console.error
+2025-10-05T00:44:20.9503778Z       Portal fetch attempt 2 error: Error: network fail
+2025-10-05T00:44:20.9504390Z           at /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/__tests__/government-api.portal.test.js:20:78
+2025-10-05T00:44:20.9505399Z           at /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-mock/build/index.js:397:39
+2025-10-05T00:44:20.9506235Z           at /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-mock/build/index.js:404:13
+2025-10-05T00:44:20.9507126Z           at mockConstructor (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-mock/build/index.js:148:19)
+2025-10-05T00:44:20.9508081Z           at GovernmentAPI.fetch [as fetchPortal] (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/lib/government-api.js:91:40)
+2025-10-05T00:44:20.9509033Z           at Object.<anonymous> (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/__tests__/government-api.portal.test.js:22:17)
+2025-10-05T00:44:20.9509528Z 
+2025-10-05T00:44:20.9509731Z     [0m [90m 105 |[39m             } [36mcatch[39m (err) {
+2025-10-05T00:44:20.9510880Z      [90m 106 |[39m                 [36mif[39m ([36mtypeof[39m window [33m!==[39m [32m'undefined'[39m [33m&&[39m [36mtypeof[39m window[33m.[39mhideGlobalSpinner [33m===[39m [32m'function'[39m) { [36mtry[39m { window[33m.[39mhideGlobalSpinner()[33m;[39m } [36mcatch[39m (e) {} }
+2025-10-05T00:44:20.9512083Z     [31m[1m>[22m[39m[90m 107 |[39m                 console[33m.[39merror([32m`Portal fetch attempt ${attempt} error:`[39m[33m,[39m err)[33m;[39m
+2025-10-05T00:44:20.9512647Z      [90m     |[39m                         [31m[1m^[22m[39m
+2025-10-05T00:44:20.9513199Z      [90m 108 |[39m                 [36mif[39m (attempt [33m>=[39m maxAttempts) [36mreturn[39m [36mnull[39m[33m;[39m
+2025-10-05T00:44:20.9513994Z      [90m 109 |[39m                 [36mconst[39m backoff [33m=[39m [35m300[39m [33m*[39m [33mMath[39m[33m.[39mpow([35m2[39m[33m,[39m attempt)[33m;[39m
+2025-10-05T00:44:20.9514796Z      [90m 110 |[39m                 [36mawait[39m [36mnew[39m [33mPromise[39m(r [33m=>[39m setTimeout(r[33m,[39m backoff))[33m;[39m[0m
+2025-10-05T00:44:20.9515351Z 
+2025-10-05T00:44:20.9515590Z       at GovernmentAPI.error [as fetchPortal] (lib/government-api.js:107:25)
+2025-10-05T00:44:20.9516217Z       at Object.<anonymous> (__tests__/government-api.portal.test.js:22:17)
+2025-10-05T00:44:20.9516469Z 
+2025-10-05T00:44:20.9516551Z     console.error
+2025-10-05T00:44:20.9516801Z       Portal fetch attempt 3 error: Error: network fail
+2025-10-05T00:44:20.9517405Z           at /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/__tests__/government-api.portal.test.js:20:78
+2025-10-05T00:44:20.9518239Z           at /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-mock/build/index.js:397:39
+2025-10-05T00:44:20.9519052Z           at /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-mock/build/index.js:404:13
+2025-10-05T00:44:20.9519945Z           at mockConstructor (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/node_modules/jest-mock/build/index.js:148:19)
+2025-10-05T00:44:20.9520927Z           at GovernmentAPI.fetch [as fetchPortal] (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/lib/government-api.js:91:40)
+2025-10-05T00:44:20.9521955Z           at Object.<anonymous> (/home/runner/work/TransparenciaPolitica/TransparenciaPolitica/__tests__/government-api.portal.test.js:22:17)
+2025-10-05T00:44:20.9522445Z 
+2025-10-05T00:44:20.9522658Z     [0m [90m 105 |[39m             } [36mcatch[39m (err) {
+2025-10-05T00:44:20.9523918Z      [90m 106 |[39m                 [36mif[39m ([36mtypeof[39m window [33m!==[39m [32m'undefined'[39m [33m&&[39m [36mtypeof[39m window[33m.[39mhideGlobalSpinner [33m===[39m [32m'function'[39m) { [36mtry[39m { window[33m.[39mhideGlobalSpinner()[33m;[39m } [36mcatch[39m (e) {} }
+2025-10-05T00:44:20.9525293Z     [31m[1m>[22m[39m[90m 107 |[39m                 console[33m.[39merror([32m`Portal fetch attempt ${attempt} error:`[39m[33m,[39m err)[33m;[39m
+2025-10-05T00:44:20.9525918Z      [90m     |[39m                         [31m[1m^[22m[39m
+2025-10-05T00:44:20.9526467Z      [90m 108 |[39m                 [36mif[39m (attempt [33m>=[39m maxAttempts) [36mreturn[39m [36mnull[39m[33m;[39m
+2025-10-05T00:44:20.9527271Z      [90m 109 |[39m                 [36mconst[39m backoff [33m=[39m [35m300[39m [33m*[39m [33mMath[39m[33m.[39mpow([35m2[39m[33m,[39m attempt)[33m;[39m
+2025-10-05T00:44:20.9528079Z      [90m 110 |[39m                 [36mawait[39m [36mnew[39m [33mPromise[39m(r [33m=>[39m setTimeout(r[33m,[39m backoff))[33m;[39m[0m
+2025-10-05T00:44:20.9528427Z 
+2025-10-05T00:44:20.9528658Z       at GovernmentAPI.error [as fetchPortal] (lib/government-api.js:107:25)
+2025-10-05T00:44:20.9529128Z       at Object.<anonymous> (__tests__/government-api.portal.test.js:22:17)
+2025-10-05T00:44:20.9529386Z 
+2025-10-05T00:44:20.9993508Z PASS __tests__/despesas-csv.test.js
+2025-10-05T00:44:21.0001379Z   ● Console
+2025-10-05T00:44:21.0001594Z 
+2025-10-05T00:44:21.0001746Z     console.warn
+2025-10-05T00:44:21.0002452Z       GovernmentAPI not found on window. Load lib/government-api.js or require the module in Node.
+2025-10-05T00:44:21.0002893Z 
+2025-10-05T00:44:21.0003037Z       at evalmachine.<anonymous>:18:13
+2025-10-05T00:44:21.0003435Z       at Object.runInContext (__tests__/despesas-csv.test.js:11:8)
+2025-10-05T00:44:21.0003708Z 
+2025-10-05T00:44:21.0493947Z PASS __tests__/csv-parser.test.js
+2025-10-05T00:44:21.0684783Z ---------------------------|---------|----------|---------|---------|---------------------------------------------------------------------------
+2025-10-05T00:44:21.0687822Z File                       | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                                         
+2025-10-05T00:44:21.0689144Z ---------------------------|---------|----------|---------|---------|---------------------------------------------------------------------------
+2025-10-05T00:44:21.0716244Z All files                  |   40.85 |    33.18 |   39.41 |   56.19 |                                                                           
+2025-10-05T00:44:21.0720581Z  TransparenciaPolitica     |   13.13 |     8.47 |       0 |   17.54 |                                                                           
+2025-10-05T00:44:21.0722627Z   api-integration.js       |   13.13 |     8.47 |       0 |   17.54 | 18,27-30,40-103                                                           
+2025-10-05T00:44:21.0727653Z  TransparenciaPolitica/lib |    43.3 |    36.05 |   42.13 |   59.65 |                                                                           
+2025-10-05T00:44:21.0728839Z   csv-parser.js            |   86.44 |    65.38 |     100 |   95.45 | 45-46                                                                     
+2025-10-05T00:44:21.0729943Z   government-api.js        |   51.27 |    45.34 |   62.06 |   70.35 | 8,46,66-68,99-100,113,153-155,186,233-241,248-249,280-293,309-310,322-357 
+2025-10-05T00:44:21.0731094Z   politica-app.js          |    26.6 |    31.47 |   22.22 |   40.67 | 18-49,57-62,74-75,86-88,96,100,108-109,131-167,179-196                    
+2025-10-05T00:44:21.0732193Z   ui-helpers.js            |   81.17 |    42.85 |   81.81 |     100 | 4-96                                                                      
+2025-10-05T00:44:21.0733214Z   views.js                 |   30.95 |    15.75 |   16.66 |   42.72 | 52-53,58,113-164,222-233,269-491                                          
+2025-10-05T00:44:21.0734666Z ---------------------------|---------|----------|---------|---------|---------------------------------------------------------------------------
+2025-10-05T00:44:21.1040577Z 
+2025-10-05T00:44:21.1048601Z Test Suites: 10 passed, 10 total
+2025-10-05T00:44:21.1050876Z Tests:       27 passed, 27 total
+2025-10-05T00:44:21.1051334Z Snapshots:   0 total
+2025-10-05T00:44:21.1051704Z Time:        5.5 s
+2025-10-05T00:44:21.1052058Z Ran all test suites.
+2025-10-05T00:44:21.1985085Z ##[group]Run actions/upload-artifact@v4
+2025-10-05T00:44:21.1985634Z with:
+2025-10-05T00:44:21.1985808Z   name: coverage-lcov
+2025-10-05T00:44:21.1986025Z   path: coverage/lcov.info
+2025-10-05T00:44:21.1986254Z   if-no-files-found: warn
+2025-10-05T00:44:21.1986458Z   compression-level: 6
+2025-10-05T00:44:21.1986644Z   overwrite: false
+2025-10-05T00:44:21.1986832Z   include-hidden-files: false
+2025-10-05T00:44:21.1987048Z ##[endgroup]
+2025-10-05T00:44:21.4194755Z With the provided path, there will be 1 file uploaded
+2025-10-05T00:44:21.4200835Z Artifact name is valid!
+2025-10-05T00:44:21.4202076Z Root directory input is valid!
+2025-10-05T00:44:21.5833415Z Beginning upload of artifact content to blob storage
+2025-10-05T00:44:21.7265625Z Uploaded bytes 7169
+2025-10-05T00:44:21.7654409Z Finished uploading artifact content to blob storage!
+2025-10-05T00:44:21.7657938Z SHA256 digest of uploaded artifact zip is 176337b0cfac5ec87b90ef597d64617d67b2681df4ef01efd519c2e4a3ada468
+2025-10-05T00:44:21.7659203Z Finalizing artifact upload
+2025-10-05T00:44:21.8560741Z Artifact coverage-lcov.zip successfully finalized. Artifact ID 4183907595
+2025-10-05T00:44:21.8561944Z Artifact coverage-lcov has been successfully uploaded! Final size is 7169 bytes. Artifact ID is 4183907595
+2025-10-05T00:44:21.8568331Z Artifact download URL: https://github.com/XavierLimaTI/TransparenciaPolitica/actions/runs/18251633868/artifacts/4183907595
+2025-10-05T00:44:21.8718552Z ##[group]Run codecov/codecov-action@v4
+2025-10-05T00:44:21.8718832Z with:
+2025-10-05T00:44:21.8719015Z   files: coverage/lcov.info
+2025-10-05T00:44:21.8719222Z   flags: unittests
+2025-10-05T00:44:21.8719416Z   fail_ci_if_error: false
+2025-10-05T00:44:21.8719667Z ##[endgroup]
+2025-10-05T00:44:21.9528494Z eventName: push
+2025-10-05T00:44:21.9537164Z ==> linux OS detected
+2025-10-05T00:44:22.2771278Z https://cli.codecov.io/latest/linux/codecov.SHA256SUM
+2025-10-05T00:44:22.3432857Z gpg: directory '/home/runner/.gnupg' created
+2025-10-05T00:44:22.3438364Z gpg: keybox '/home/runner/.gnupg/pubring.kbx' created
+2025-10-05T00:44:22.3462911Z gpg: /home/runner/.gnupg/trustdb.gpg: trustdb created
+2025-10-05T00:44:22.3474235Z gpg: key 806BB28AED779869: public key "Codecov Uploader (Codecov Uploader Verification Key) <security@codecov.io>" imported
+2025-10-05T00:44:22.3560969Z gpg: Total number processed: 1
+2025-10-05T00:44:22.3561490Z gpg:               imported: 1
+2025-10-05T00:44:22.3618986Z gpg: Signature made Thu Sep 18 23:03:08 2025 UTC
+2025-10-05T00:44:22.3619743Z gpg:                using RSA key 27034E7FDB850E0BBC2C62FF806BB28AED779869
+2025-10-05T00:44:22.3622318Z gpg: Good signature from "Codecov Uploader (Codecov Uploader Verification Key) <security@codecov.io>" [unknown]
+2025-10-05T00:44:22.3623445Z gpg: WARNING: This key is not certified with a trusted signature!
+2025-10-05T00:44:22.3624339Z gpg:          There is no indication that the signature belongs to the owner.
+2025-10-05T00:44:22.3625521Z Primary key fingerprint: 2703 4E7F DB85 0E0B BC2C  62FF 806B B28A ED77 9869
+2025-10-05T00:44:22.3863490Z ==> Uploader SHASUM verified (0e590a5c8fafe2901fc809e8d55e2cfae3cbfbd0a0570f58d2f40cb120520659  codecov)
+2025-10-05T00:44:22.3864403Z ==> Running version latest
+2025-10-05T00:44:22.4597678Z Could not pull latest version information: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+2025-10-05T00:44:22.4599408Z ==> Running git config --global --add safe.directory /home/runner/work/TransparenciaPolitica/TransparenciaPolitica
+2025-10-05T00:44:22.4685753Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TransparenciaPolitica/TransparenciaPolitica
+2025-10-05T00:44:22.4732486Z ==> Running command '/home/runner/work/_actions/codecov/codecov-action/v4/dist/codecov create-commit'
+2025-10-05T00:44:22.4734567Z [command]/home/runner/work/_actions/codecov/codecov-action/v4/dist/codecov create-commit --git-service github
+2025-10-05T00:44:22.8213696Z info - 2025-10-05 00:44:22,820 -- ci service found: github-actions
+2025-10-05T00:44:22.8307825Z warning - 2025-10-05 00:44:22,830 -- No config file could be found. Ignoring config.
+2025-10-05T00:44:22.8598391Z warning - 2025-10-05 00:44:22,859 -- Branch `main` is protected but no token was provided
+2025-10-05T00:44:22.8599406Z warning - 2025-10-05 00:44:22,859 -- For information on Codecov upload tokens, see https://docs.codecov.com/docs/codecov-tokens
+2025-10-05T00:44:23.1156437Z info - 2025-10-05 00:44:23,115 -- Process Commit creating complete
+2025-10-05T00:44:23.1157632Z error - 2025-10-05 00:44:23,115 -- Commit creating failed: {"message":"Token required - not valid tokenless upload"}
+2025-10-05T00:44:23.2206797Z Sentry is attempting to send 2 pending events
+2025-10-05T00:44:23.2207163Z Waiting up to 2 seconds
+2025-10-05T00:44:23.2207404Z Press Ctrl-C to quit
+2025-10-05T00:44:23.2966256Z ==> Running command '/home/runner/work/_actions/codecov/codecov-action/v4/dist/codecov create-report'
+2025-10-05T00:44:23.2967977Z [command]/home/runner/work/_actions/codecov/codecov-action/v4/dist/codecov create-report --git-service github
+2025-10-05T00:44:23.6423266Z info - 2025-10-05 00:44:23,641 -- ci service found: github-actions
+2025-10-05T00:44:23.6511851Z warning - 2025-10-05 00:44:23,650 -- No config file could be found. Ignoring config.
+2025-10-05T00:44:23.8520490Z info - 2025-10-05 00:44:23,851 -- Process Report creating complete
+2025-10-05T00:44:23.8526318Z error - 2025-10-05 00:44:23,852 -- Report creating failed: {"message":"Token required - not valid tokenless upload"}
+2025-10-05T00:44:23.9572139Z Sentry is attempting to send 2 pending events
+2025-10-05T00:44:23.9572553Z Waiting up to 2 seconds
+2025-10-05T00:44:23.9572841Z Press Ctrl-C to quit
+2025-10-05T00:44:24.0256544Z ==> Running command '/home/runner/work/_actions/codecov/codecov-action/v4/dist/codecov do-upload'
+2025-10-05T00:44:24.0258461Z [command]/home/runner/work/_actions/codecov/codecov-action/v4/dist/codecov do-upload -f coverage/lcov.info -F unittests --git-service github
+2025-10-05T00:44:24.3693245Z info - 2025-10-05 00:44:24,368 -- ci service found: github-actions
+2025-10-05T00:44:24.3784195Z warning - 2025-10-05 00:44:24,378 -- No config file could be found. Ignoring config.
+2025-10-05T00:44:24.4097410Z warning - 2025-10-05 00:44:24,409 -- xcrun is not installed or can't be found.
+2025-10-05T00:44:24.5676786Z warning - 2025-10-05 00:44:24,567 -- No gcov data found.
+2025-10-05T00:44:24.5680117Z warning - 2025-10-05 00:44:24,567 -- coverage.py is not installed or can't be found.
+2025-10-05T00:44:24.7398347Z info - 2025-10-05 00:44:24,739 -- Found 3 coverage files to report
+2025-10-05T00:44:24.7399912Z info - 2025-10-05 00:44:24,739 -- > /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/coverage/clover.xml
+2025-10-05T00:44:24.7401684Z info - 2025-10-05 00:44:24,739 -- > /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/coverage/lcov.info
+2025-10-05T00:44:24.7403096Z info - 2025-10-05 00:44:24,739 -- > /home/runner/work/TransparenciaPolitica/TransparenciaPolitica/coverage/coverage-final.json
+2025-10-05T00:44:24.9192747Z info - 2025-10-05 00:44:24,919 -- Process Upload complete
+2025-10-05T00:44:24.9194211Z error - 2025-10-05 00:44:24,919 -- Upload failed: {"message":"Token required - not valid tokenless upload"}
+2025-10-05T00:44:25.0261628Z Sentry is attempting to send 2 pending events
+2025-10-05T00:44:25.0262102Z Waiting up to 2 seconds
+2025-10-05T00:44:25.0262413Z Press Ctrl-C to quit
+2025-10-05T00:44:25.1160518Z Post job cleanup.
+2025-10-05T00:44:25.2780531Z Post job cleanup.
+2025-10-05T00:44:25.3696413Z [command]/usr/bin/git version
+2025-10-05T00:44:25.3732701Z git version 2.51.0
+2025-10-05T00:44:25.3768184Z Copying '/home/runner/.gitconfig' to '/home/runner/work/_temp/2a7e7b83-2abf-4e2c-b773-d8acfeaf6e7b/.gitconfig'
+2025-10-05T00:44:25.3778030Z Temporarily overriding HOME='/home/runner/work/_temp/2a7e7b83-2abf-4e2c-b773-d8acfeaf6e7b' before making global git config changes
+2025-10-05T00:44:25.3779065Z Adding repository directory to the temporary git global config as a safe directory
+2025-10-05T00:44:25.3783316Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TransparenciaPolitica/TransparenciaPolitica
+2025-10-05T00:44:25.3822546Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-10-05T00:44:25.3853689Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-10-05T00:44:25.4082217Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-10-05T00:44:25.4102313Z http.https://github.com/.extraheader
+2025-10-05T00:44:25.4114561Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2025-10-05T00:44:25.4145531Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-10-05T00:44:25.4514135Z Cleaning up orphan processes

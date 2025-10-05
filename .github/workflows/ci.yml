@@ -34,6 +34,7 @@ jobs:
         env:
           NODE_ENV: development
 
+
       - name: Sanity check @playwright/test
         run: |
           echo "Checking @playwright/test..."
@@ -87,6 +88,11 @@ jobs:
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
+      
+      - name: Sanity check @playwright/test (e2e)
+        run: |
+          echo "Checking @playwright/test for e2e..."
+          npm ls @playwright/test || npm install --no-save @playwright/test@^1.55.1
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4

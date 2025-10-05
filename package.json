@@ -14,15 +14,15 @@
     "start:prod": "npx http-server ./dist -p 8000",
     "start-proxy": "node server/proxy.js",
     "start-proxy:local": "node server/proxy.js",
-  "start-proxy:express": "node server/proxy-express.js",
+    "start-proxy:express": "node server/proxy-express.js",
     "verify-proxy": "node scripts/verify-proxy.js",
-  "test": "jest --coverage --runInBand",
+    "test": "jest --coverage --runInBand",
     "test:gov": "node scripts/test-government-api.js",
     "test:smoke": "node scripts/smoke-all.js",
-  "test:playwright": "node scripts/playwright/run-portal-key.js",
-  "test:e2e": "npx playwright test",
-  "test:proxies": "node scripts/test-proxies.js",
-  "ci": "npm test",
+    "test:playwright": "node scripts/playwright/run-portal-key.js",
+    "test:e2e": "npx playwright test",
+    "test:proxies": "node scripts/test-proxies.js",
+    "ci": "npm test",
     "smoke": "node scripts/test-csv-parse.js && npx http-server -c-1 -p 8000 & echo 'Server started'",
     "smoke:e2e": "node scripts/smoke-e2e.js",
     "test:unit": "jest",
@@ -40,6 +40,7 @@
     "node": ">=14.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.55.1",
     "cors": "^2.8.5",
     "esbuild": "^0.19.4",
     "express": "^4.21.2",
@@ -57,5 +58,4 @@
       "<rootDir>/tests/e2e/"
     ]
   }
-
 }

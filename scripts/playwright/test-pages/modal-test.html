@@ -7,6 +7,10 @@
 </head>
 <body>
   <h1>Modal test page</h1>
+  <div id="ingest-area" style="margin-top:16px">
+    <input type="file" id="testFileInput" accept=".csv" />
+    <div id="ingestStatus" style="margin-top:8px;color:green;display:none">Importado</div>
+  </div>
   <script>
     // Minimal inline createPortalKeyModal for Playwright tests
     function createPortalKeyModal() {
@@ -38,6 +42,27 @@
       } catch (e) { console.error('inject modal error', e); }
     }
     window.createPortalKeyModal = createPortalKeyModal;
+    // Simple ingest handler for Playwright tests: read CSV and show success
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        const fi = document.getElementById('testFileInput');
+        const status = document.getElementById('ingestStatus');
+        if (fi && status) {
+          fi.addEventListener('change', async (e) => {
+            try {
+              const f = e.target.files && e.target.files[0];
+              if (!f) return;
+              const txt = await f.text();
+              // naive parse to ensure it's read
+              if (txt && txt.length > 0) {
+                status.style.display = 'block';
+                status.textContent = 'Importado';
+              }
+            } catch (err) { console.error('ingest handler error', err); }
+          });
+        }
+      } catch (e) {}
+    });
   </script>
 </body>
 </html>
