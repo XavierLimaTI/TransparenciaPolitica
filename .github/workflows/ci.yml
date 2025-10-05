@@ -34,6 +34,11 @@ jobs:
         env:
           NODE_ENV: development
 
+      - name: Sanity check @playwright/test
+        run: |
+          echo "Checking @playwright/test..."
+          npm ls @playwright/test || npm install --no-save @playwright/test@^1.55.1
+
 
       - name: Run unit tests (Jest)
         run: npm test --silent
