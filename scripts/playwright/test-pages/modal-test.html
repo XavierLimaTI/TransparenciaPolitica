@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Modal Test</title>
+  <style>body{font-family:Arial,Helvetica,sans-serif}</style>
+</head>
+<body>
+  <h1>Modal test page</h1>
+  <script>
+    // Minimal inline createPortalKeyModal for Playwright tests
+    function createPortalKeyModal() {
+      try {
+        if (document.getElementById('portalKeyInput')) return;
+        const modalRoot = document.createElement('div');
+        modalRoot.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 modal-root';
+        modalRoot.innerHTML = `
+          <div class="bg-white rounded-lg p-6 max-w-lg w-full" role="dialog" aria-modal="true" aria-labelledby="portalKeyTitle">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 id="portalKeyTitle">Test Modal</h3>
+                <p>Injected fallback modal for tests.</p>
+              </div>
+              <button id="portalKeyClose">×</button>
+            </div>
+            <div>
+              <input id="portalKeyInput" placeholder="Chave da API" />
+              <div style="margin-top:8px; text-align:right"><button id="portalKeySave">Salvar</button></div>
+            </div>
+          </div>`;
+        document.body.appendChild(modalRoot);
+        document.getElementById('portalKeySave').addEventListener('click', () => {
+          const v = (document.getElementById('portalKeyInput') || {}).value || '';
+          if (!v) return;
+          try { localStorage.setItem('portal_api_key', v); } catch(e){}
+          modalRoot.remove();
+        });
+      } catch (e) { console.error('inject modal error', e); }
+    }
+    window.createPortalKeyModal = createPortalKeyModal;
+  </script>
+</body>
+</html>

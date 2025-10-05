@@ -122,3 +122,41 @@ Se encontrar problemas:
 ---
 
 **Sucesso no deploy!** 🚀
+
+## Proxy de Desenvolvimento (opções)
+
+O projeto inclui duas implementações de proxy para facilitar o desenvolvimento local e contornar CORS / chaves do Portal da Transparência:
+
+
+npm run start-proxy
+
+O repositório agora contém uma implementação consolidada baseada em Express em `server/proxy.js` (recomendado) e uma alternativa leve em `server/proxy-light.js`.
+
+Como usar:
+
+1. Proxy recomendado (Express consolidado - usa `server/proxy.js`):
+
+```powershell
+# Antes: instalar dependências uma vez
+npm install
+
+# Iniciar proxy consolidado (recomendado)
+npm run start-proxy
+```
+
+1. Proxy leve (sem dependências, útil em ambientes restritos):
+
+```powershell
+node server/proxy-light.js
+```
+
+Endpoints úteis:
+
+- `/health` - Health check (retorna se a chave do Portal está presente)
+- `/despesas` - Proxy para Portal da Transparência (tenta upstream com chave, senão faz fallback para `resources/data/ingested`)
+- `/camara/*` - Proxy para dados da Câmara
+- `/senado/*` - Proxy para dados do Senado
+- `/set-key` e `/unset-key` - endpoints para configurar a chave do Portal localmente
+
+Recomendação: prefira o proxy consolidado baseado em Express (`npm run start-proxy`) para desenvolvimento diário e testes (middleware, rotas administrativas e fallback). Use `server/proxy-light.js` quando precisar de uma alternativa ultra-leve sem instalar dependências.
+

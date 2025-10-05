@@ -173,9 +173,11 @@ const server = http.createServer(async (req, res) => {
     // Dev-forward for camara and senado
     if (pathname.startsWith('/camara')) {
       const targetBase = 'https://dadosabertos.camara.leg.br/api/v2';
-      const suffix = pathname.replace(/^\/camara/, '') || '' + url.search;
-      const target = targetBase + suffix + url.search;
-      const out = await forwardFetch(target, req);
+      const suffix = pathname.replace(/^\/camara/, '');
+      const target = new URL(targetBase + (suffix || '/'));
+      // preserve query params
+      url.searchParams.forEach((v, k) => target.searchParams.append(k, v));
+      const out = await forwardFetch(target.toString(), req);
       if (out.error) return sendJSON(res, 502, { error: 'proxy_error', detail: out.error });
       res.writeHead(out.status, { 'Content-Type': out.headers.get('content-type') || 'application/json', 'Access-Control-Allow-Origin': '*' });
       return res.end(out.body);
@@ -183,9 +185,10 @@ const server = http.createServer(async (req, res) => {
 
     if (pathname.startsWith('/senado')) {
       const targetBase = 'https://legis.senado.leg.br/dadosabertos';
-      const suffix = pathname.replace(/^\/senado/, '') || '' + url.search;
-      const target = targetBase + suffix + url.search;
-      const out = await forwardFetch(target, req);
+      const suffix = pathname.replace(/^\/senado/, '');
+      const target = new URL(targetBase + (suffix || '/'));
+      url.searchParams.forEach((v, k) => target.searchParams.append(k, v));
+      const out = await forwardFetch(target.toString(), req);
       if (out.error) return sendJSON(res, 502, { error: 'proxy_error', detail: out.error });
       res.writeHead(out.status, { 'Content-Type': out.headers.get('content-type') || 'application/json', 'Access-Control-Allow-Origin': '*' });
       return res.end(out.body);
