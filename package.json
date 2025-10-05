@@ -50,6 +50,12 @@
     "puppeteer": "^24.23.0"
   },
   "jest": {
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "testPathIgnorePatterns": [
+      "<rootDir>/scripts/playwright/",
+      "<rootDir>/tests/portal-.*\\.spec\\.js$",
+      "<rootDir>/tests/e2e/"
+    ]
   }
+
 }
