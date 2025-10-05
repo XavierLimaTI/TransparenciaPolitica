@@ -20,6 +20,7 @@
     "test:gov": "node scripts/test-government-api.js",
     "test:smoke": "node scripts/smoke-all.js",
   "test:playwright": "node scripts/playwright/run-portal-key.js",
+  "test:e2e": "npx playwright test",
   "test:proxies": "node scripts/test-proxies.js",
   "ci": "npm test",
     "smoke": "node scripts/test-csv-parse.js && npx http-server -c-1 -p 8000 & echo 'Server started'",
