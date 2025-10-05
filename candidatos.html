@@ -371,20 +371,21 @@
                 
                 <!-- Grid de Candidatos -->
                 <div class="lg:w-3/4">
-                    <!-- Placeholder candidate for E2E tests -->
-                    <div id="test-candidates-placeholder" style="display:block; margin-bottom:12px">
-                        <div class="candidate candidato-card candidate" style="border:1px solid #eee; padding:12px; border-radius:8px">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <div class="font-semibold">João Teste</div>
-                                    <div class="text-sm text-gray-500">Partido: PT • SP</div>
-                                </div>
-                                <div>
-                                    <button class="votar vote-button px-3 py-2 bg-green-500 text-white rounded">Votar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Placeholder container for E2E tests (injected only on localhost or when ?e2eTest=1) -->
+                    <div id="test-candidates-placeholder" style="display:none; margin-bottom:12px"></div>
+                    <script>
+                        (function(){
+                            try {
+                                var isLocal = (location && (location.hostname === 'localhost' || location.hostname === '127.0.0.1'));
+                                var forced = (location && location.search && location.search.indexOf('e2eTest=1') !== -1);
+                                if (!isLocal && !forced) return;
+                                var container = document.getElementById('test-candidates-placeholder');
+                                if (!container) return;
+                                container.style.display = 'block';
+                                container.innerHTML = '\n                                  <div class="candidate candidato-card candidate" style="border:1px solid #eee; padding:12px; border-radius:8px">\n                                    <div class="flex justify-between items-center">\n                                      <div>\n                                        <div class="font-semibold">João Teste</div>\n                                        <div class="text-sm text-gray-500">Partido: PT • SP</div>\n                                      </div>\n                                      <div>\n                                        <button class="votar vote-button px-3 py-2 bg-green-500 text-white rounded">Votar</button>\n                                      </div>\n                                    </div>\n                                  </div>';
+                            } catch (e) { console.warn('E2E placeholder injection failed', e); }
+                        })();
+                    </script>
                     <!-- Barra de Ferramentas -->
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                         <div class="text-gray-600">
