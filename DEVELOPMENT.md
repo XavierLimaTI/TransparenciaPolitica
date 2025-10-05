@@ -50,6 +50,25 @@ npm run test:smoke
 npm run smoke:e2e
 ```
 
+## Playwright E2E (automação de UI)
+
+O repositório inclui um runner Playwright simples que automatiza a abertura do modal de configuração da chave do Portal e valida que a chave foi persistida em localStorage.
+
+- Rodar localmente (pré-requisito: Playwright browsers instalados):
+
+```powershell
+# instalar browsers Playwright (só precisa rodar uma vez)
+npx playwright install --with-deps
+
+# executar o runner (sobe servidor estático e roda o teste)
+npm run test:playwright
+```
+
+- Observações para CI (GitHub Actions):
+	- O workflow já inclui um step `npx playwright install --with-deps` antes de rodar `npm run test:playwright`.
+	- Se quiser rodar mais cenários, converta o runner para usar `@playwright/test` e adicione jobs paralelos.
+
+
 ## Ativar CI / Codecov
 O projeto já contém um workflow GitHub Actions que roda `npm test` e envia `coverage/lcov.info` para Codecov.
 
