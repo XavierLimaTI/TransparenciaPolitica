@@ -56,6 +56,7 @@ if (typeof window !== 'undefined') {
     // Ensure we initialize after DOM is ready — either immediately or on DOMContentLoaded
     try {
         if (typeof document !== 'undefined') {
+            // Auto-load local CSVs only when dev hooks are explicitly enabled.
             if (document.readyState === 'complete' || document.readyState === 'interactive') {
                 // try to initialize, but don't block if errors happen
                 (async () => { try { await window.initPoliticaApp(); } catch (e) {} })();
@@ -65,12 +66,21 @@ if (typeof window !== 'undefined') {
         }
     } catch (e) { /* ignore */ }
 
-    // Auto-load local CSVs in development or when served from localhost
+    // Auto-load local CSVs only when dev hooks are explicitly enabled.
     try {
         (async () => {
-            const isLocalHost = typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-            const isDevEnv = (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'development');
-            if (!isLocalHost && !isDevEnv) return;
+            const isDevHookEnabled = (() => {
+                try {
+                    const hostname = (window && window.location && window.location.hostname) || '';
+                    if (hostname === 'localhost' || hostname === '127.0.0.1') return true;
+                    // feature flag via query param ?dev=1
+                    try { const sp = new URLSearchParams(window.location.search); if (sp.get('dev') === '1') return true; } catch (e) {}
+                    // feature flag via localStorage
+                    try { if (typeof localStorage !== 'undefined' && localStorage.getItem && localStorage.getItem('DEV_LOAD') === '1') return true; } catch (e) {}
+                } catch (e) {}
+                return false;
+            })();
+            if (!isDevHookEnabled) return;
             if (!window.governmentAPI || typeof window.governmentAPI.loadDespesasFromCSV !== 'function' || typeof window.governmentAPI.useLocalDespesas !== 'function') return;
             // Try deterministic test fixture first (useful during dev and e2e)
             const candidates = ['/tests/fixtures/despesas.csv', '/tests/fixtures/despesas.csv.txt', '/resources/data/despesas.csv'];
