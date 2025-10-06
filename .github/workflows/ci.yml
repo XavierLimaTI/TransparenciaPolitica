@@ -202,11 +202,17 @@ jobs:
           echo 'Ensuring Playwright browsers installed (safe)'
           npx playwright install --with-deps || true
           echo 'Running Playwright tests with extended timeout and retries'
-          # run Playwright and produce an HTML report (playwright-report) so CI can upload it on failure
           # export helper envs used by tests: BASE_URL and PROXY_BASE
           export BASE_URL='http://127.0.0.1:8000'
           export PROXY_BASE='http://127.0.0.1:3001'
-          npx playwright test tests/e2e --reporter=github,html --timeout=180000 --retries=3 --trace=on-first-retry
+          # If PORTAL_KEY is present, include the portal-backed spec, otherwise run default suite
+          if [ -n "${PORTAL_KEY}" ]; then
+            echo 'PORTAL_KEY present: including portal-backed despesas spec'
+            npx playwright test tests/e2e tests/e2e/despesas-portal.spec.js --reporter=github,html --timeout=180000 --retries=3 --trace=on-first-retry
+          else
+            echo 'PORTAL_KEY not present: running standard e2e suite (skips portal spec)'
+            npx playwright test tests/e2e --reporter=github,html --timeout=180000 --retries=3 --trace=on-first-retry
+          fi
         env:
           DISPLAY: :99
           # increase default playwright timeout for slower CI runners
