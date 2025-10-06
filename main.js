@@ -72,19 +72,136 @@ if (typeof window !== 'undefined') {
             const isDevEnv = (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'development');
             if (!isLocalHost && !isDevEnv) return;
             if (!window.governmentAPI || typeof window.governmentAPI.loadDespesasFromCSV !== 'function' || typeof window.governmentAPI.useLocalDespesas !== 'function') return;
-            try {
-                const path = '/resources/data/despesas.csv';
-                const resp = await fetch(path);
-                if (!resp.ok) { console.warn('Auto-load CSV: arquivo não encontrado em', path); return; }
-                const txt = await resp.text();
-                const parsed = window.governmentAPI.loadDespesasFromCSV(txt);
-                window.governmentAPI.useLocalDespesas(parsed);
-                console.log('Auto-loaded local despesas:', Array.isArray(parsed) ? parsed.length : 'unknown');
-                try { window.showLocalDataBanner && window.showLocalDataBanner(); } catch (e) {}
-            } catch (err) {
-                console.warn('Falha ao auto-carregar CSV local:', err);
+            // Try deterministic test fixture first (useful during dev and e2e)
+            const candidates = ['/tests/fixtures/despesas.csv', '/tests/fixtures/despesas.csv.txt', '/resources/data/despesas.csv'];
+            for (const path of candidates) {
+                try {
+                    const resp = await fetch(path);
+                    if (!resp || !resp.ok) { console.warn('Auto-load CSV: not found or not ok at', path); continue; }
+                    const txt = await resp.text();
+                    // simple heuristic: file should have CSV header-like content
+                    if (typeof txt !== 'string' || txt.trim().length === 0) { console.warn('Auto-load CSV: empty file at', path); continue; }
+                    const parsed = window.governmentAPI.loadDespesasFromCSV(txt);
+                    window.governmentAPI.useLocalDespesas(parsed);
+                    console.log('Auto-loaded local despesas from', path, ':', Array.isArray(parsed) ? parsed.length : 'unknown');
+                    try { window.showLocalDataBanner && window.showLocalDataBanner(); } catch (e) {}
+                    return;
+                } catch (err) {
+                    console.warn('Auto-load CSV attempt failed for', path, err);
+                    continue;
+                }
             }
+            console.warn('Auto-load CSV: no candidate files found for local environment');
         })();
+    } catch (e) { /* ignore */ }
+
+    // Expose a helper for dev to load the fixture manually from the console
+    try {
+        window.loadLocalFixture = window.loadLocalFixture || (async function() {
+            if (!window.governmentAPI || typeof window.governmentAPI.loadDespesasFromCSV !== 'function' || typeof window.governmentAPI.useLocalDespesas !== 'function') {
+                console.warn('governmentAPI or parsing functions not available yet');
+                return false;
+            }
+            const candidates = ['/tests/fixtures/despesas.csv', '/tests/fixtures/despesas.csv.txt', '/resources/data/despesas.csv'];
+            for (const path of candidates) {
+                try {
+                    const resp = await fetch(path);
+                    if (!resp || !resp.ok) { console.warn('loadLocalFixture: not found at', path); continue; }
+                    const txt = await resp.text();
+                    const parsed = window.governmentAPI.loadDespesasFromCSV(txt);
+                    window.governmentAPI.useLocalDespesas(parsed);
+                    console.log('loadLocalFixture: loaded', Array.isArray(parsed) ? parsed.length : 'unknown', 'records from', path);
+                    return true;
+                } catch (err) {
+                    console.warn('loadLocalFixture attempt failed for', path, err);
+                    continue;
+                }
+            }
+            console.warn('loadLocalFixture: no fixture found');
+            return false;
+        });
+    } catch (e) { /* ignore */ }
+
+    // Dev-only UI helper: small button to manually load fixture when running on localhost
+    // or when a feature flag is present. This avoids exposing the button in production
+    // while keeping an easy override for debugging or CI scenarios.
+    try {
+        (function(){
+            const isLocalHost = typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+            const isDevEnv = (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'development');
+            // feature flag overrides: ?dev=1 or localStorage.DEV_LOAD === '1'
+            let featureFlag = false;
+            try {
+                if (typeof window !== 'undefined' && window.location && window.location.search) {
+                    const sp = new URLSearchParams(window.location.search);
+                    if (sp.get('dev') === '1') featureFlag = true;
+                }
+            } catch (e) { /* ignore */ }
+            try {
+                if (!featureFlag && typeof localStorage !== 'undefined') {
+                    if (localStorage.getItem && localStorage.getItem('DEV_LOAD') === '1') featureFlag = true;
+                }
+            } catch (e) { /* ignore */ }
+
+            if (!isLocalHost && !isDevEnv && !featureFlag) return;
+            if (typeof document === 'undefined') return;
+            if (document.getElementById('devLoadFixtureBtn')) return;
+            const btn = document.createElement('button');
+            btn.id = 'devLoadFixtureBtn';
+            btn.textContent = 'Carregar dados locais';
+            btn.style.position = 'fixed';
+            btn.style.right = '12px';
+            btn.style.bottom = '12px';
+            btn.style.zIndex = '9999';
+            btn.style.padding = '8px 12px';
+            btn.style.background = '#111827';
+            btn.style.color = '#fff';
+            btn.style.border = 'none';
+            btn.style.borderRadius = '6px';
+            btn.style.boxShadow = '0 6px 18px rgba(0,0,0,0.15)';
+            btn.style.cursor = 'pointer';
+            btn.addEventListener('click', async () => {
+                try {
+                    btn.disabled = true; btn.textContent = 'Carregando...';
+                    const ok = await window.loadLocalFixture();
+                    if (!ok) window.mostrarNotificacao && window.mostrarNotificacao('Nenhuma fixture encontrada.', 'warn');
+                    else window.mostrarNotificacao && window.mostrarNotificacao('Fixture carregada.', 'success');
+                } catch (err) {
+                    console.error('devLoadFixtureBtn error', err);
+                    window.mostrarNotificacao && window.mostrarNotificacao('Erro ao carregar fixture', 'error');
+                } finally { btn.disabled = false; btn.textContent = 'Carregar dados locais'; }
+            });
+            document.body.appendChild(btn);
+        })();
+    } catch (e) { /* ignore */ }
+
+    // Ensure UI updates when local despesas are applied.
+    try {
+        window.addEventListener && window.addEventListener('localDespesasUsed', async (ev) => {
+            // initialize app if needed
+            try { await window.initPoliticaApp(); } catch (e) { /* ignore */ }
+            const count = ev && ev.detail && typeof ev.detail.count === 'number' ? ev.detail.count : null;
+            try {
+                const app = window.politicaApp;
+                if (app && typeof app.onLocalDespesasApplied === 'function') {
+                    try { app.onLocalDespesasApplied(count); } catch (e) { /* ignore */ }
+                } else if (app) {
+                    // fallback: try the older approach
+                    try { app.renderCandidatos && app.renderCandidatos(); } catch (e) {}
+                    try { app.updateLoadMoreUI && app.updateLoadMoreUI(); } catch (e) {}
+                }
+            } catch (e) { /* ignore */ }
+
+            // If a candidate details modal with gastos is open, trigger its load button so despesas appear
+            try {
+                if (typeof document !== 'undefined') {
+                    const verBtn = document.getElementById('verGastosBtn');
+                    if (verBtn && !verBtn.disabled) {
+                        try { verBtn.click(); } catch (e) { /* ignore */ }
+                    }
+                }
+            } catch (e) { /* ignore */ }
+        });
     } catch (e) { /* ignore */ }
 }
  

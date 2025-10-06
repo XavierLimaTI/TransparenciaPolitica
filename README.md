@@ -198,6 +198,17 @@ Este é um projeto de código aberto dedicado à transparência política no Bra
 
 **Desenvolvimento**: Equipe dedicada à transparência política
 **Design**: Especialistas em UX/UI
+
+## Modo desenvolvedor (botão de carregamento local)
+
+Para facilitar desenvolvimento e testes locais há um botão flutuante que permite carregar fixtures CSV manualmente.
+
+- O botão é exibido automaticamente quando a aplicação roda em `localhost` ou `127.0.0.1`.
+- Para ativá-lo deliberadamente em qualquer ambiente você pode:
+	- adicionar `?dev=1` à URL (ex.: `http://seu-host:8000/?dev=1`), ou
+	- habilitar via console do navegador: `localStorage.setItem('DEV_LOAD','1')` e recarregar a página.
+
+Observação: em ambientes que não sejam localhost, o botão NÃO será exibido a menos que uma das flags acima esteja presente.
 **Dados**: Analistas políticos e cientistas de dados
 **Revisão**: Especialistas em direito e política
 

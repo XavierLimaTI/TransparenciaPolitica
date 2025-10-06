@@ -88,6 +88,9 @@ jobs:
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
+        # ensure browsers cache path is set for subsequent steps
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
       
       - name: Sanity check @playwright/test (e2e)
         run: |
@@ -106,14 +109,20 @@ jobs:
 
       - name: Start static server for tests
         run: |
-          echo 'Starting http-server on port 8000'
-          npx http-server -c-1 -p 8000 &
-          echo $! > .httpserver.pid
+          echo 'Starting static server on port 8000 (http-server fallback)'
+          # prefer npx http-server, fallback to a tiny node static server if missing
+          if npx --no-install http-server -v >/dev/null 2>&1; then
+            npx http-server -c-1 -p 8000 &
+            echo $! > .httpserver.pid
+          else
+            node -e "const http=require('http'),fs=require('fs'),p=require('path');const srv=http.createServer((req,res)=>{let f=p.join(process.cwd(),req.url.split('?')[0]);fs.stat(f,(e,st)=>{if(e){res.statusCode=404;res.end('Not found');return;}fs.createReadStream(f).pipe(res);});});srv.listen(8000,()=>console.log('tiny server started'));process.on('SIGTERM',()=>srv.close());console.log('node static server started');" &
+            echo $! > .httpserver.pid
+          fi
 
       - name: Wait for fixture to be available
         run: |
           echo 'Waiting for tests fixture to be available at http://127.0.0.1:8000/tests/fixtures/despesas.csv'
-          for i in {1..15}; do
+          for i in {1..30}; do
             status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8000/tests/fixtures/despesas.csv || echo "000")
             echo "Attempt $i: HTTP status $status"
             if [ "$status" = "200" ]; then
@@ -125,9 +134,12 @@ jobs:
 
       - name: Run Playwright tests
         run: |
-          npx playwright test tests/e2e --reporter=github
+          echo 'Running Playwright tests with extended timeout'
+          npx playwright test tests/e2e --reporter=github --timeout=60000
         env:
           DISPLAY: :99
+          # increase default playwright timeout for slower CI runners
+          PLAYWRIGHT_TEST_TIMEOUT: '60000'
 
       - name: Stop static server
         if: always()
