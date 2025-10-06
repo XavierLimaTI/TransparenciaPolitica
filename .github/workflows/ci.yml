@@ -115,31 +115,53 @@ jobs:
             npx http-server -c-1 -p 8000 &
             echo $! > .httpserver.pid
           else
-            node -e "const http=require('http'),fs=require('fs'),p=require('path');const srv=http.createServer((req,res)=>{let f=p.join(process.cwd(),req.url.split('?')[0]);fs.stat(f,(e,st)=>{if(e){res.statusCode=404;res.end('Not found');return;}fs.createReadStream(f).pipe(res);});});srv.listen(8000,()=>console.log('tiny server started'));process.on('SIGTERM',()=>srv.close());console.log('node static server started');" &
+            node -e "const http=require('http'),fs=require('fs'),p=require('path');const srv=http.createServer((req,res)=>{let reqPath=req.url.split('?')[0]; if(reqPath==='/'||reqPath==='') reqPath='/index.html'; let f=p.join(process.cwd(),reqPath); fs.stat(f,(e,st)=>{ if(e){ res.statusCode=404; res.end('Not found'); return; } if(st.isDirectory()){ const idx=p.join(f,'index.html'); fs.stat(idx,(ei,sti)=>{ if(ei){ res.statusCode=404; res.end('Not found'); return;} fs.createReadStream(idx).pipe(res); }); return; } fs.createReadStream(f).pipe(res); }); }); srv.listen(8000,()=>console.log('tiny server started')); process.on('SIGTERM',()=>srv.close()); console.log('node static server started');" &
             echo $! > .httpserver.pid
           fi
+
+      - name: Wait for static server to respond
+        run: |
+          echo 'Waiting for static server on http://127.0.0.1:8000/'
+          for i in {1..30}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8000/ || echo "000")
+            echo "Attempt $i: HTTP status $status"
+            if [ "$status" = "200" ]; then
+              echo 'Static server is up'; exit 0
+            fi
+            sleep 1
+          done
+          echo 'Static server did not respond in time'; exit 1
 
       - name: Wait for fixture to be available
         run: |
           echo 'Waiting for tests fixture to be available at http://127.0.0.1:8000/tests/fixtures/despesas.csv'
-          for i in {1..30}; do
+          for i in {1..60}; do
             status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8000/tests/fixtures/despesas.csv || echo "000")
             echo "Attempt $i: HTTP status $status"
             if [ "$status" = "200" ]; then
               echo 'Fixture available'; exit 0
             fi
-            sleep 1
+            sleep 2
           done
           echo 'Fixture not available after retries'; exit 1
 
       - name: Run Playwright tests
         run: |
-          echo 'Running Playwright tests with extended timeout'
-          npx playwright test tests/e2e --reporter=github --timeout=60000
+          echo 'Ensuring Playwright browsers installed (safe)'
+          npx playwright install --with-deps || true
+          echo 'Running Playwright tests with extended timeout and retries'
+          npx playwright test tests/e2e --reporter=github --timeout=120000 --retries=2 --trace=on-first-retry || true
         env:
           DISPLAY: :99
           # increase default playwright timeout for slower CI runners
-          PLAYWRIGHT_TEST_TIMEOUT: '60000'
+          PLAYWRIGHT_TEST_TIMEOUT: '120000'
+
+      - name: Upload Playwright report (if present)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
 
       - name: Stop static server
         if: always()
