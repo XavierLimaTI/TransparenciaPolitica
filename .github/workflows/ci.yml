@@ -102,13 +102,37 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-playwright-
 
-      - name: E2E debug info
+      # E2E debug info removed after stability
+
+      - name: Start static server for tests
         run: |
-          echo "Node version:" && node -v
-          echo "NPM version:" && npm -v
-          echo "@playwright/test status:" && npm ls @playwright/test || true
-          echo "Playwright package version:" && npm ls playwright || true
-          echo "List node_modules playwright-related:" && ls -la node_modules | grep playwright || true
+          echo 'Starting http-server on port 8000'
+          npx http-server -c-1 -p 8000 &
+          echo $! > .httpserver.pid
+
+      - name: Wait for fixture to be available
+        run: |
+          echo 'Waiting for tests fixture to be available at http://127.0.0.1:8000/tests/fixtures/despesas.csv'
+          for i in {1..15}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8000/tests/fixtures/despesas.csv || echo "000")
+            echo "Attempt $i: HTTP status $status"
+            if [ "$status" = "200" ]; then
+              echo 'Fixture available'; exit 0
+            fi
+            sleep 1
+          done
+          echo 'Fixture not available after retries'; exit 1
 
       - name: Run Playwright tests
-        run: npx playwright test tests/e2e --reporter=github
+        run: |
+          npx playwright test tests/e2e --reporter=github
+        env:
+          DISPLAY: :99
+
+      - name: Stop static server
+        if: always()
+        run: |
+          if [ -f .httpserver.pid ]; then
+            kill "$(cat .httpserver.pid)" || true
+            rm -f .httpserver.pid
+          fi
