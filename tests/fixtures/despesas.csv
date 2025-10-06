@@ -1,0 +1,7 @@
+data,descricao,valor,favorecido,cpfid;favorecido;descricao;valor;data;cnpjCpf
+
+2024-01-15,Compra de materiais,1234.56,Fornecedor LTDA,123456789011;João Silva;Pagamento X;123.45;2020-01-15;12345678901
+
+2024-02-10,Serviços prestados,789.00,Empresa X,987654321002;Maria Souza;Pagamento Y;678.90;2020-02-20;09876543210
+
+3;Empresa ABC;Serviço Z;1000,00;2021-03-10;11223344556677

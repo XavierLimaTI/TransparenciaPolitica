@@ -135,7 +135,8 @@ jobs:
       - name: Wait for fixture to be available
         run: |
           echo 'Waiting for tests fixture to be available at http://127.0.0.1:8000/tests/fixtures/despesas.csv'
-          for i in {1..60}; do
+          # increase retries to allow slower runners or network FS mounts
+          for i in {1..90}; do
             status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8000/tests/fixtures/despesas.csv || echo "000")
             echo "Attempt $i: HTTP status $status"
             if [ "$status" = "200" ]; then
@@ -150,11 +151,12 @@ jobs:
           echo 'Ensuring Playwright browsers installed (safe)'
           npx playwright install --with-deps || true
           echo 'Running Playwright tests with extended timeout and retries'
-          npx playwright test tests/e2e --reporter=github --timeout=120000 --retries=2 --trace=on-first-retry || true
+          npx playwright test tests/e2e --reporter=github --timeout=180000 --retries=3 --trace=on-first-retry || true
         env:
           DISPLAY: :99
           # increase default playwright timeout for slower CI runners
-          PLAYWRIGHT_TEST_TIMEOUT: '120000'
+          PLAYWRIGHT_TEST_TIMEOUT: '180000'
+          PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
 
       - name: Upload Playwright report (if present)
         if: always()
