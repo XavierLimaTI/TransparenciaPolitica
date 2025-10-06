@@ -151,7 +151,8 @@ jobs:
           echo 'Ensuring Playwright browsers installed (safe)'
           npx playwright install --with-deps || true
           echo 'Running Playwright tests with extended timeout and retries'
-          npx playwright test tests/e2e --reporter=github --timeout=180000 --retries=3 --trace=on-first-retry || true
+          # run Playwright and produce an HTML report (playwright-report) so CI can upload it on failure
+          npx playwright test tests/e2e --reporter=github,html --timeout=180000 --retries=3 --trace=on-first-retry
         env:
           DISPLAY: :99
           # increase default playwright timeout for slower CI runners
