@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+resources/data/
+tests/e2e/
+server/data.db
+server/portal_key.json
+.httpserver.log
+.proxy.log
+.tmp/
