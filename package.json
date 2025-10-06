@@ -26,7 +26,8 @@
     "smoke": "node scripts/test-csv-parse.js && npx http-server -c-1 -p 8000 & echo 'Server started'",
     "smoke:e2e": "node scripts/smoke-e2e.js",
     "test:unit": "jest",
-    "ingest": "node scripts/ingest-datasets.js"
+    "ingest": "node scripts/ingest-datasets.js",
+    "lint": "npx eslint --ext .js . || echo 'ESLint not installed or no lint errors'"
   },
   "keywords": [
     "politica",

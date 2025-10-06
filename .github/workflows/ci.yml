@@ -7,6 +7,27 @@ on:
     branches: [ main ]
 
 jobs:
+  lint-check:
+    name: Lint (informational)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Check for eslint
+        run: |
+          echo 'Checking for ESLint...'
+          npm ci --silent || true
+          if npx --no-install eslint -v >/dev/null 2>&1; then
+            echo 'Running eslint --ext .js .'
+            npx eslint --ext .js . || true
+          else
+            echo 'ESLint not configured or not installed; skipping lint run.'
+          fi
+
   unit-tests:
     name: Unit tests (Jest)
     runs-on: ubuntu-latest
