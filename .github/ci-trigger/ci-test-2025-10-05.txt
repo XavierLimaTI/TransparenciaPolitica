@@ -1,0 +1,3 @@
+CI test trigger
+Created by automated test commit to validate updated CI flow (start http-server and run Playwright).
+Date: 2025-10-05
