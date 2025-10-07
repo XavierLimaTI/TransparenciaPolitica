@@ -27,8 +27,8 @@
     "ci": "npm test",
     "smoke": "node scripts/test-csv-parse.js && npx http-server -c-1 -p 8000 & echo 'Server started'",
     "smoke:e2e": "node scripts/smoke-e2e.js",
-    "test:unit": "jest",
-    "test:integration": "jest --runInBand __tests__/*.live.test.js",
+    "test:unit": "jest --runInBand --testPathPattern \"\\.test\\.js$\"",
+    "test:integration": "jest --runInBand --config jest.config.cjs --passWithNoTests",
     "ingest": "node scripts/ingest-datasets.js",
     "lint": "npx eslint --ext .js . || echo 'ESLint not installed or no lint errors'"
   },
