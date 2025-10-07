@@ -6,7 +6,7 @@ test('portal key modal saves key', async ({ page }) => {
   // ensure helper exists
   await page.evaluate(() => {
     if (!window.createPortalKeyModal) {
-      window.createPortalKeyModal = function(app) {
+  window.createPortalKeyModal = function(_app) {
         if (document.getElementById('portalKeyInput')) return;
         const wrapper = document.createElement('div'); wrapper.className = 'modal-root';
         wrapper.innerHTML = `<div><input id="portalKeyInput" /><button id="portalKeySave">Salvar</button></div>`;

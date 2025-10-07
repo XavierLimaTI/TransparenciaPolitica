@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 8000;
   await page.waitForLoadState('domcontentloaded', { timeout: 10000 });
 
       // Log page HTML for diagnosis
-      try { const initialHtml = await page.content(); console.log('NAV PAGE HTML LENGTH:', initialHtml.length); } catch(e){}
+  try { const initialHtml = await page.content(); console.log('NAV PAGE HTML LENGTH:', initialHtml.length); } catch(e){ void e; }
 
       // Ensure a browser-friendly createPortalKeyModal implementation is available
       await page.evaluate(() => {
@@ -54,27 +54,27 @@ const PORT = process.env.PORT || 8000;
               `;
               const wrapper = document.createElement('div'); wrapper.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 modal-root'; wrapper.innerHTML = modalHtml;
               document.body.appendChild(wrapper);
-              const remove = () => { try { wrapper.remove(); } catch (e) {} };
+              const remove = () => { try { wrapper.remove(); } catch (e) { void e; } };
               const cancel = document.getElementById('portalKeyCancel'); if (cancel) cancel.addEventListener('click', remove);
               const close = document.getElementById('portalKeyClose'); if (close) close.addEventListener('click', remove);
               const save = document.getElementById('portalKeySave');
               if (save) save.addEventListener('click', () => {
-                try { const v = (document.getElementById('portalKeyInput')||{}).value || ''; if (!v) return; localStorage.setItem('portal_api_key', v); } catch(e){}
+                try { const v = (document.getElementById('portalKeyInput')||{}).value || ''; if (!v) return; localStorage.setItem('portal_api_key', v); } catch(e){ void e; }
                 remove();
-                try { if (app && typeof app.onPortalKeySaved === 'function') app.onPortalKeySaved((document.getElementById('portalKeyInput')||{}).value); } catch(e){}
+                try { if (app && typeof app.onPortalKeySaved === 'function') app.onPortalKeySaved((document.getElementById('portalKeyInput')||{}).value); } catch(e){ void e; }
               });
-              try { const input = document.getElementById('portalKeyInput'); if (input && typeof input.focus === 'function') input.focus(); } catch(e){}
+              try { const input = document.getElementById('portalKeyInput'); if (input && typeof input.focus === 'function') input.focus(); } catch(e){ void e; }
               return true;
             } catch (e) { return false; }
           };
-        } catch (e) {}
+  } catch (e) { void e; }
       });
 
       // Try to open the modal via the app or directly via the injected helper
       const opened = await page.evaluate(() => {
         try {
-          if (typeof window.showProxyBanner === 'function') { try { window.showProxyBanner(); } catch(e){} }
-          if (window.__views && typeof window.__views.createPortalKeyModal === 'function') { try { window.__views.createPortalKeyModal(window.politicaApp || null); } catch(e){} }
+          if (typeof window.showProxyBanner === 'function') { try { window.showProxyBanner(); } catch(e){ void e; } }
+          if (window.__views && typeof window.__views.createPortalKeyModal === 'function') { try { window.__views.createPortalKeyModal(window.politicaApp || null); } catch(e){ void e; } }
           if (typeof window.createPortalKeyModal === 'function') { window.createPortalKeyModal(window.politicaApp || null); return true; }
         } catch (e) { /* ignore */ }
         return false;
@@ -106,11 +106,11 @@ const PORT = process.env.PORT || 8000;
                 </div>
               </div>`;
             document.body.appendChild(modalRoot);
-            const remove = () => { try { modalRoot.remove(); } catch (e) {} };
+            const remove = () => { try { modalRoot.remove(); } catch (e) { void e; } };
             document.getElementById('portalKeyCancel').addEventListener('click', remove);
             document.getElementById('portalKeyClose').addEventListener('click', remove);
             document.getElementById('portalKeySave').addEventListener('click', () => {
-              try { const v = (document.getElementById('portalKeyInput')||{}).value || ''; if (!v) return; localStorage.setItem('portal_api_key', v); } catch(e){}
+              try { const v = (document.getElementById('portalKeyInput')||{}).value || ''; if (!v) return; localStorage.setItem('portal_api_key', v); } catch(e){ void e; }
               remove();
             });
             return true;
@@ -126,7 +126,7 @@ const PORT = process.env.PORT || 8000;
         if (hasShowProxy) {
           try { await page.waitForSelector('#proxyDetectedBanner button', { timeout: 3000 }); await page.click('#proxyDetectedBanner button'); } catch (e) { /* ignore */ }
         }
-      } catch (e) {}
+  } catch (e) { void e; }
 
       // wait/check for the input (give the page more time to render and for our fallback to inject)
       const exists = await page.evaluate(() => !!document.getElementById('portalKeyInput'));
@@ -166,8 +166,8 @@ const PORT = process.env.PORT || 8000;
       try {
         const html = await (browser ? (await (await browser.newPage()).content()) : page.content());
         console.error('PAGE HTML SNIPPET:', html.slice(0, 2000));
-      } catch (e) {}
-      try { if (browser) await browser.close(); } catch(e){}
+  } catch (e) { void e; }
+  try { if (browser) await browser.close(); } catch(e){ void e; }
       server.close(() => process.exit(3));
     }
   });

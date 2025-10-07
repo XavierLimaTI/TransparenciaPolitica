@@ -43,9 +43,9 @@ async function checkUrl(url){
     console.error('SMOKE ERR', err);
     process.exitCode = 2;
   } finally {
-    // kill processes
-    try { proxy.kill(); } catch(e){}
-    try { server.kill(); } catch(e){}
+  // kill processes
+  try { proxy.kill(); } catch (e) { void e; }
+  try { server.kill(); } catch (e) { void e; }
     process.exit();
   }
 })();

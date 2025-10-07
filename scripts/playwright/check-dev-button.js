@@ -13,7 +13,7 @@ async function startTinyServer(port=8000) {
         if (e) { res.statusCode = 404; res.end('Not found'); return; }
         if (st.isDirectory()) {
           const idx = path.join(f, 'index.html');
-          return fs.stat(idx, (ei, sti) => {
+          return fs.stat(idx, (ei, _sti) => {
             if (ei) { res.statusCode = 404; res.end('Not found'); return; }
             res.setHeader('Access-Control-Allow-Origin', '*');
             fs.createReadStream(idx).pipe(res);
@@ -86,9 +86,9 @@ async function check(url, launchOptions={}) {
     process.exit(0);
   } catch (e) {
     console.error('Error during check:', e);
-    try { if (srv) srv.close(); } catch (er) {}
+  try { if (srv) srv.close(); } catch (er) { void er; }
     process.exit(2);
   } finally {
-    try { if (srv) srv.close(); } catch (e) {}
+  try { if (srv) srv.close(); } catch (e) { void e; }
   }
 })();

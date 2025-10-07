@@ -25,5 +25,5 @@ test('ingest CSV flow', async ({ page }) => {
   }
 
   // cleanup
-  try { fs.unlinkSync(tmpPath); } catch (e) {}
+  try { fs.unlinkSync(tmpPath); } catch (e) { void e; }
 });

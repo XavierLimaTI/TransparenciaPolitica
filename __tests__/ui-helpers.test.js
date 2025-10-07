@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+// (removed unused fs/path requires)
 // jsdom / whatwg-url expects TextEncoder in some Node environments
 if (typeof global.TextEncoder === 'undefined') {
   try { global.TextEncoder = require('util').TextEncoder; } catch (e) { /* ignore */ }
@@ -35,16 +34,15 @@ describe('ui-helpers', () => {
   afterEach(() => {
     delete global.document;
     delete global.window;
-    try { localStorage.clear(); } catch (e) {}
+  try { localStorage.clear(); } catch (e) { void e; }
     delete global.localStorage;
   });
 
   test('createModal injects modal into document', () => {
     const content = `<div class="test-modal">hello</div>`;
     uiHelpers.createModal(content, document);
-    const modal = document.querySelector('.fixed.inset-0') || document.querySelector('.modal-root');
-    // our createModal uses class 'fixed inset-0 bg-black' — check for the element
-    const found = document.body.querySelector('div');
+  // our createModal uses class 'fixed inset-0 bg-black' — check for the element
+  const found = document.body.querySelector('div');
     expect(found).toBeTruthy();
     expect(found.innerHTML).toContain('hello');
   });

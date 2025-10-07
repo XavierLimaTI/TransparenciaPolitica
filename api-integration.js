@@ -7,7 +7,7 @@ try {
         const mod = require('./lib/government-api');
         if (mod) {
             module.exports = mod;
-            try { if (typeof window !== 'undefined') { window.GovernmentAPI = mod.GovernmentAPI; window.DataUpdater = mod.DataUpdater; } } catch (e) {}
+            try { if (typeof window !== 'undefined') { window.GovernmentAPI = mod.GovernmentAPI; window.DataUpdater = mod.DataUpdater; } } catch (e) { void e; }
         }
     }
 } catch (e) {
@@ -33,7 +33,7 @@ try {
             // ignore
         }
     }
-} catch (e) {}
+} catch (e) { void e; }
 
 if (typeof GovernmentAPI === 'undefined') {
     // Minimal stub focused on CSV parsing used by tests
@@ -54,8 +54,8 @@ if (typeof GovernmentAPI === 'undefined') {
             const rows = lines.slice(1).map(line => { const parts = splitLine(line); const obj = {}; for (let i=0;i<headers.length;i++) obj[headers[i]] = parts[i] || ''; return obj; });
             return rows.map(r => {
                 const rawValor = (r.valor || r.valordocumento || r.valor_documento || r.valor_pagamento || '0').toString();
-                let cleaned = rawValor.replace(/[^0-9,\.\-]/g,'');
-                if (cleaned.indexOf(',')>-1 && cleaned.indexOf('.')>-1) cleaned = cleaned.replace(/\./g,'').replace(/,/g,'.');
+                let cleaned = rawValor.replace(/[^0-9,.-]/g, '');
+                if (cleaned.indexOf(',') > -1 && cleaned.indexOf('.') > -1) cleaned = cleaned.replace(/\./g, '').replace(/,/g, '.');
                 else if (cleaned.indexOf(',')>-1) cleaned = cleaned.replace(/,/g,'.');
                 const valor = Number(cleaned) || 0;
                 return { dataDocumento: r.data || r.datadoc || r.data_documento || null, descricao: r.descricao || r.historico || '', valor, favorecido: r.nome || r.favorecido || '', cnpjCpf: r.cpf || r.cnpj || null, origem: r.orgao || null, detalhe: r };
@@ -92,13 +92,13 @@ if (typeof GovernmentAPI === 'undefined') {
                 loadDespesasFromCSV(text) {
                     try {
                         if (typeof require !== 'undefined') {
-                            try { const p = require('./lib/csv-parser'); if (p && typeof p.parseDespesasCSV === 'function') return p.parseDespesasCSV(text); } catch (e) {}
+                            try { const p = require('./lib/csv-parser'); if (p && typeof p.parseDespesasCSV === 'function') return p.parseDespesasCSV(text); } catch (e) { void e; }
                         }
                         if (typeof window !== 'undefined' && typeof window.parseDespesasCSV === 'function') return window.parseDespesasCSV(text);
-                    } catch (e) {}
+                    } catch (e) { void e; }
                     return parseDespesasCSVSimple(text);
                 }
-                useLocalDespesas() {}
+                useLocalDespesas() { /* no-op stub for tests */ return null; }
             }
             GovernmentAPI = GovernmentAPIStub;
     } catch (e) {

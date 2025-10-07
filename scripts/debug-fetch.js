@@ -2,7 +2,7 @@
 const https = require('https');
 const http = require('http');
 
-function fetchUrl(url, opts = {}) {
+function fetchUrl(url, _opts = {}) {
   return new Promise((resolve) => {
     const lib = url.startsWith('https') ? https : http;
     const req = lib.get(url, { timeout: 10000 }, (res) => {

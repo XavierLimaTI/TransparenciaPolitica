@@ -7,7 +7,6 @@ test('portal key modal opens and saves key', async ({ page }) => {
   await page.goto('http://localhost:8000/candidatos.html');
 
   // expor helper se necessário
-  const hasShowProxy = await page.evaluate(() => !!(window.showProxyBanner || (window.__views && window.__views.createPortalKeyModal)));
 
   // try to open via public API
   if (await page.evaluate(() => !!window.showProxyBanner)) {
@@ -16,8 +15,8 @@ test('portal key modal opens and saves key', async ({ page }) => {
     await page.evaluate(() => window.__views.createPortalKeyModal(window.politicaApp || null));
   } else {
     // fallback: inject the helper from lib/ui-helpers.js by adding a small script that calls createPortalKeyModal if available
-    await page.addScriptTag({ path: '/lib/ui-helpers.js' });
-    await page.evaluate(() => { try { if (window.createPortalKeyModal) window.createPortalKeyModal(window.politicaApp || null); } catch (e) {} });
+  await page.addScriptTag({ path: '/lib/ui-helpers.js' });
+  await page.evaluate(() => { try { if (window.createPortalKeyModal) window.createPortalKeyModal(window.politicaApp || null); } catch (e) { void e; } });
   }
 
   // aguardar input do modal

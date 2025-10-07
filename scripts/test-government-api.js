@@ -33,7 +33,7 @@ if (!GovernmentAPI) {
             if (typeof global.addEventListener !== 'function') {
                 global._events = global._events || {};
                 global.addEventListener = function(name, cb) { global._events[name] = global._events[name] || []; global._events[name].push(cb); };
-                global.dispatchEvent = function(ev) { const list = (global._events && global._events[ev.type]) || []; list.forEach(f => { try { f(ev); } catch(e){} }); };
+                global.dispatchEvent = function(ev) { const list = (global._events && global._events[ev.type]) || []; list.forEach(f => { try { f(ev); } catch(e) { void e; } }); };
             }
         }
 

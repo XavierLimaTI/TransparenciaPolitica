@@ -5,7 +5,6 @@ const path = require('path');
 const vm = require('vm');
 
 describe('GovernmentAPI.searchDeputados', () => {
-  let GovernmentAPI;
 
   beforeAll(() => {
     const code = fs.readFileSync(path.resolve(__dirname, '..', 'api-integration.js'), 'utf8');
@@ -25,7 +24,7 @@ describe('GovernmentAPI.searchDeputados', () => {
     // Provide a fake fetch which will be replaced per test
     sandbox.fetch = async () => ({ ok: true, json: async () => ({ dados: [] }), headers: { get: () => null } });
     vm.runInContext(code + '\nmodule.exports = GovernmentAPI;', sandbox);
-    GovernmentAPI = sandbox.module.exports;
+  // module exported to sandbox.module.exports for tests that re-evaluate later
   });
 
   test('returns results and meta shape when remote responds', async () => {

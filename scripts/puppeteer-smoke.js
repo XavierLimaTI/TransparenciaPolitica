@@ -11,7 +11,7 @@ const puppeteer = require('puppeteer');
   });
 
   page.on('response', resp => {
-    try { console.log('[response]', resp.status(), resp.url()); } catch (e) { }
+    try { console.log('[response]', resp.status(), resp.url()); } catch (e) { void e; }
   });
 
   page.on('requestfailed', req => {

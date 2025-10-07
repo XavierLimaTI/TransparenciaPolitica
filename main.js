@@ -10,9 +10,7 @@ try {
     if (typeof module !== 'undefined' && module.exports) {
         PoliticaApp = require('./lib/politica-app');
     }
-} catch (e) {
-    // ignore
-}
+} catch (e) { void e; }
 
 if (!PoliticaApp && typeof window !== 'undefined' && window.PoliticaApp) PoliticaApp = window.PoliticaApp;
 
@@ -29,14 +27,14 @@ if (typeof window !== 'undefined') {
     window.showLoadingSpinner = window.showLoadingSpinner || function(){};
     window.hideLoadingSpinner = window.hideLoadingSpinner || function(){};
     // expose createPortalKeyModal if ui helpers available
-    try { if (_uiHelpers && typeof _uiHelpers.createPortalKeyModal === 'function') window.createPortalKeyModal = _uiHelpers.createPortalKeyModal; } catch (e) {}
+    try { if (_uiHelpers && typeof _uiHelpers.createPortalKeyModal === 'function') window.createPortalKeyModal = _uiHelpers.createPortalKeyModal; } catch (e) { void e; }
 
     // Expose a GovernmentAPI instance for quick console/dev use
     try {
         if (typeof window.GovernmentAPI === 'function' && !window.governmentAPI) {
-            try { window.governmentAPI = new window.GovernmentAPI(); } catch (e) { /* ignore */ }
+            try { window.governmentAPI = new window.GovernmentAPI(); } catch (e) { void e; }
         }
-    } catch (e) {}
+    } catch (e) { void e; }
 
     // Provide an async initializer that can be awaited from the console safely
     window.initPoliticaApp = window.initPoliticaApp || (async function() {
@@ -59,12 +57,12 @@ if (typeof window !== 'undefined') {
             // Auto-load local CSVs only when dev hooks are explicitly enabled.
             if (document.readyState === 'complete' || document.readyState === 'interactive') {
                 // try to initialize, but don't block if errors happen
-                (async () => { try { await window.initPoliticaApp(); } catch (e) {} })();
+                (async () => { try { await window.initPoliticaApp(); } catch (e) { void e; } })();
             } else {
-                document.addEventListener('DOMContentLoaded', function() { (async () => { try { await window.initPoliticaApp(); } catch (e) {} })(); });
+                document.addEventListener('DOMContentLoaded', function() { (async () => { try { await window.initPoliticaApp(); } catch (e) { void e; } })(); });
             }
         }
-    } catch (e) { /* ignore */ }
+    } catch (e) { void e; }
 
     // Auto-load local CSVs only when dev hooks are explicitly enabled.
     try {
@@ -74,10 +72,10 @@ if (typeof window !== 'undefined') {
                     const hostname = (window && window.location && window.location.hostname) || '';
                     if (hostname === 'localhost' || hostname === '127.0.0.1') return true;
                     // feature flag via query param ?dev=1
-                    try { const sp = new URLSearchParams(window.location.search); if (sp.get('dev') === '1') return true; } catch (e) {}
+                    try { const sp = new URLSearchParams(window.location.search); if (sp.get('dev') === '1') return true; } catch (e) { void e; }
                     // feature flag via localStorage
-                    try { if (typeof localStorage !== 'undefined' && localStorage.getItem && localStorage.getItem('DEV_LOAD') === '1') return true; } catch (e) {}
-                } catch (e) {}
+                    try { if (typeof localStorage !== 'undefined' && localStorage.getItem && localStorage.getItem('DEV_LOAD') === '1') return true; } catch (e) { void e; }
+                } catch (e) { void e; }
                 return false;
             })();
             if (!isDevHookEnabled) return;
@@ -94,7 +92,7 @@ if (typeof window !== 'undefined') {
                     const parsed = window.governmentAPI.loadDespesasFromCSV(txt);
                     window.governmentAPI.useLocalDespesas(parsed);
                     console.log('Auto-loaded local despesas from', path, ':', Array.isArray(parsed) ? parsed.length : 'unknown');
-                    try { window.showLocalDataBanner && window.showLocalDataBanner(); } catch (e) {}
+                    try { window.showLocalDataBanner && window.showLocalDataBanner(); } catch (e) { void e; }
                     return;
                 } catch (err) {
                     console.warn('Auto-load CSV attempt failed for', path, err);
@@ -103,7 +101,7 @@ if (typeof window !== 'undefined') {
             }
             console.warn('Auto-load CSV: no candidate files found for local environment');
         })();
-    } catch (e) { /* ignore */ }
+    } catch (e) { void e; }
 
     // Expose a helper for dev to load the fixture manually from the console
     try {
@@ -189,16 +187,16 @@ if (typeof window !== 'undefined') {
     try {
         window.addEventListener && window.addEventListener('localDespesasUsed', async (ev) => {
             // initialize app if needed
-            try { await window.initPoliticaApp(); } catch (e) { /* ignore */ }
+            try { await window.initPoliticaApp(); } catch (e) { void e; }
             const count = ev && ev.detail && typeof ev.detail.count === 'number' ? ev.detail.count : null;
             try {
                 const app = window.politicaApp;
                 if (app && typeof app.onLocalDespesasApplied === 'function') {
-                    try { app.onLocalDespesasApplied(count); } catch (e) { /* ignore */ }
+                    try { app.onLocalDespesasApplied(count); } catch (e) { void e; }
                 } else if (app) {
                     // fallback: try the older approach
-                    try { app.renderCandidatos && app.renderCandidatos(); } catch (e) {}
-                    try { app.updateLoadMoreUI && app.updateLoadMoreUI(); } catch (e) {}
+                    try { app.renderCandidatos && app.renderCandidatos(); } catch (e) { void e; }
+                    try { app.updateLoadMoreUI && app.updateLoadMoreUI(); } catch (e) { void e; }
                 }
             } catch (e) { /* ignore */ }
 
@@ -207,10 +205,10 @@ if (typeof window !== 'undefined') {
                 if (typeof document !== 'undefined') {
                     const verBtn = document.getElementById('verGastosBtn');
                     if (verBtn && !verBtn.disabled) {
-                        try { verBtn.click(); } catch (e) { /* ignore */ }
+                        try { verBtn.click(); } catch (e) { void e; }
                     }
                 }
-            } catch (e) { /* ignore */ }
+            } catch (e) { void e; }
         });
     } catch (e) { /* ignore */ }
 }

@@ -11,6 +11,24 @@
   },
   "rules": {
     "no-console": "off",
-    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
-  }
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "no-empty": "warn",
+    "no-undef": "off",
+    "no-useless-escape": "warn",
+    "no-inner-declarations": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**", "**/tests/**", "**/scripts/**"],
+      "env": {
+        "jest": true,
+        "node": true,
+        "browser": false
+      },
+      "rules": {
+        "no-undef": "off",
+        "no-empty": "warn"
+      }
+    }
+  ]
 }

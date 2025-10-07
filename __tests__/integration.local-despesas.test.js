@@ -10,14 +10,14 @@ try {
 
 describe('integração local despesas (Jest)', () => {
   test('government-api parses CSV e PoliticaApp reage ao evento localDespesasUsed', async () => {
-  const { GovernmentAPI } = require(path.resolve(__dirname, '..', 'lib', 'government-api'));
-  const PoliticaApp = require(path.resolve(__dirname, '..', 'lib', 'politica-app'));
-
     // preparar ambiente: document mínimo e window-like global
     const { JSDOM } = require('jsdom');
     const dom = new JSDOM(`<!doctype html><html><body></body></html>`);
     global.window = dom.window;
     global.document = dom.window.document;
+
+  const { GovernmentAPI } = require(path.resolve(__dirname, '..', 'lib', 'government-api'));
+  const PoliticaApp = require(path.resolve(__dirname, '..', 'lib', 'politica-app'));
 
   const api = new GovernmentAPI();
   // expose on window so event dispatch & consumers see it
@@ -37,7 +37,7 @@ describe('integração local despesas (Jest)', () => {
 
     // attach a window listener that mirrors main.js behavior: call app.onLocalDespesasApplied
     global.window.addEventListener('localDespesasUsed', (ev) => {
-      try { const cnt = ev && ev.detail && typeof ev.detail.count === 'number' ? ev.detail.count : null; app.onLocalDespesasApplied(cnt); } catch(e) {}
+      try { const cnt = ev && ev.detail && typeof ev.detail.count === 'number' ? ev.detail.count : null; app.onLocalDespesasApplied(cnt); } catch(e) { void e; }
     });
 
     // injetar dados locais e disparar o fluxo

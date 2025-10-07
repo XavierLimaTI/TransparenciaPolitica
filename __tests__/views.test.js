@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+// no file system requires needed in this test
 // jsdom depends on TextEncoder/TextDecoder in some Node versions; ensure globals exist
 const { TextEncoder, TextDecoder } = require('util');
 global.TextEncoder = global.TextEncoder || TextEncoder;

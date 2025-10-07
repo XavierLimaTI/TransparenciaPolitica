@@ -8,7 +8,7 @@ const JSON_PATH = process.env.JSON_DB_PATH || path.resolve(__dirname, 'db.json')
 let impl = null; // will hold the implementation (sqlite or json)
 
 function ensureDir(p) {
-  try { fs.mkdirSync(path.dirname(p), { recursive: true }); } catch (e) {}
+  try { fs.mkdirSync(path.dirname(p), { recursive: true }); } catch (e) { void e; }
 }
 
 function init() {
@@ -87,9 +87,7 @@ function init() {
           console.error('[db] migration from JSON to sqlite failed:', migErr && migErr.message);
         }
       }
-    } catch (e) {
-      // migration guard
-    }
+    } catch (e) { void e; }
 
     return impl;
   } catch (e) {

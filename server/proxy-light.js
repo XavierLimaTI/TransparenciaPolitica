@@ -35,7 +35,7 @@ async function forwardFetch(targetUrl, req, extraHeaders = {}) {
       const v = req.headers && req.headers[h];
       if (v) headers[h] = v;
     }
-  } catch (e) {}
+  } catch (e) { void e; }
 
   const init = { method: req.method, headers };
   try {
@@ -106,14 +106,14 @@ const server = http.createServer(async (req, res) => {
   try {
     if (pathname === '/health' && req.method === 'GET') {
       let keyPresent = false;
-      try { if (fs.existsSync(KEY_FILE)) { const p = JSON.parse(fs.readFileSync(KEY_FILE,'utf8')||'{}'); if (p && p.key) keyPresent = true; } } catch(e){}
+  try { if (fs.existsSync(KEY_FILE)) { const p = JSON.parse(fs.readFileSync(KEY_FILE,'utf8')||'{}'); if (p && p.key) keyPresent = true; } } catch(e){ void e; }
       return sendJSON(res, 200, { status: 'ok', portalKey: keyPresent });
     }
 
     if (pathname === '/set-key' && req.method === 'POST') {
       const body = await readBody(req);
       let parsed = {};
-      try { parsed = JSON.parse(body || '{}'); } catch (e) { return sendJSON(res, 400, { error: 'invalid_json' }); }
+  try { parsed = JSON.parse(body || '{}'); } catch (e) { void e; return sendJSON(res, 400, { error: 'invalid_json' }); }
       const key = parsed.key;
       if (!key) return sendJSON(res, 400, { error: 'missing_key' });
       try { fs.writeFileSync(KEY_FILE, JSON.stringify({ key }, null, 2), 'utf8'); } catch (e) { return sendJSON(res, 500, { error: 'persist_failed', detail: String(e) }); }
@@ -121,14 +121,14 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (pathname === '/unset-key' && req.method === 'POST') {
-      try { if (fs.existsSync(KEY_FILE)) fs.unlinkSync(KEY_FILE); } catch (e) { /* ignore */ }
+  try { if (fs.existsSync(KEY_FILE)) fs.unlinkSync(KEY_FILE); } catch (e) { void e; }
       return sendJSON(res, 200, { ok: true });
     }
 
     // Proxy despesas
     if (pathname === '/despesas' && req.method === 'GET') {
       let portalKey = null;
-      try { if (fs.existsSync(KEY_FILE)) { const p = JSON.parse(fs.readFileSync(KEY_FILE,'utf8')||'{}'); portalKey = p && p.key; } } catch(e){}
+  try { if (fs.existsSync(KEY_FILE)) { const p = JSON.parse(fs.readFileSync(KEY_FILE,'utf8')||'{}'); portalKey = p && p.key; } } catch(e){ void e; }
 
       const base = 'https://api.portaldatransparencia.gov.br/api-de-dados/despesas';
       const target = new URL(base);
@@ -222,4 +222,6 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => console.log(`Proxy-light listening on http://localhost:${PORT}`));
+// Listen on all interfaces to accept IPv4 and IPv6 loopback connections in CI
+// Bind to IPv6 '::' to accept both IPv6 loopback (::1) and IPv4 mapped addresses on CI/Windows
+server.listen(PORT, '::', () => console.log(`Proxy-light listening on http://[::]:${PORT}`));

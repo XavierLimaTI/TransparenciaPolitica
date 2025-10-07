@@ -39,7 +39,7 @@ try {
       }
     }
   }
-} catch (e) {}
+} catch (e) { void e; }
 
 // Load persisted key if present (DB first, then file)
 let portalKey = process.env.PORTAL_API_KEY || null;
@@ -83,7 +83,7 @@ app.post('/unset-key', (req, res) => {
     if (!provided || provided !== ADMIN_TOKEN) return res.status(403).json({ error: 'forbidden', message: 'invalid admin token' });
   }
   portalKey = null;
-  try { if (db && typeof db.unsetPortalKey === 'function') db.unsetPortalKey(); if (fs.existsSync(KEY_FILE)) fs.unlinkSync(KEY_FILE); } catch (e) {}
+  try { if (db && typeof db.unsetPortalKey === 'function') db.unsetPortalKey(); if (fs.existsSync(KEY_FILE)) fs.unlinkSync(KEY_FILE); } catch (e) { void e; }
   return res.json({ ok: true });
 });
 
@@ -263,4 +263,6 @@ app.get('/health', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Portal proxy server listening on http://localhost:${PORT}`));
+// Bind to 0.0.0.0 so CI runners and IPv6 localhost (::1) lookups resolve correctly
+// Bind to IPv6 '::' to accept both IPv6 loopback (::1) and IPv4 mapped addresses on CI/Windows
+app.listen(PORT, '::', () => console.log(`Portal proxy server listening on http://[::]:${PORT}`));

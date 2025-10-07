@@ -20,7 +20,7 @@ test('CSV fallback triggers localDespesasUsed and PoliticaApp reacts', async ({ 
   const eventPromise = page.evaluate(() => new Promise((resolve) => {
     let done = false;
     const timeoutMs = 5000;
-    function cleanup() { try { window.removeEventListener('localDespesasUsed', onEvent); } catch (e) {} }
+  function cleanup() { try { window.removeEventListener('localDespesasUsed', onEvent); } catch (e) { void e; } }
     function onEvent(e) { if (done) return; done = true; clearTimeout(timer); cleanup(); try { resolve(e && e.detail ? e.detail.count : null); } catch (err) { resolve(null); } }
     const timer = setTimeout(() => { if (done) return; done = true; cleanup(); resolve(null); }, timeoutMs);
     window.addEventListener('localDespesasUsed', onEvent);

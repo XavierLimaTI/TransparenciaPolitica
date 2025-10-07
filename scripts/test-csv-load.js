@@ -1,6 +1,4 @@
-const fs = require('fs');
-const vm = require('vm');
-const path = require('path');
+// script is self-contained for CSV parsing demonstration
 
 // Minimal CSV parse logic mirroring api-integration.loadDespesasFromCSV
 const sample = `data,descricao,valor,nome\n2024-01-10,Compra de material,1234.56,Fornecedor A\n2024-02-01,Serviço prestado,789.00,Fornecedor B`;
@@ -22,7 +20,7 @@ function loadDespesasFromCSV(text) {
 	const normalized = rows.map(r => ({
 		dataDocumento: r.data || r.datadoc || r.data_documento || r.data_document || null,
 		descricao: r.descricao || r.historico || r.tipo || r.historico || '',
-		valor: Number((r.valor || r.valor_documento || r.valor_pagamento || '0').replace(/[^0-9\-,\.]/g, '').replace(',', '.')) || 0,
+		valor: Number((r.valor || r.valor_documento || r.valor_pagamento || '0').replace(/[^0-9,.-]/g, '').replace(',', '.')) || 0,
 		favorecido: r.favorecido || r.nome || r.nome_favorecido || r.fornecedor || '',
 		cnpjCpf: r.cpf || r.cnpj || r.cpfcnpj || null,
 		origem: r.orgao || r.unidade || r.orgao_origem || null,
