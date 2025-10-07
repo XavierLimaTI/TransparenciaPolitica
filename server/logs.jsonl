@@ -1,0 +1,4 @@
+{"ts":"2025-10-07T16:36:43.116Z","level":"info","message":"webhook.invalidate","meta":{"prefix":"deputado:123","removed":2}}
+{"ts":"2025-10-07T16:36:43.121Z","level":"info","message":"webhook.invalidate","meta":{"prefix":"deputado:","removed":2}}
+{"ts":"2025-10-07T16:36:43.123Z","level":"info","message":"webhook.invalidate","meta":{"prefix":"deputado:789:despesas","removed":1}}
+{"ts":"2025-10-07T16:36:43.125Z","level":"warn","message":"webhook.invalid.signature","meta":{"provided":"invalid-signature"}}

@@ -262,5 +262,13 @@ app.get('/health', (req, res) => {
   try { return res.status(200).json({ status: 'ok', portalKey: !!portalKey }); } catch (e) { return res.status(500).json({ status: 'error' }); }
 });
 
+// Mount admin endpoints (uses ADMIN_TOKEN env var)
+try {
+  const adminRouter = require('./admin');
+  app.use(adminRouter);
+} catch (e) {
+  console.warn('Could not load admin routes:', e && e.message);
+}
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Portal proxy server listening on http://localhost:${PORT}`));

@@ -1,0 +1,22 @@
+[
+  {
+    "receivedAt": "2025-10-07T16:36:43.115Z",
+    "event": {
+      "type": "deputado.update",
+      "id": 123
+    }
+  },
+  {
+    "receivedAt": "2025-10-07T16:36:43.120Z",
+    "event": {
+      "prefix": "deputado:"
+    }
+  },
+  {
+    "receivedAt": "2025-10-07T16:36:43.123Z",
+    "event": {
+      "type": "despesa.update",
+      "deputadoId": 789
+    }
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "cache.clear": 17,
+  "cache.set": 15,
+  "cache.hit": 9,
+  "cache.invalidate.prefix": 5,
+  "webhook.received": 1,
+  "cache.miss.expired": 1,
+  "cache.invalidate": 1
+}
