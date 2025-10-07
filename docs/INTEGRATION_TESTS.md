@@ -146,6 +146,140 @@ The integration tests have a 30-second timeout. If tests timeout:
 - **Mocked tests** (`*.integration.test.js`): Always run, use Jest mocks
 - **Live tests** (`*.live.test.js`): Skipped unless environment variables are set
 
+## Admin Endpoints
+
+The project includes protected admin endpoints for cache and webhook management.
+
+### Generate Admin Token
+
+**Windows (PowerShell):**
+```powershell
+.\scripts\generate-admin-token.ps1
+```
+
+This will:
+1. Generate a secure random token
+2. Save it to `.env` file
+3. Display the token for your records
+
+**Linux/macOS (Bash):**
+```bash
+# Generate a secure random token
+openssl rand -base64 32 | tr -d "=+/" | tr -d '\n' > /tmp/token.txt
+echo "ADMIN_TOKEN=$(cat /tmp/token.txt)" >> .env
+echo "Generated token: $(cat /tmp/token.txt)"
+rm /tmp/token.txt
+```
+
+### Using Admin Endpoints
+
+All admin endpoints require the `x-admin-token` header with your generated token.
+
+#### List Cache Keys
+```bash
+curl -H "x-admin-token: YOUR_TOKEN" http://localhost:3001/admin/cache
+```
+
+Response:
+```json
+{
+  "keys": [
+    {
+      "key": "deputado:123",
+      "storedAt": 1234567890,
+      "expiresAt": 1234571490
+    }
+  ],
+  "count": 1
+}
+```
+
+#### Clear All Cache
+```bash
+curl -X POST -H "x-admin-token: YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  http://localhost:3001/admin/cache/clear
+```
+
+Response:
+```json
+{
+  "ok": true,
+  "cleared": "all"
+}
+```
+
+#### Clear Cache by Prefix
+```bash
+curl -X POST -H "x-admin-token: YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"prefix":"deputado:"}' \
+  http://localhost:3001/admin/cache/clear
+```
+
+Response:
+```json
+{
+  "ok": true,
+  "clearedPrefix": "deputado:",
+  "count": 5
+}
+```
+
+#### List Recent Webhook Events
+```bash
+curl -H "x-admin-token: YOUR_TOKEN" http://localhost:3001/admin/webhooks?limit=50
+```
+
+Response:
+```json
+{
+  "count": 100,
+  "events": [
+    {
+      "receivedAt": "2024-01-01T12:00:00.000Z",
+      "event": {
+        "type": "update",
+        "resource": "deputado",
+        "id": 123
+      }
+    }
+  ]
+}
+```
+
+### Webhook Cache Invalidation
+
+When webhooks are received, the system automatically invalidates relevant cache entries:
+
+- **Deputado updates**: Invalidates `deputado:{id}` and `deputado:{id}:despesas`
+- **Senador updates**: Invalidates `senador:{id}`
+- **Votação updates**: Invalidates `votacao:{id}`
+- **Create/delete events**: Invalidates list caches (`deputados:list`, `senadores:list`)
+
+Example webhook payload:
+```json
+{
+  "type": "update",
+  "resource": "deputado",
+  "id": 123
+}
+```
+
+### Running the Webhook Server
+
+Start the webhook receiver:
+```bash
+npm run start:webhooks
+```
+
+The server listens on port 3002 by default (configurable via `WEBHOOK_PORT`).
+
+Configure webhook signature verification:
+```bash
+export WEBHOOK_SECRET=your-webhook-secret
+```
+
 ## API Documentation
 
 For more details on the official APIs:
