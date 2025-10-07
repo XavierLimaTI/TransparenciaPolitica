@@ -2,121 +2,76 @@
 // Fetches data from government APIs and stores in local db.json
 const fs = require('fs');
 const path = require('path');
-const camara = require('../lib/adapters/camara');
-const senado = require('../lib/adapters/senado');
+const logger = require('./logger');
+const adapters = require('../lib/adapters'); // assumed index exporting camara/senado adapters
+const cache = require('./cache');
 
-const DB_FILE = path.join(__dirname, 'db.json');
-const LOCK_FILE = path.join(__dirname, 'sync.lock');
+let failures = 0;
+const FAILURE_THRESHOLD = Number(process.env.SYNC_FAILURE_THRESHOLD || 5);
+const COOLDOWN_MS = Number(process.env.SYNC_COOLDOWN_MS || 1000 * 60 * 5);
 
-// Parse command line arguments
-const args = process.argv.slice(2);
-const isOnce = args.includes('--once');
-const intervalArg = args.find(a => a.startsWith('--interval='));
-const interval = intervalArg ? Number(intervalArg.split('=')[1]) : null;
+let lastFailureAt = 0;
 
-async function acquireLock() {
-  if (fs.existsSync(LOCK_FILE)) {
-    const lockTime = fs.statSync(LOCK_FILE).mtime.getTime();
-    const age = Date.now() - lockTime;
-    
-    // If lock is older than 30 minutes, assume stale and remove
-    if (age > 30 * 60 * 1000) {
-      console.warn('Removing stale lock file');
-      fs.unlinkSync(LOCK_FILE);
-    } else {
-      console.log('Another sync is already running');
-      return false;
+async function withRetry(fn, opts = {}) {
+  const retries = Number(opts.retries ?? 3);
+  const baseDelay = Number(opts.baseDelay ?? 500);
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    if (failures >= FAILURE_THRESHOLD && (Date.now() - lastFailureAt) < COOLDOWN_MS) {
+      throw new Error('circuit-breaker-open');
+    }
+    try {
+      const start = Date.now();
+      const result = await fn();
+      const dur = Date.now() - start;
+      logger.increment('sync.fetch.success',1);
+      logger.increment('sync.duration_ms', dur);
+      failures = 0;
+      return result;
+    } catch (err) {
+      failures++;
+      lastFailureAt = Date.now();
+      logger.increment('sync.fetch.error',1);
+      logger.log('warn','sync.fetch.error',{err:String(err),attempt});
+      if (attempt === retries) throw err;
+      const delay = baseDelay * Math.pow(2, attempt);
+      await new Promise(r => setTimeout(r, delay));
     }
   }
-  
-  fs.writeFileSync(LOCK_FILE, String(process.pid));
-  return true;
 }
 
-function releaseLock() {
+async function runOnce() {
+  logger.log('info','sync.start');
   try {
-    if (fs.existsSync(LOCK_FILE)) {
-      fs.unlinkSync(LOCK_FILE);
-    }
-  } catch (e) {
-    // Ignore errors
+    // exemplo: atualizar lista de deputados e armazenar no cache
+    const deputados = await withRetry(() => adapters.camara.fetchDeputados({itens: 100}), { retries: 4, baseDelay: 500 });
+    cache.set('deputados:all', deputados, Number(process.env.DEPUTADOS_TTL_MS || 1000*60*60));
+    // senadores
+    const senadores = await withRetry(() => adapters.senado.fetchSenadores({itens: 100}), { retries: 4, baseDelay: 500 });
+    cache.set('senadores:all', senadores, Number(process.env.SENADORES_TTL_MS || 1000*60*60));
+    logger.log('info','sync.finish',{deputados:deputados.length,senadores:senadores.length});
+  } catch (err) {
+    logger.log('error','sync.failed',{err:String(err)});
+    throw err;
   }
 }
 
-async function syncData() {
-  console.log('Starting data synchronization...');
-  
-  try {
-    // Fetch deputies (limited to avoid overwhelming the API)
-    console.log('Fetching deputados...');
-    const deputados = await camara.fetchDeputados({ itens: 30 });
-    console.log(`Fetched ${deputados.length} deputados`);
-    
-    // Fetch senators
-    console.log('Fetching senadores...');
-    const senadores = await senado.fetchSenadores();
-    console.log(`Fetched ${senadores.length} senadores`);
-    
-    // Combine data
-    const data = {
-      deputados,
-      senadores,
-      lastSync: new Date().toISOString()
-    };
-    
-    // Write to db.json
-    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
-    console.log(`Data synchronized successfully at ${data.lastSync}`);
-    
-    return true;
-  } catch (error) {
-    console.error('Sync error:', error);
-    return false;
-  }
-}
-
-async function run() {
-  if (!await acquireLock()) {
-    process.exit(1);
-  }
-  
-  try {
-    if (isOnce) {
-      // Run once and exit
-      await syncData();
-    } else if (interval) {
-      // Run periodically
-      console.log(`Running sync every ${interval}ms`);
-      await syncData();
-      setInterval(syncData, interval);
-    } else {
-      console.log('Usage: node sync.js [--once | --interval=<ms>]');
-      console.log('Example: node sync.js --once');
-      console.log('Example: node sync.js --interval=3600000  (1 hour)');
-    }
-  } finally {
-    if (isOnce) {
-      releaseLock();
-    }
-  }
-}
-
-// Handle process termination
-process.on('SIGINT', () => {
-  console.log('Received SIGINT, cleaning up...');
-  releaseLock();
-  process.exit(0);
-});
-
-process.on('SIGTERM', () => {
-  console.log('Received SIGTERM, cleaning up...');
-  releaseLock();
-  process.exit(0);
-});
-
-// Run if executed directly
 if (require.main === module) {
-  run();
+  const args = process.argv.slice(2);
+  if (args.includes('--once')) {
+    runOnce().catch(e => {
+      console.error('sync failed', e && e.message);
+      process.exit(1);
+    });
+  } else {
+    // simple scheduler loop (interval configurable)
+    const intervalMs = Number(process.env.SYNC_INTERVAL_MS || 1000 * 60 * 30);
+    (async () => {
+      while (true) {
+        try { await runOnce(); } catch(e) { /* logged by runOnce */ }
+        await new Promise(r => setTimeout(r, intervalMs));
+      }
+    })();
+  }
 }
 
-module.exports = { syncData };
+module.exports = { runOnce, withRetry };

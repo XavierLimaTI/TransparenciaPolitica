@@ -1,48 +1,86 @@
+const http = require('http');
+const express = require('express');
+const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
+const cache = require('./cache');
+const logger = require('./logger');
 
-const FILE = path.join(__dirname, 'webhooks.json');
+const app = express();
+app.use(express.json());
 
-function loadEvents() {
-  try { if (!fs.existsSync(FILE)) return []; const raw = fs.readFileSync(FILE, 'utf8'); return JSON.parse(raw || '[]'); } catch (e) { console.warn('loadEvents error', e); return []; }
-}
+const WEBHOOK_FILE = path.join(__dirname, 'webhooks.json');
 
-function saveEvent(ev) {
-  try { const arr = loadEvents(); arr.push({ receivedAt: new Date().toISOString(), event: ev }); fs.writeFileSync(FILE, JSON.stringify(arr, null, 2), 'utf8'); } catch (e) { console.error('saveEvent error', e); }
-}
-
-function verifySignature(secret, payload, signature) {
-  if (!secret) return true; // no secret configured
-  const hmac = crypto.createHmac('sha256', secret).update(payload).digest('hex');
-  return hmac === signature;
-}
-
-// Express-compatible handler
-function webhookHandler(req, res) {
+function saveEvent(e) {
   try {
-    const payload = typeof req.body === 'string' ? req.body : JSON.stringify(req.body || {});
-    const sig = (req.headers['x-hub-signature-256'] || req.headers['x-signature'] || '').replace(/^sha256=/, '');
-    const secret = process.env.WEBHOOK_SECRET || null;
-    if (!verifySignature(secret, payload, sig)) {
-      res.status(401).json({ error: 'invalid_signature' }); return;
+    const arr = fs.existsSync(WEBHOOK_FILE) ? JSON.parse(fs.readFileSync(WEBHOOK_FILE,'utf8')||'[]') : [];
+    arr.push(Object.assign({receivedAt: new Date().toISOString()}, e));
+    fs.writeFileSync(WEBHOOK_FILE, JSON.stringify(arr.slice(-500), null, 2));
+  } catch (err) {
+    logger.log('error','webhook.save.failed',{err:String(err)});
+  }
+}
+
+function verifyHmac(reqBody, headerSig) {
+  const secret = process.env.WEBHOOK_SECRET || '';
+  if (!secret) return true; // if not configured, skip verification (documented)
+  if (!headerSig) return false;
+  const payload = JSON.stringify(reqBody);
+  const computed = 'sha256=' + crypto.createHmac('sha256', secret).update(payload).digest('hex');
+  return computed === headerSig;
+}
+
+app.post('/webhooks/receive', (req, res) => {
+  const payload = req.body || {};
+  const sig = req.headers['x-hub-signature-256'] || req.headers['x-signature'] || '';
+
+  if (!verifyHmac(payload, sig)) {
+    logger.log('warn','webhook.invalid.signature',{provided:sig});
+    return res.status(401).json({ error: 'invalid signature' });
+  }
+
+  saveEvent({ headers: req.headers, payload });
+
+  try {
+    const t = (payload.type || payload.event || '').toString().toLowerCase();
+    // deputado / parlamentar updates
+    if (t.includes('deputado') || t.includes('parlamentar')) {
+      const id = payload.id || payload.deputadoId || payload.matricula;
+      if (id) {
+        const pref = `deputado:${id}`;
+        const removed = cache.invalidatePrefix(pref);
+        logger.log('info','webhook.invalidate',{prefix:pref,removed});
+        logger.increment('webhook.received',1);
+      } else {
+        const removed = cache.invalidatePrefix('deputado:');
+        logger.log('info','webhook.invalidate.prefix',{removed});
+      }
+    } else if (t.includes('despesa')) {
+      const id = payload.deputadoId || payload.id;
+      if (id) {
+        const pref = `deputado:${id}:despesas`;
+        const removed = cache.invalidatePrefix(pref);
+        logger.log('info','webhook.invalidate',{prefix:pref,removed});
+      }
+    } else if (payload.prefix) {
+      const removed = cache.invalidatePrefix(payload.prefix);
+      logger.log('info','webhook.invalidate',{prefix:payload.prefix,removed});
+    } else {
+      // generic fallback: record only, do not flush whole cache by default
+      logger.log('info','webhook.ignored',{type: t});
     }
-    const event = req.body || JSON.parse(payload || '{}');
-    saveEvent(event);
-    res.status(200).json({ ok: true });
-  } catch (e) { console.error('webhook handler error', e); try { res.status(500).json({ error: 'server_error' }); } catch (__) { void __; } }
-}
+  } catch (err) {
+    logger.log('error','webhook.invalidate.failed',{err:String(err)});
+  }
 
-// If run directly, start a small Express server
+  res.json({ ok: true });
+});
+
+app.get('/health', (req, res) => res.json({ ok: true }));
+
 if (require.main === module) {
-  const express = require('express');
-  const app = express();
-  app.use(express.json({ limit: '1mb' }));
-  app.post('/webhooks/receive', webhookHandler);
-  // lightweight health endpoint for CI readiness checks
-  app.get('/health', (req, res) => res.json({ ok: true }));
-  const port = process.env.WEBHOOK_PORT || 3002;
-  app.listen(port, () => console.log('Webhook receiver listening on port', port));
+  const port = Number(process.env.WEBHOOKS_PORT || 3002);
+  app.listen(port, () => logger.log('info','webhooks.started',{port}));
 }
 
-module.exports = { webhookHandler, saveEvent, loadEvents };
+module.exports = app;

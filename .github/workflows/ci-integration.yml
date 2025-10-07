@@ -1,0 +1,43 @@
+# ...new file...
+name: CI (unit + conditional live integration)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install deps
+        run: npm ci
+      - name: Run unit tests
+        run: npm run test:unit
+
+  integration-live:
+    needs: test
+    runs-on: ubuntu-latest
+    if: ${{ secrets.BASE_URL_CAMARA != '' && secrets.BASE_URL_SENADO != '' }}
+    env:
+      BASE_URL_CAMARA: ${{ secrets.BASE_URL_CAMARA }}
+      BASE_URL_SENADO:  ${{ secrets.BASE_URL_SENADO }}
+      ADMIN_TOKEN:      ${{ secrets.ADMIN_TOKEN }}
+      WEBHOOK_SECRET:   ${{ secrets.WEBHOOK_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install deps
+        run: npm ci
+      - name: Run integration tests (live)
+        run: npm run test:integration
+# ...new file...
