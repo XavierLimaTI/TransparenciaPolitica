@@ -34,7 +34,6 @@ Plataforma web inovadora dedicada à transparência política brasileira, permit
 - Mapa de distribuição geográfica
 
 ## Tecnologias Utilizadas
-
 ### Frontend
 - **HTML5** - Estrutura semântica
 - **Tailwind CSS** - Framework de estilização moderno
@@ -83,8 +82,6 @@ Plataforma web inovadora dedicada à transparência política brasileira, permit
 
 ### ✅ Votações
 - Timeline cronológica
-- Resultados por candidato
-- Visualização de importância
 - Análises contextuais
 
 ### ✅ Visualizações de Dados
@@ -102,11 +99,9 @@ Plataforma web inovadora dedicada à transparência política brasileira, permit
 ## Como Usar
 
 1. **Buscar Candidatos**: Use a barra de pesquisa principal ou acesse a página de candidatos para filtros avançados
-2. **Explorar Votações**: Veja as votações recentes e como cada candidato se posicionou
 3. **Analisar Dados**: Explore os gráficos interativos e estatísticas
 4. **Favoritar**: Marque candidatos para acompanhar (os dados são salvos localmente)
 
-## Proxy de Desenvolvimento (local)
 
 Para rodar o proxy local recomendado (oferece rotas administrativas e fallback):
 
@@ -114,20 +109,8 @@ Para rodar o proxy local recomendado (oferece rotas administrativas e fallback):
 npm install
 npm run start-proxy
 ```
-
-Se preferir uma alternativa sem dependências, há um proxy leve em `server/proxy-light.js` que pode ser executado com:
-
-```powershell
-node server/proxy-light.js
-```
-
 ## Dados de Demonstração
-
-O projeto inclui dados simulados de:
-- **6 candidatos** de diferentes partidos e estados
-- **3 votações importantes** (PEC da Bandidagem, Reforma Tributária, Marco Legal das Startups)
 - **Histórico de votos** detalhado para cada candidato
-- **Projetos e promessas** de campanha
 
 ## Características Técnicas
 
@@ -135,13 +118,11 @@ O projeto inclui dados simulados de:
 - Carregamento otimizado de imagens
 - JavaScript modular e organizado
 - CSS minificado via CDN
-- Animações otimizadas para performance
 
 ### Acessibilidade
 - Contraste de cores adequado
 - Fontes legíveis e tamanhos apropriados
 - Estrutura semântica HTML5
-- Navegação por teclado
 
 ### SEO
 - Meta tags otimizadas
@@ -151,8 +132,6 @@ O projeto inclui dados simulados de:
 
 ## Próximas Etapas (Roadmap)
 
-### Fase 1 - MVP Completo ✅
-- [x] Estrutura básica do webapp
 - [x] Sistema de busca e filtros
 - [x] Perfis de candidatos
 - [x] Página de votações
@@ -167,11 +146,6 @@ O projeto inclui dados simulados de:
 ### Fase 3 - Funcionalidades Avançadas
 - [ ] Sistema de alertas e notificações
 - [ ] Comparação lado a lado de candidatos
-- [ ] Análises preditivas
-- [ ] Gamificação para engajamento
-
-### Fase 4 - Comunidade e Colaboração
-- [ ] Sistema de avaliação de candidatos
 - [ ] Comentários e discussões
 - [ ] Compartilhamento em redes sociais
 - [ ] API pública para desenvolvedores
