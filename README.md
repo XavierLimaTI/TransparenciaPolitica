@@ -158,11 +158,75 @@ O projeto inclui dados simulados de:
 - [x] Página de votações
 - [x] Visualizações de dados
 
-### Fase 2 - Integração com Dados Reais
-- [ ] Integração com APIs oficiais do Congresso
-- [ ] Atualização automática de dados
-- [ ] Sistema de cache para performance
-- [ ] Webhooks para atualizações em tempo real
+### Fase 2 - Integração com Dados Reais ✅
+- [x] Integração com APIs oficiais do Congresso (adaptadores implementados)
+- [x] Sistema de sincronização de dados (server/sync.js)
+- [x] Sistema de cache para performance (server/cache.js com TTL configurável)
+- [x] Webhooks para atualizações em tempo real (server/webhooks.js)
+- [x] Testes de integração com APIs reais
+
+#### Como usar os adaptadores
+
+Os adaptadores para as APIs da Câmara e Senado estão em `lib/adapters/`:
+
+```javascript
+// Exemplo de uso do adapter da Câmara
+const camara = require('./lib/adapters/camara');
+
+// Buscar deputados
+const deputados = await camara.fetchDeputados({ itens: 30 });
+
+// Buscar despesas de um deputado
+const despesas = await camara.fetchDespesasDeputado(deputadoId, { itens: 10 });
+
+// Exemplo de uso do adapter do Senado
+const senado = require('./lib/adapters/senado');
+
+// Buscar senadores
+const senadores = await senado.fetchSenadores();
+```
+
+#### Sincronização de dados
+
+Para sincronizar dados das APIs oficiais:
+
+```bash
+# Executar sincronização única
+npm run start:sync
+# ou
+node server/sync.js --once
+
+# Executar sincronização periódica (a cada hora)
+node server/sync.js --interval=3600000
+```
+
+#### Testes de integração
+
+Para executar testes de integração (com mocks):
+
+```bash
+npm run test:unit
+```
+
+Para executar testes contra as APIs reais (requer acesso à internet):
+
+```bash
+# Configurar variáveis de ambiente
+export BASE_URL_CAMARA='https://dadosabertos.camara.leg.br/api/v2'
+export BASE_URL_SENADO='https://legis.senado.leg.br/dadosabertos'
+
+# Executar testes
+npm run test:integration
+```
+
+#### Cache configurável
+
+O sistema de cache pode ser configurado via variável de ambiente:
+
+```bash
+# Definir TTL do cache (em milissegundos)
+export CACHE_DEFAULT_TTL_MS=3600000  # 1 hora
+```
 
 ### Fase 3 - Funcionalidades Avançadas
 - [ ] Sistema de alertas e notificações

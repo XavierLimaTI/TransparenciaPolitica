@@ -16,8 +16,8 @@
     "start-proxy:local": "node server/proxy.js",
     "start-proxy:express": "node server/proxy-express.js",
     "verify-proxy": "node scripts/verify-proxy.js",
-  "start:sync": "node server/sync.js --once",
-  "start:webhooks": "node server/webhooks.js",
+    "start:sync": "node server/sync.js --once",
+    "start:webhooks": "node server/webhooks.js",
     "test": "jest --coverage --runInBand",
     "test:gov": "node scripts/test-government-api.js",
     "test:smoke": "node scripts/smoke-all.js",
@@ -28,6 +28,7 @@
     "smoke": "node scripts/test-csv-parse.js && npx http-server -c-1 -p 8000 & echo 'Server started'",
     "smoke:e2e": "node scripts/smoke-e2e.js",
     "test:unit": "jest",
+    "test:integration": "jest --runInBand __tests__/*.live.test.js",
     "ingest": "node scripts/ingest-datasets.js",
     "lint": "npx eslint --ext .js . || echo 'ESLint not installed or no lint errors'"
   },
@@ -43,10 +44,10 @@
     "node": ">=14.0.0"
   },
   "devDependencies": {
-    "eslint": "^8.50.0",
     "@playwright/test": "^1.55.1",
     "cors": "^2.8.5",
     "esbuild": "^0.19.4",
+    "eslint": "^8.50.0",
     "express": "^4.21.2",
     "http-server": "^14.1.1",
     "jest": "^29.0.0",
@@ -59,7 +60,11 @@
     "testPathIgnorePatterns": [
       "<rootDir>/scripts/playwright/",
       "<rootDir>/tests/portal-.*\\.spec\\.js$",
-      "<rootDir>/tests/e2e/"
+      "<rootDir>/tests/e2e/",
+      "<rootDir>/__tests__/.*\\.live\\.test\\.js$"
     ]
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
   }
 }
