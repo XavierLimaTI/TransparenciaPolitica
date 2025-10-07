@@ -16,6 +16,8 @@
     "start-proxy:local": "node server/proxy.js",
     "start-proxy:express": "node server/proxy-express.js",
     "verify-proxy": "node scripts/verify-proxy.js",
+  "start:sync": "node server/sync.js --once",
+  "start:webhooks": "node server/webhooks.js",
     "test": "jest --coverage --runInBand",
     "test:gov": "node scripts/test-government-api.js",
     "test:smoke": "node scripts/smoke-all.js",
