@@ -30,14 +30,29 @@ This document summarizes the complete implementation of Phase 2: Integration wit
 - ✅ 15 new unit tests (all passing)
 - ✅ Mocked integration tests (network-independent)
 - ✅ Live integration tests (optional, for real APIs)
+- ✅ Admin endpoint tests (authentication, cache, webhooks)
 - ✅ Test coverage for all new modules
 - ✅ Jest configuration updated
 
-### 5. Documentation
+### 5. Admin Endpoints & Security
+- ✅ Protected admin endpoints with token authentication
+- ✅ Cache inspection and management API
+- ✅ Webhook event inspection
+- ✅ Secure token generation script (PowerShell/Bash)
+- ✅ Environment variable configuration (.env.example)
+
+### 6. Webhook Integration
+- ✅ Automatic cache invalidation on webhook events
+- ✅ Smart invalidation based on resource type (deputado, senador, votacao)
+- ✅ HMAC signature verification support
+- ✅ Event persistence and inspection
+
+### 7. Documentation
 - ✅ README updated with Phase 2 completion
-- ✅ Integration tests documentation
+- ✅ Integration tests documentation (expanded with admin endpoints)
 - ✅ Working demo script
 - ✅ Usage examples and configuration guide
+- ✅ Admin endpoints usage guide
 
 ## Implementation Details
 
@@ -49,37 +64,43 @@ lib/adapters/
 
 server/
 ├── cache.js           # Cache module (76 lines)
-└── sync.js            # Sync service (123 lines)
+├── sync.js            # Sync service (123 lines)
+├── admin.js           # Admin endpoints (85 lines)
+└── webhooks.js        # Webhook receiver with cache invalidation (110 lines)
+
+scripts/
+└── generate-admin-token.ps1  # Secure token generation
 
 __tests__/
 ├── adapters.camara.integration.test.js  # 8 tests (passing)
 ├── adapters.senado.integration.test.js  # 2 tests (passing)
 ├── adapters.camara.live.test.js        # 3 tests (skipped)
 ├── adapters.senado.live.test.js        # 2 tests (skipped)
+├── admin.test.js                       # 9 tests (passing)
 ├── cache.test.js                       # 6 tests (passing)
 └── sync.test.js                        # 1 test (passing)
 
 docs/
-└── INTEGRATION_TESTS.md               # Complete testing guide
+└── INTEGRATION_TESTS.md               # Complete testing guide with admin endpoints
 
-examples/
-└── adapters-demo.js                   # Working demo script
+.env.example                            # Environment configuration template
 ```
 
 ### Test Results
 ```
-✅ Test Suites: 15 total
-   - 14 passed
+✅ Test Suites: 16 total
+   - 15 passed
    - 1 pre-existing failure (unrelated)
 
-✅ Tests: 40 total
-   - 39 passed  
+✅ Tests: 49 total
+   - 48 passed  
    - 1 pre-existing failure (unrelated)
 
-✅ New Tests: 15 tests added
+✅ New Tests: 24 tests added
    - Adapter integration: 8 tests
    - Cache functionality: 6 tests
    - Sync functionality: 1 test
+   - Admin endpoints: 9 tests
 ```
 
 ### Key Features
@@ -143,6 +164,28 @@ export BASE_URL_SENADO='https://legis.senado.leg.br/dadosabertos'
 
 # Cache TTL in milliseconds (optional, default: 1 hour)
 export CACHE_DEFAULT_TTL_MS=3600000
+
+# Admin token for protected endpoints (generate with script)
+export ADMIN_TOKEN='your-secure-token-here'
+
+# Webhook configuration (optional)
+export WEBHOOK_PORT=3002
+export WEBHOOK_SECRET='your-webhook-secret'
+```
+
+#### Generating Admin Token
+
+**Windows (PowerShell):**
+```powershell
+.\scripts\generate-admin-token.ps1
+```
+
+**Linux/macOS (Bash):**
+```bash
+openssl rand -base64 32 | tr -d "=+/" | tr -d '\n' > /tmp/token.txt
+echo "ADMIN_TOKEN=$(cat /tmp/token.txt)" >> .env
+cat /tmp/token.txt
+rm /tmp/token.txt
 ```
 
 #### npm Scripts
@@ -207,14 +250,16 @@ node server/sync.js --interval=3600000
 ## Next Steps (Phase 3)
 
 Suggested improvements for future work:
-1. Add retry logic with exponential backoff
-2. Implement rate limiting for API calls
-3. Add webhook support for cache invalidation
-4. Implement database storage (SQLite/PostgreSQL)
-5. Add monitoring and logging
-6. Create admin UI for cache inspection
+1. ~~Add webhook support for cache invalidation~~ ✅ DONE
+2. ~~Create admin UI for cache inspection~~ ✅ API endpoints created
+3. Add retry logic with exponential backoff
+4. Implement rate limiting for API calls
+5. Implement database storage (SQLite/PostgreSQL)
+6. Add monitoring and logging (metrics, observability)
 7. Add more granular error handling
 8. Implement circuit breaker pattern
+9. Create web-based admin dashboard
+10. Add alerting system for sync failures
 
 ## Conclusion
 
@@ -222,7 +267,10 @@ Phase 2 is **COMPLETE** with all objectives achieved:
 - ✅ Full API integration with adapters
 - ✅ Data synchronization service
 - ✅ Caching system with TTL
-- ✅ Comprehensive test coverage
+- ✅ Webhook integration with automatic cache invalidation
+- ✅ Protected admin endpoints for management
+- ✅ Secure token generation and authentication
+- ✅ Comprehensive test coverage (48/49 tests passing)
 - ✅ Complete documentation
 - ✅ Working examples
 
@@ -231,6 +279,7 @@ The implementation is production-ready and can be deployed with proper environme
 ---
 
 **Status**: ✅ COMPLETE  
-**Test Coverage**: 39/40 tests passing (1 pre-existing failure)  
-**Documentation**: Complete  
-**Examples**: Working demo included
+**Test Coverage**: 48/49 tests passing (1 pre-existing failure)  
+**Documentation**: Complete with admin endpoints guide  
+**Examples**: Working demo included  
+**Security**: Token-based authentication for admin endpoints
