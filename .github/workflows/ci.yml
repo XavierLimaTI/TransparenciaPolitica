@@ -132,17 +132,10 @@ jobs:
 
       - name: Start static server for tests
         run: |
-          echo 'Starting static server on port 8000 (http-server fallback)'
-          # prefer npx http-server, fallback to a tiny node static server if missing
-          if npx --no-install http-server -v >/dev/null 2>&1; then
-            # use nohup to decouple from shell and redirect output for diagnostics
-            nohup npx http-server -c-1 -p 8000 > .httpserver.log 2>&1 &
-            echo $! > .httpserver.pid
-          else
-            nohup node -e "const http=require('http'),fs=require('fs'),p=require('path');const srv=http.createServer((req,res)=>{let reqPath=req.url.split('?')[0]; if(reqPath==='/'||reqPath==='') reqPath='/index.html'; let f=p.join(process.cwd(),reqPath); fs.stat(f,(e,st)=>{ if(e){ res.statusCode=404; res.end('Not found'); return; } if(st.isDirectory()){ const idx=p.join(f,'index.html'); fs.stat(idx,(ei,sti)=>{ if(ei){ res.statusCode=404; res.end('Not found'); return;} fs.createReadStream(idx).pipe(res); }); return; } fs.createReadStream(f).pipe(res); }); }); srv.listen(8000,()=>console.log('tiny server started')); process.on('SIGTERM',()=>srv.close()); console.log('node static server started');" > .httpserver.log 2>&1 &
-            echo $! > .httpserver.pid
-          fi
-          # give server a moment to start and produce logs
+          echo 'Starting static server on port 8000 using npm script start:npm'
+          # start via npm script which prefers http-server if available
+          nohup npm run start:npm > .httpserver.log 2>&1 &
+          echo $! > .httpserver.pid
           sleep 1 || true
 
       - name: Wait for static server to respond
@@ -160,11 +153,22 @@ jobs:
 
       - name: Start local proxy for tests
         run: |
-          echo 'Starting local proxy on port 3001 (server/proxy-light.js)'
-          # start proxy in background and record pid (nohup so it survives background)
-          nohup node server/proxy-light.js > .proxy.log 2>&1 &
+          echo 'Starting local proxy on port 3001 using npm script start-proxy'
+          nohup npm run start-proxy > .proxy.log 2>&1 &
           echo $! > .proxy.pid
           sleep 1 || true
+
+      - name: Start webhook receiver for tests
+        run: |
+          echo 'Starting webhook receiver on port 3002 using npm script start:webhooks'
+          nohup npm run start:webhooks > .webhooks.log 2>&1 &
+          echo $! > .webhooks.pid
+          sleep 1 || true
+
+      - name: Run initial sync (populate server/db.json)
+        run: |
+          echo 'Running initial sync once to populate server/db.json'
+          npm run start:sync || true
 
       - name: Wait for proxy /health
         run: |
@@ -178,6 +182,19 @@ jobs:
             sleep 1
           done
           echo 'Proxy did not respond in time'; exit 1
+
+      - name: Wait for webhooks /health
+        run: |
+          echo 'Waiting for webhooks health at http://127.0.0.1:3002/health'
+          for i in {1..30}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3002/health || echo "000")
+            echo "Attempt $i: HTTP status $status"
+            if [ "$status" = "200" ]; then
+              echo 'Webhooks receiver is up'; exit 0
+            fi
+            sleep 1
+          done
+          echo 'Webhooks did not respond in time'; exit 1
 
       - name: Inject portalKey into proxy (optional)
         run: |
@@ -224,8 +241,9 @@ jobs:
           npx playwright install --with-deps || true
           echo 'Running Playwright tests with extended timeout and retries'
           # export helper envs used by tests: BASE_URL and PROXY_BASE
-          export BASE_URL='http://127.0.0.1:8000'
-          export PROXY_BASE='http://127.0.0.1:3001'
+          export BASE_URL="http://127.0.0.1:8000"
+          export PROXY_BASE="http://127.0.0.1:3001"
+          export WEBHOOKS_BASE="http://127.0.0.1:3002"
           # If PORTAL_KEY is present, include the portal-backed spec, otherwise run default suite
           if [ -n "${PORTAL_KEY}" ]; then
             echo 'PORTAL_KEY present: including portal-backed despesas spec'
@@ -275,6 +293,17 @@ jobs:
           else
             pkill -f "proxy-light.js" || true
           fi
+          # Stop webhook receiver
+          if [ -f .webhooks.pid ]; then
+            w=$(cat .webhooks.pid) || true
+            if [ -n "$w" ]; then
+              kill "$w" || true
+            fi
+            rm -f .webhooks.pid
+          else
+            pkill -f "webhooks.js" || true
+          fi
           # emit logs for debugging in case of failures
           if [ -f .httpserver.log ]; then echo '=== httpserver.log ==='; tail -n 200 .httpserver.log || true; fi
           if [ -f .proxy.log ]; then echo '=== proxy.log ==='; tail -n 200 .proxy.log || true; fi
+          if [ -f .webhooks.log ]; then echo '=== webhooks.log ==='; tail -n 200 .webhooks.log || true; fi
