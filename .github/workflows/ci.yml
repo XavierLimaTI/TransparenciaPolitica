@@ -160,10 +160,11 @@ jobs:
 
       - name: Start webhook receiver for tests
         run: |
-          echo 'Starting webhook receiver on port 3002 using npm script start:webhooks'
-          nohup npm run start:webhooks > .webhooks.log 2>&1 &
+          echo 'Starting webhook receiver on port 3002 using node server/webhooks.js'
+          # start directly with node to avoid npm script resolution issues
+          nohup node server/webhooks.js > .webhooks.log 2>&1 &
           echo $! > .webhooks.pid
-          sleep 1 || true
+          sleep 2 || true
 
       - name: Run initial sync (populate server/db.json)
         run: |
@@ -186,7 +187,7 @@ jobs:
       - name: Wait for webhooks /health
         run: |
           echo 'Waiting for webhooks health at http://127.0.0.1:3002/health'
-          for i in {1..30}; do
+          for i in {1..60}; do
             status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3002/health || echo "000")
             echo "Attempt $i: HTTP status $status"
             if [ "$status" = "200" ]; then

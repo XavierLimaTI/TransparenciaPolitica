@@ -9,7 +9,9 @@ const fs = require('fs');
 test.setTimeout(90000);
 
 test('auto load fixture via dev button populates candidatos grid', async ({ page }) => {
-  const url = 'http://localhost:8080/candidatos.html?e2eTest=1';
+  // Use BASE_URL from CI (exported in workflow) or fallback to localhost:8000
+  const base = process.env.BASE_URL || 'http://localhost:8000';
+  const url = `${base.replace(/\/$/, '')}/candidatos.html?e2eTest=1`;
   await page.goto(url, { waitUntil: 'domcontentloaded' });
 
   // Wait for the dev button to appear (button added only on localhost or dev flag)
