@@ -124,6 +124,8 @@ Thumbs.db
 server/portal_key.json
 server/data.db
 server/db.json
+server/cache.json
+server/*.lock
 
 # Temporary debug scripts and local logs
 .tmp/
