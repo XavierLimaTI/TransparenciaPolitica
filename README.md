@@ -230,6 +230,49 @@ npm run dev:npm
 
 Isto usa `npx http-server -p 8000` e serve os arquivos estáticos na mesma porta.
 
+### Troubleshooting (logs e como parar processos)
+
+Se algo falhar ao executar `scripts/ci-local.ps1`, use estes passos para diagnosticar e recuperar o ambiente:
+
+- Verifique o resumo gerado pelo helper:
+
+```powershell
+Get-Content .\.logs\ci-local.log -Tail 200
+```
+
+- Liste os arquivos de log dos processos iniciados:
+
+```powershell
+Get-ChildItem .\.logs -File | Select-Object Name, Length | Format-Table
+```
+
+- Inspecione stdout/stderr de um processo (ex.: proxy):
+
+```powershell
+Get-Content .\.logs\proxy.out.log -Tail 200
+Get-Content .\.logs\proxy.err.log -Tail 200
+```
+
+- Se precisar parar manualmente os processos iniciados, pare pelos PIDs registrados em `.logs/pids.txt`:
+
+```powershell
+Get-Content .\.logs\pids.txt | ForEach-Object { if ($_ -match '\d+') { Stop-Process -Id ([int]$_) -Force -ErrorAction SilentlyContinue } }
+```
+
+- Alternativamente, use o helper PowerShell fornecido no repositório para derrubar os processos (execute na raiz do repo):
+
+```powershell
+# executar no PowerShell onde o script foi usado
+Stop-CILocal
+```
+
+- Relatórios do Playwright (quando executado com `-RunTests`) são gerados em `playwright-report/` ou conforme `playwright.config.js`. Para abrir o relatório HTML localmente:
+
+```powershell
+npx playwright show-report
+```
+
+Se quiser que eu melhore os formatos de logs (por exemplo, compactar logs grandes ou produzir um HTML de resumo), diga qual formato prefere e eu implemento.
 Parar o servidor Python (se em background):
 
 ```powershell
