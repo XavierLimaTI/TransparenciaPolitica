@@ -60,7 +60,8 @@
     "testPathIgnorePatterns": [
       "<rootDir>/scripts/playwright/",
       "<rootDir>/tests/portal-.*\\.spec\\.js$",
-      "<rootDir>/tests/e2e/"
+      "<rootDir>/tests/e2e/",
+      "<rootDir>/__tests__/.*\\.live\\.test\\.js$"
     ]
   },
   "dependencies": {
