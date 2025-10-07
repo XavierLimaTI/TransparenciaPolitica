@@ -27,11 +27,6 @@ try {
 }
 
 // Circuit breaker state
-let failures = 0;
-const FAILURE_THRESHOLD = Number(process.env.SYNC_FAILURE_THRESHOLD || 5);
-const COOLDOWN_MS = Number(process.env.SYNC_COOLDOWN_MS || 1000 * 60 * 5);
-let lastFailureAt = 0;
-
 // Circuit breaker state
 let failures = 0;
 const FAILURE_THRESHOLD = Number(process.env.SYNC_FAILURE_THRESHOLD || 5);

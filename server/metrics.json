@@ -1,9 +1,12 @@
 {
-  "cache.clear": 17,
-  "cache.set": 15,
-  "cache.hit": 9,
-  "cache.invalidate.prefix": 5,
-  "webhook.received": 1,
-  "cache.miss.expired": 1,
-  "cache.invalidate": 1
+  "cache.clear": 38,
+  "cache.set": 40,
+  "cache.hit": 24,
+  "cache.invalidate.prefix": 15,
+  "webhook.received": 4,
+  "cache.miss.expired": 2,
+  "cache.invalidate": 2,
+  "sync.fetch.error": 2,
+  "sync.fetch.success": 3,
+  "sync.duration_ms": 1
 }

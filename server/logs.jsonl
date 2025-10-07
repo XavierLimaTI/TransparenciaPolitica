@@ -2,3 +2,17 @@
 {"ts":"2025-10-07T16:36:43.121Z","level":"info","message":"webhook.invalidate","meta":{"prefix":"deputado:","removed":2}}
 {"ts":"2025-10-07T16:36:43.123Z","level":"info","message":"webhook.invalidate","meta":{"prefix":"deputado:789:despesas","removed":1}}
 {"ts":"2025-10-07T16:36:43.125Z","level":"warn","message":"webhook.invalid.signature","meta":{"provided":"invalid-signature"}}
+{"ts":"2025-10-07T16:38:29.942Z","level":"info","message":"webhooks.started","meta":{"port":3002}}
+{"ts":"2025-10-07T16:38:51.969Z","level":"info","message":"webhook.invalidate","meta":{"prefix":"deputado:123","removed":0}}
+{"ts":"2025-10-07T16:42:12.142Z","level":"warn","message":"sync.fetch.error","meta":{"err":"Error: Simulated failure","attempt":0}}
+{"ts":"2025-10-07T16:42:12.194Z","level":"warn","message":"sync.fetch.error","meta":{"err":"Error: Simulated failure","attempt":1}}
+{"ts":"2025-10-07T16:42:23.855Z","level":"info","message":"webhook.invalidate","meta":{"prefix":"deputado:123","removed":2}}
+{"ts":"2025-10-07T16:42:23.859Z","level":"info","message":"webhook.invalidate","meta":{"prefix":"deputado:","removed":2}}
+{"ts":"2025-10-07T16:42:23.865Z","level":"info","message":"webhook.invalidate","meta":{"prefix":"deputado:789:despesas","removed":1}}
+{"ts":"2025-10-07T16:42:23.867Z","level":"warn","message":"webhook.invalid.signature","meta":{"provided":"invalid-signature"}}
+{"ts":"2025-10-07T16:42:25.079Z","level":"info","message":"sync.start","meta":{}}
+{"ts":"2025-10-07T16:42:25.081Z","level":"info","message":"sync.finish","meta":{"deputados":2,"senadores":1}}
+{"ts":"2025-10-07T16:42:38.810Z","level":"info","message":"webhook.invalidate","meta":{"prefix":"deputado:123","removed":2}}
+{"ts":"2025-10-07T16:42:38.814Z","level":"info","message":"webhook.invalidate","meta":{"prefix":"deputado:","removed":2}}
+{"ts":"2025-10-07T16:42:38.815Z","level":"info","message":"webhook.invalidate","meta":{"prefix":"deputado:789:despesas","removed":1}}
+{"ts":"2025-10-07T16:42:38.826Z","level":"warn","message":"webhook.invalid.signature","meta":{"provided":"invalid-signature"}}
