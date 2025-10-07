@@ -127,6 +127,11 @@ server/db.json
 server/cache.json
 server/*.lock
 
+# Phase 2: logger and webhook data (keep structure but not runtime data)
+server/logs.jsonl
+server/metrics.json
+server/webhooks.json
+
 # Temporary debug scripts and local logs
 .tmp/
 .httpserver.log
