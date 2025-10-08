@@ -1,0 +1,2 @@
+bucket = "meu-bucket-de-dados"
+aws_region = "sa-east-1"
