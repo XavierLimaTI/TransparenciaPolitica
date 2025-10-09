@@ -58,9 +58,9 @@ if (typeof window !== 'undefined') {
         if (typeof document !== 'undefined') {
             if (document.readyState === 'complete' || document.readyState === 'interactive') {
                 // try to initialize, but don't block if errors happen
-                (async () => { try { await window.initPoliticaApp(); } catch (e) {} })();
+                (async () => { try { await window.initPoliticaApp(); } catch (e) {} finally { try { if (window.Views && typeof window.Views.criarFooterControles === 'function') window.Views.criarFooterControles(); if (window.Views && typeof window.Views.attachDatasetLoaderControls === 'function') window.Views.attachDatasetLoaderControls(); else if (window.initDatasetLoaderUI) window.initDatasetLoaderUI(); } catch(e){} } })();
             } else {
-                document.addEventListener('DOMContentLoaded', function() { (async () => { try { await window.initPoliticaApp(); } catch (e) {} })(); });
+                document.addEventListener('DOMContentLoaded', function() { (async () => { try { await window.initPoliticaApp(); } catch (e) {} finally { try { if (window.Views && typeof window.Views.criarFooterControles === 'function') window.Views.criarFooterControles(); if (window.Views && typeof window.Views.attachDatasetLoaderControls === 'function') window.Views.attachDatasetLoaderControls(); else if (window.initDatasetLoaderUI) window.initDatasetLoaderUI(); } catch(e){} } })(); });
             }
         }
     } catch (e) { /* ignore */ }
@@ -85,6 +85,11 @@ if (typeof window !== 'undefined') {
                     window.governmentAPI.useLocalDespesas(parsed);
                     console.log('Auto-loaded local despesas from', path, ':', Array.isArray(parsed) ? parsed.length : 'unknown');
                     try { window.showLocalDataBanner && window.showLocalDataBanner(); } catch (e) {}
+                    try {
+                        // Notify the rest of the app that local despesas are available
+                        const ev = new CustomEvent('localDespesasUsed', { detail: { count: Array.isArray(parsed) ? parsed.length : null } });
+                        window.dispatchEvent(ev);
+                    } catch (e) { /* ignore */ }
                     return;
                 } catch (err) {
                     console.warn('Auto-load CSV attempt failed for', path, err);
@@ -92,6 +97,73 @@ if (typeof window !== 'undefined') {
                 }
             }
             console.warn('Auto-load CSV: no candidate files found for local environment');
+                // Prefer JSON ingested files if present (faster, no CSV parse). Candidates prioritized.
+                const jsonCandidates = ['/resources/data/ingested/despesas.json', '/resources/data/ingested/despesas-ingested.json', '/resources/data/ingested/despesas.csv.json'];
+                for (const path of jsonCandidates) {
+                    try {
+                        const resp = await fetch(path);
+                        if (!resp || !resp.ok) { /* not present, try next */ continue; }
+                        const data = await resp.json();
+                        if (!Array.isArray(data) || data.length === 0) { console.warn('Auto-load JSON: empty or invalid at', path); continue; }
+                        try { window.governmentAPI.useLocalDespesas(data); } catch (e) { console.warn('useLocalDespesas failed', e); }
+                        console.log('Auto-loaded local despesas JSON from', path, ':', data.length);
+                        try { window.showLocalDataBanner && window.showLocalDataBanner(); } catch (e) {}
+                        // dispatch an event to let the app re-render
+                        try { window.dispatchEvent(new CustomEvent('localDespesasUsed', { detail: { count: data.length } })); } catch (e) {}
+                        return;
+                    } catch (err) {
+                        console.warn('Auto-load JSON attempt failed for', path, err);
+                        continue;
+                    }
+                }
+
+                // Fallback to CSV fixtures (older path), kept for compatibility
+                const csvCandidates = ['/tests/fixtures/despesas.csv', '/tests/fixtures/despesas.csv.txt', '/resources/data/despesas.csv'];
+                for (const path of csvCandidates) {
+                    try {
+                        const resp = await fetch(path);
+                        if (!resp || !resp.ok) { console.warn('Auto-load CSV: not found or not ok at', path); continue; }
+                        const txt = await resp.text();
+                        if (typeof txt !== 'string' || txt.trim().length === 0) { console.warn('Auto-load CSV: empty file at', path); continue; }
+                        const parsed = window.governmentAPI.loadDespesasFromCSV(txt);
+                        window.governmentAPI.useLocalDespesas(parsed);
+                        console.log('Auto-loaded local despesas from', path, ':', Array.isArray(parsed) ? parsed.length : 'unknown');
+                        try { window.showLocalDataBanner && window.showLocalDataBanner(); } catch (e) {}
+                        try { window.dispatchEvent(new CustomEvent('localDespesasUsed', { detail: { count: Array.isArray(parsed) ? parsed.length : null } })); } catch (e) {}
+                        return;
+                    } catch (err) {
+                        console.warn('Auto-load CSV attempt failed for', path, err);
+                        continue;
+                    }
+                }
+                console.warn('Auto-load: no candidate files found for local environment');
+        })();
+    } catch (e) { /* ignore */ }
+
+    // Auto-load already-ingested JSON in resources/data/ingested (dev only)
+    try {
+        (async () => {
+            const candidatesJson = ['/resources/data/ingested/despesas.json', '/resources/data/ingested/despesas.csv.json', '/resources/data/despesas.json'];
+            const isLocalHost2 = typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+            if (!isLocalHost2) return;
+            for (const p of candidatesJson) {
+                try {
+                    const r = await fetch(p);
+                    if (!r || !r.ok) continue;
+                    const json = await r.json();
+                    if (!Array.isArray(json) || json.length === 0) continue;
+                    if (window.governmentAPI && typeof window.governmentAPI.useLocalDespesas === 'function') {
+                        window.governmentAPI.useLocalDespesas(json);
+                        try { window.showLocalDataBanner && window.showLocalDataBanner(); } catch (e) {}
+                        try {
+                            const ev = new CustomEvent('localDespesasUsed', { detail: { count: json.length } });
+                            window.dispatchEvent(ev);
+                        } catch (e) {}
+                        console.log('Auto-loaded ingested JSON from', p, 'count=', json.length);
+                        return;
+                    }
+                } catch (err) { continue; }
+            }
         })();
     } catch (e) { /* ignore */ }
 
