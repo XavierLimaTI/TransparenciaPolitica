@@ -1,0 +1,5 @@
+{
+  "#note": "This is a sample file. Do NOT commit your real API key.",
+  "instructions": "Copy this file to server/portal_key.json and set the 'key' value with your Portal da Transparencia API key. server/portal_key.json is in .gitignore by default.",
+  "key": ""
+}
