@@ -1,0 +1,242 @@
+name: Monthly Portal Download
+
+on:
+  schedule:
+    - cron: '0 3 1 * *' # 03:00 UTC on day 1 of every month
+  workflow_dispatch: {}
+
+jobs:
+  download-prev-month:
+    name: Download previous month dataset
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci --include=dev
+
+      - name: Compute previous month
+        id: compute
+        run: |
+          START=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m-01)
+          echo "start=$START" >> $GITHUB_OUTPUT
+
+      - name: Run downloader for previous month
+        env:
+          START: ${{ steps.compute.outputs.start }}
+        run: |
+          echo "Running downloader for $START"
+          node scripts/download_portal_monthly.js --start=$START --end=$START --type=despesas --extract
+
+      - name: Generate checksums and metadata
+        id: metadata
+        env:
+          START: ${{ steps.compute.outputs.start }}
+        run: |
+          ROOT=resources/data/despesas
+          if [ ! -d "$ROOT" ]; then
+            echo "No files downloaded to $ROOT, skipping metadata generation"
+            exit 0
+          fi
+          python3 - <<'PY'
+            import hashlib, json, os, time
+            root = os.environ.get('ROOT', 'resources/data/despesas')
+            start = os.environ.get('START')
+            files = []
+            for dirpath, _, filenames in os.walk(root):
+                for f in filenames:
+                    path = os.path.join(dirpath, f)
+                    # compute sha256
+                    h = hashlib.sha256()
+                    with open(path, 'rb') as fh:
+                        while True:
+                            chunk = fh.read(8192)
+                            if not chunk:
+                                break
+                            h.update(chunk)
+                    files.append({'name': f, 'path': path, 'sha256': h.hexdigest(), 'size': os.path.getsize(path)})
+            meta = {'month': start, 'type': 'despesas', 'files': files, 'runner': os.environ.get('RUNNER_OS'), 'timestamp': int(time.time())}
+            out = os.path.join(root, 'metadata.json')
+            with open(out, 'w') as fh:
+                json.dump(meta, fh, indent=2)
+            print('Wrote metadata to', out)
+          PY
+
+      - name: Create compressed archive of dataset
+        id: archive
+        env:
+          START: ${{ steps.compute.outputs.start }}
+        run: |
+          ROOT=resources/data/despesas
+          ARCHIVE_NAME="despesas_${START}.tar.gz"
+          ARCHIVE_PATH="$ROOT/$ARCHIVE_NAME"
+          mkdir -p "$ROOT"
+          # create tar.gz of the dataset directory contents
+          tar -C "$ROOT" -czf "$ARCHIVE_PATH" . || true
+          # compute sha256 and size
+          SHA=$(sha256sum "$ARCHIVE_PATH" | awk '{print $1}') || SHA=''
+          SIZE=$(stat -c%s "$ARCHIVE_PATH" 2>/dev/null || stat -f%z "$ARCHIVE_PATH" 2>/dev/null || echo 0)
+          echo "archive_name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
+          echo "archive_sha=$SHA" >> $GITHUB_OUTPUT
+          echo "archive_size=$SIZE" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Add archive info to metadata.json
+        env:
+          START: ${{ steps.compute.outputs.start }}
+        run: |
+          python3 scripts/add_archive_to_metadata.py
+        shell: bash
+
+      - name: Upload metadata artifact (if exists)
+        run: |
+          META=resources/data/despesas/metadata.json
+          if [ -f "$META" ]; then
+            echo "Found metadata.json, uploading as artifact"
+            mkdir -p artifacts
+            cp "$META" artifacts/metadata.json
+          else
+            echo "No metadata.json found, skipping"
+          fi
+        shell: bash
+
+      - name: Upload metadata artifact to Actions (fallback)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portal-dataset-metadata
+          path: artifacts/metadata.json
+
+      - name: Configure AWS credentials
+        if: ${{ secrets.ENABLE_S3_UPLOAD == 'true' && secrets.AWS_ACCESS_KEY_ID != '' && secrets.AWS_SECRET_ACCESS_KEY != '' && secrets.S3_BUCKET != '' }}
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install AWS CLI
+        if: ${{ secrets.ENABLE_S3_UPLOAD == 'true' && secrets.AWS_ACCESS_KEY_ID != '' && secrets.AWS_SECRET_ACCESS_KEY != '' && secrets.S3_BUCKET != '' }}
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install awscli
+
+      - name: Upload to S3 (opt-in)
+        if: ${{ secrets.ENABLE_S3_UPLOAD == 'true' && secrets.AWS_ACCESS_KEY_ID != '' && secrets.AWS_SECRET_ACCESS_KEY != '' && secrets.S3_BUCKET != '' }}
+        env:
+          START: ${{ steps.compute.outputs.start }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: |
+          echo "Uploading resources/data/despesas to s3://$S3_BUCKET/datasets/$START/"
+          ARCHIVE_NAME="despesas_${START}.tar.gz"
+          ARCHIVE_PATH="s3://$S3_BUCKET/datasets/$START/$ARCHIVE_NAME"
+          echo "Checking for existing archive $ARCHIVE_PATH"
+          # prefer to compare SHA256 via object metadata before uploading
+          LOCAL_SHA="${{ steps.archive.outputs.archive_sha }}"
+          # fallback: compute local sha if not passed via outputs
+          if [ -z "$LOCAL_SHA" ] || [ "$LOCAL_SHA" = "" ]; then
+            if [ -f "resources/data/despesas/$ARCHIVE_NAME" ]; then
+              LOCAL_SHA=$(sha256sum "resources/data/despesas/$ARCHIVE_NAME" | awk '{print $1}') || true
+            fi
+          fi
+
+          REMOTE_SHA=$(aws s3api head-object --bucket "$S3_BUCKET" --key "datasets/$START/$ARCHIVE_NAME" --query 'Metadata.sha256' --output text 2>/dev/null || true)
+          if [ "$REMOTE_SHA" = "None" ]; then
+            REMOTE_SHA=""
+          fi
+
+          if [ -n "$REMOTE_SHA" ]; then
+            echo "Found remote sha256: $REMOTE_SHA"
+            if [ -n "$LOCAL_SHA" ] && [ "$REMOTE_SHA" = "$LOCAL_SHA" ]; then
+              echo "Remote archive sha256 matches local sha256; skipping upload"
+            else
+              echo "Remote archive differs or missing sha256. Uploading directory and archive"
+              aws s3 cp resources/data/despesas s3://$S3_BUCKET/datasets/$START/ --recursive --acl bucket-owner-full-control
+              if [ -f "resources/data/despesas/$ARCHIVE_NAME" ]; then
+                aws s3 cp "resources/data/despesas/$ARCHIVE_NAME" "s3://$S3_BUCKET/datasets/$START/$ARCHIVE_NAME" --acl bucket-owner-full-control --metadata sha256=$LOCAL_SHA || true
+              fi
+            fi
+          else
+            echo "No remote metadata sha present, uploading directory and archive"
+            aws s3 cp resources/data/despesas s3://$S3_BUCKET/datasets/$START/ --recursive --acl bucket-owner-full-control
+            if [ -f "resources/data/despesas/$ARCHIVE_NAME" ]; then
+              aws s3 cp "resources/data/despesas/$ARCHIVE_NAME" "s3://$S3_BUCKET/datasets/$START/$ARCHIVE_NAME" --acl bucket-owner-full-control --metadata sha256=$LOCAL_SHA || true
+            fi
+          fi
+
+      - name: Update S3 index (index.json) (opt-in)
+        if: ${{ secrets.ENABLE_S3_UPLOAD == 'true' && secrets.AWS_ACCESS_KEY_ID != '' && secrets.AWS_SECRET_ACCESS_KEY != '' && secrets.S3_BUCKET != '' }}
+        env:
+          START: ${{ steps.compute.outputs.start }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: |
+          python3 scripts/update_s3_index.py
+
+      - name: Notify metrics exporter (success)
+        if: ${{ success() && env.METRICS_URL != '' }}
+        env:
+          METRICS_URL: ${{ secrets.METRICS_URL }}
+          START: ${{ steps.compute.outputs.start }}
+        run: |
+          # increment monthly_success and downloads
+          curl -s -X POST -H "Content-Type: application/json" -d "{\"metric\":\"monthly_success\",\"value\":1}" $METRICS_URL/increment || true
+          curl -s -X POST -H "Content-Type: application/json" -d "{\"metric\":\"downloads\",\"value\":1}" $METRICS_URL/increment || true
+        shell: bash
+
+      - name: Trigger webhook resync (optional)
+        if: ${{ success() && secrets.RESYNC_ENDPOINT != '' }}
+        env:
+          START: ${{ steps.compute.outputs.start }}
+          RESYNC_ENDPOINT: ${{ secrets.RESYNC_ENDPOINT }}
+        run: |
+          curl -s -X POST -H "Content-Type: application/json" -d "{\"start\": \"$START\"}" $RESYNC_ENDPOINT || true
+        shell: bash
+
+      - name: Upload downloaded artifact (GitHub Actions fallback)
+        if: ${{ secrets.AWS_ACCESS_KEY_ID == '' || secrets.AWS_SECRET_ACCESS_KEY == '' || secrets.S3_BUCKET == '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: portal-dataset-prev-month
+          path: resources/data/despesas/
+
+      # (artifact upload handled above conditionally: S3 upload when secrets present, otherwise upload-artifact)
+
+      - name: Notify on failure (Slack)
+        if: ${{ failure() && secrets.SLACK_WEBHOOK_URL != '' }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          START: ${{ steps.compute.outputs.start }}
+        run: |
+          TEXT="Monthly download for $START failed on $GITHUB_REPOSITORY (run: $GITHUB_RUN_ID). Check logs: $GITHUB_RUN_URL"
+          payload=$(jq -cn --arg t "$TEXT" '{text: $t}')
+          curl -s -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL" || true
+        shell: bash
+
+      - name: Create GitHub issue on failure
+        if: ${{ failure() && secrets.SLACK_WEBHOOK_URL == '' && secrets.GITHUB_TOKEN != '' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          START: ${{ steps.compute.outputs.start }}
+        run: |
+          repo="$GITHUB_REPOSITORY"
+          title="[monthly-download] Falha ao baixar dados para $START"
+          body="O job de download mensal (start=$START) falhou. Run: $GITHUB_RUN_URL\n\nVerifique os logs no Actions para detalhes."
+          curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" \
+            -d "{\"title\": \"$title\", \"body\": \"$body\"}" \
+            "https://api.github.com/repos/$repo/issues" || true
+        shell: bash
+
+      - name: Notify metrics exporter (failure)
+        if: ${{ failure() && env.METRICS_URL != '' }}
+        env:
+          METRICS_URL: ${{ secrets.METRICS_URL }}
+          START: ${{ steps.compute.outputs.start }}
+        run: |
+          curl -s -X POST -H "Content-Type: application/json" -d "{\"metric\":\"monthly_failed\",\"value\":1}" $METRICS_URL/increment || true
+        shell: bash
