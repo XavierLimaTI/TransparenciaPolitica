@@ -96,3 +96,31 @@ gh workflow run monthly-download.yml --repo XavierLimaTI/TransparenciaPolitica
 
 - Não comite arquivos grandes (zips/CSV/JSON de dados) no repositório. O fluxo padrão é manter os artefatos localmente e enviar para um bucket S3 quando explicitamente habilitado.
 
+### Executar localmente
+
+Exemplo rápido em PowerShell para baixar e extrair um mês (substitua `PORTAL_KEY_AQUI` se tiver uma chave):
+
+```powershell
+$env:PORTAL_API_KEY='PORTAL_KEY_AQUI'
+node scripts/download_portal_monthly.js --start=2025-10-01 --end=2025-10-01 --type=despesas --extract
+```
+
+Baixar vários meses (ex.: últimos 3 meses) em loop:
+
+```powershell
+$env:PORTAL_API_KEY='PORTAL_KEY_AQUI'
+$dates = @('2025-08-01','2025-09-01','2025-10-01')
+foreach ($d in $dates) { node scripts/download_portal_monthly.js --start=$d --end=$d --type=despesas --extract }
+```
+
+Depois de extrair, rodar a ingestão para gerar os JSONs e atualizar o manifest:
+
+```powershell
+node scripts/ingest-datasets.js
+```
+
+Observações:
+
+- Se não tiver `PORTAL_API_KEY`, o downloader ainda pode funcionar para arquivos públicos, mas alguns endpoints do Portal podem exigir o header `chave-api-dados`.
+- Os arquivos baixados ficam em `resources/data/despesas/` e os JSONs gerados em `resources/data/ingested/`.
+
