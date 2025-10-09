@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       bucket:
-        description: 'Firebase Storage bucket (ex: your-project.appspot.com)'
+        description: 'Firebase Storage bucket (ex: legislaplay.appspot.com)'
         required: true
-        default: 'your-project.appspot.com'
+        default: 'legislaplay.appspot.com'
 
 jobs:
   upload:
