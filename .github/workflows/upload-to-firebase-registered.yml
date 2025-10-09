@@ -1,0 +1,47 @@
+name: Upload ingested to Firebase Storage (registered)
+
+on:
+  workflow_dispatch:
+    inputs:
+      bucket:
+        description: 'Firebase Storage bucket (ex: legislaplay.appspot.com)'
+        required: true
+        default: 'legislaplay.appspot.com'
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          service_account_key: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+
+      - name: Prepare artifact (zip ingested)
+        run: |
+          set -e
+          mkdir -p artifacts
+          TIMESTAMP=$(date -u +%Y-%m-%d)
+          ARTIFACT="artifacts/ingested-${TIMESTAMP}.zip"
+          echo "Creating $ARTIFACT from resources/data/ingested (if exists)..."
+          if [ -d resources/data/ingested ]; then
+            zip -r "$ARTIFACT" resources/data/ingested
+            ls -lh "$ARTIFACT"
+          else
+            echo "Directory resources/data/ingested not found in checkout. Aborting." >&2
+            exit 2
+          fi
+
+      - name: Upload artifact to Firebase Storage (GCS)
+        run: |
+          set -e
+          TIMESTAMP=$(date -u +%Y-%m-%d)
+          ARTIFACT="artifacts/ingested-${TIMESTAMP}.zip"
+          DEST_BUCKET="${{ github.event.inputs.bucket }}"
+          DEST="gs://${DEST_BUCKET}/ingested/$(basename $ARTIFACT)"
+          echo "Uploading $ARTIFACT -> $DEST"
+          gsutil cp "$ARTIFACT" "$DEST"
+          echo "Upload finished"
