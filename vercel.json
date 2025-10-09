@@ -4,55 +4,22 @@
     {
       "src": "*.html",
       "use": "@vercel/static",
-      "config": {
-        "distDir": "."
-      }
+      "config": { "distDir": "." }
     },
     {
       "src": "*.js",
       "use": "@vercel/static",
-      "config": {
-        "distDir": "."
-      }
+      "config": { "distDir": "." }
     },
     {
       "src": "resources/**/*",
       "use": "@vercel/static",
-      "config": {
-        "distDir": "."
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    },
-    {
-      "src": "/candidatos",
-      "dest": "/candidatos.html"
-    },
-    {
-      "src": "/votacoes",
-      "dest": "/votacoes.html"
-    },
-    {
-      "src": "/sobre",
-      "dest": "/sobre.html"
+      "config": { "distDir": "." }
     }
   ],
   "rewrites": [
-    {
-      "source": "/candidatos",
-      "destination": "/candidatos.html"
-    },
-    {
-      "source": "/votacoes",
-      "destination": "/votacoes.html"
-    },
-    {
-      "source": "/sobre",
-      "destination": "/sobre.html"
-    }
+    { "source": "/candidatos", "destination": "/candidatos.html" },
+    { "source": "/votacoes", "destination": "/votacoes.html" },
+    { "source": "/sobre", "destination": "/sobre.html" }
   ]
 }
