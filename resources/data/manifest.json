@@ -161,6 +161,3291 @@
       "count": 1297
     },
     {
+      "csv": "despesas/20201001/20201001_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20201001__20201001_Despesas_Empenho.csv.json",
+      "count": 10647
+    },
+    {
+      "csv": "despesas/20201001/20201001_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20201001__20201001_Despesas_ItemEmpenho.csv.json",
+      "count": 16983
+    },
+    {
+      "csv": "despesas/20201001/20201001_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20201001__20201001_Despesas_Liquidacao.csv.json",
+      "count": 16335
+    },
+    {
+      "csv": "despesas/20201001/20201001_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20201001__20201001_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 18245
+    },
+    {
+      "csv": "despesas/20201001/20201001_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20201001__20201001_Despesas_Pagamento.csv.json",
+      "count": 32736
+    },
+    {
+      "csv": "despesas/20201001/20201001_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20201001__20201001_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 42093
+    },
+    {
+      "csv": "despesas/20201001/20201001_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20201001__20201001_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 205551
+    },
+    {
+      "csv": "despesas/20201001/20201001_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20201001__20201001_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1621
+    },
+    {
+      "csv": "despesas/20201001/20201001_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20201001__20201001_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 1819
+    },
+    {
+      "csv": "despesas/20201001/20201001_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20201001__20201001_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20201101/20201101_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20201101__20201101_Despesas_Empenho.csv.json",
+      "count": 60
+    },
+    {
+      "csv": "despesas/20201101/20201101_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20201101__20201101_Despesas_ItemEmpenho.csv.json",
+      "count": 91
+    },
+    {
+      "csv": "despesas/20201101/20201101_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20201101__20201101_Despesas_Liquidacao.csv.json",
+      "count": 23
+    },
+    {
+      "csv": "despesas/20201101/20201101_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20201101__20201101_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 27
+    },
+    {
+      "csv": "despesas/20201101/20201101_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20201101__20201101_Despesas_Pagamento.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20201101/20201101_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20201101__20201101_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20201101/20201101_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20201101__20201101_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20201101/20201101_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20201101__20201101_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20201101/20201101_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20201101__20201101_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20201101/20201101_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20201101__20201101_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20201201/20201201_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20201201__20201201_Despesas_Empenho.csv.json",
+      "count": 15510
+    },
+    {
+      "csv": "despesas/20201201/20201201_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20201201__20201201_Despesas_ItemEmpenho.csv.json",
+      "count": 25466
+    },
+    {
+      "csv": "despesas/20201201/20201201_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20201201__20201201_Despesas_Liquidacao.csv.json",
+      "count": 25229
+    },
+    {
+      "csv": "despesas/20201201/20201201_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20201201__20201201_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 28650
+    },
+    {
+      "csv": "despesas/20201201/20201201_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20201201__20201201_Despesas_Pagamento.csv.json",
+      "count": 35071
+    },
+    {
+      "csv": "despesas/20201201/20201201_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20201201__20201201_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 45355
+    },
+    {
+      "csv": "despesas/20201201/20201201_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20201201__20201201_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 190241
+    },
+    {
+      "csv": "despesas/20201201/20201201_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20201201__20201201_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1656
+    },
+    {
+      "csv": "despesas/20201201/20201201_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20201201__20201201_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 1564
+    },
+    {
+      "csv": "despesas/20201201/20201201_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20201201__20201201_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210101/20210101_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20210101__20210101_Despesas_Empenho.csv.json",
+      "count": 27
+    },
+    {
+      "csv": "despesas/20210101/20210101_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20210101__20210101_Despesas_ItemEmpenho.csv.json",
+      "count": 45
+    },
+    {
+      "csv": "despesas/20210101/20210101_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20210101__20210101_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 56
+    },
+    {
+      "csv": "despesas/20210101/20210101_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20210101__20210101_Despesas_Liquidacao.csv.json",
+      "count": 46
+    },
+    {
+      "csv": "despesas/20210101/20210101_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210101__20210101_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 62
+    },
+    {
+      "csv": "despesas/20210101/20210101_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20210101__20210101_Despesas_Pagamento.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210101/20210101_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210101__20210101_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210101/20210101_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20210101__20210101_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210101/20210101_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20210101__20210101_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210101/20210101_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20210101__20210101_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210101/20210101_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20210101__20210101_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210201/20210201_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20210201__20210201_Despesas_Empenho.csv.json",
+      "count": 2096
+    },
+    {
+      "csv": "despesas/20210201/20210201_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20210201__20210201_Despesas_ItemEmpenho.csv.json",
+      "count": 3060
+    },
+    {
+      "csv": "despesas/20210201/20210201_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20210201__20210201_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 3394
+    },
+    {
+      "csv": "despesas/20210201/20210201_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20210201__20210201_Despesas_Liquidacao.csv.json",
+      "count": 11766
+    },
+    {
+      "csv": "despesas/20210201/20210201_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210201__20210201_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 13215
+    },
+    {
+      "csv": "despesas/20210201/20210201_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20210201__20210201_Despesas_Pagamento.csv.json",
+      "count": 26233
+    },
+    {
+      "csv": "despesas/20210201/20210201_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210201__20210201_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 34621
+    },
+    {
+      "csv": "despesas/20210201/20210201_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20210201__20210201_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 71551
+    },
+    {
+      "csv": "despesas/20210201/20210201_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20210201__20210201_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1634
+    },
+    {
+      "csv": "despesas/20210201/20210201_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20210201__20210201_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 1139
+    },
+    {
+      "csv": "despesas/20210201/20210201_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20210201__20210201_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210301/20210301_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20210301__20210301_Despesas_Empenho.csv.json",
+      "count": 2916
+    },
+    {
+      "csv": "despesas/20210301/20210301_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20210301__20210301_Despesas_ItemEmpenho.csv.json",
+      "count": 4351
+    },
+    {
+      "csv": "despesas/20210301/20210301_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20210301__20210301_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 4879
+    },
+    {
+      "csv": "despesas/20210301/20210301_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20210301__20210301_Despesas_Liquidacao.csv.json",
+      "count": 15667
+    },
+    {
+      "csv": "despesas/20210301/20210301_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210301__20210301_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 17218
+    },
+    {
+      "csv": "despesas/20210301/20210301_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20210301__20210301_Despesas_Pagamento.csv.json",
+      "count": 21889
+    },
+    {
+      "csv": "despesas/20210301/20210301_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210301__20210301_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 30159
+    },
+    {
+      "csv": "despesas/20210301/20210301_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20210301__20210301_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 51292
+    },
+    {
+      "csv": "despesas/20210301/20210301_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20210301__20210301_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1660
+    },
+    {
+      "csv": "despesas/20210301/20210301_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20210301__20210301_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2374
+    },
+    {
+      "csv": "despesas/20210301/20210301_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20210301__20210301_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210401/20210401_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20210401__20210401_Despesas_Empenho.csv.json",
+      "count": 1335
+    },
+    {
+      "csv": "despesas/20210401/20210401_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20210401__20210401_Despesas_ItemEmpenho.csv.json",
+      "count": 2420
+    },
+    {
+      "csv": "despesas/20210401/20210401_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20210401__20210401_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 2652
+    },
+    {
+      "csv": "despesas/20210401/20210401_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20210401__20210401_Despesas_Liquidacao.csv.json",
+      "count": 5172
+    },
+    {
+      "csv": "despesas/20210401/20210401_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210401__20210401_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 6117
+    },
+    {
+      "csv": "despesas/20210401/20210401_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20210401__20210401_Despesas_Pagamento.csv.json",
+      "count": 53391
+    },
+    {
+      "csv": "despesas/20210401/20210401_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210401__20210401_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 63460
+    },
+    {
+      "csv": "despesas/20210401/20210401_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20210401__20210401_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 229727
+    },
+    {
+      "csv": "despesas/20210401/20210401_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20210401__20210401_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1662
+    },
+    {
+      "csv": "despesas/20210401/20210401_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20210401__20210401_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2309
+    },
+    {
+      "csv": "despesas/20210401/20210401_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20210401__20210401_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210501/20210501_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20210501__20210501_Despesas_Empenho.csv.json",
+      "count": 2
+    },
+    {
+      "csv": "despesas/20210501/20210501_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20210501__20210501_Despesas_ItemEmpenho.csv.json",
+      "count": 23
+    },
+    {
+      "csv": "despesas/20210501/20210501_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20210501__20210501_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 23
+    },
+    {
+      "csv": "despesas/20210501/20210501_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20210501__20210501_Despesas_Liquidacao.csv.json",
+      "count": 48
+    },
+    {
+      "csv": "despesas/20210501/20210501_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210501__20210501_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 62
+    },
+    {
+      "csv": "despesas/20210501/20210501_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20210501__20210501_Despesas_Pagamento.csv.json",
+      "count": 11
+    },
+    {
+      "csv": "despesas/20210501/20210501_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210501__20210501_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 16
+    },
+    {
+      "csv": "despesas/20210501/20210501_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20210501__20210501_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210501/20210501_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20210501__20210501_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210501/20210501_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20210501__20210501_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210501/20210501_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20210501__20210501_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210601/20210601_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20210601__20210601_Despesas_Empenho.csv.json",
+      "count": 4826
+    },
+    {
+      "csv": "despesas/20210601/20210601_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20210601__20210601_Despesas_ItemEmpenho.csv.json",
+      "count": 8764
+    },
+    {
+      "csv": "despesas/20210601/20210601_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20210601__20210601_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 11103
+    },
+    {
+      "csv": "despesas/20210601/20210601_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20210601__20210601_Despesas_Liquidacao.csv.json",
+      "count": 17880
+    },
+    {
+      "csv": "despesas/20210601/20210601_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210601__20210601_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 20256
+    },
+    {
+      "csv": "despesas/20210601/20210601_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20210601__20210601_Despesas_Pagamento.csv.json",
+      "count": 34576
+    },
+    {
+      "csv": "despesas/20210601/20210601_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210601__20210601_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 44265
+    },
+    {
+      "csv": "despesas/20210601/20210601_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20210601__20210601_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 222652
+    },
+    {
+      "csv": "despesas/20210601/20210601_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20210601__20210601_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1650
+    },
+    {
+      "csv": "despesas/20210601/20210601_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20210601__20210601_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2336
+    },
+    {
+      "csv": "despesas/20210601/20210601_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20210601__20210601_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210701/20210701_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20210701__20210701_Despesas_Empenho.csv.json",
+      "count": 5751
+    },
+    {
+      "csv": "despesas/20210701/20210701_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20210701__20210701_Despesas_ItemEmpenho.csv.json",
+      "count": 10124
+    },
+    {
+      "csv": "despesas/20210701/20210701_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20210701__20210701_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 11859
+    },
+    {
+      "csv": "despesas/20210701/20210701_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20210701__20210701_Despesas_Liquidacao.csv.json",
+      "count": 14981
+    },
+    {
+      "csv": "despesas/20210701/20210701_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210701__20210701_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 16852
+    },
+    {
+      "csv": "despesas/20210701/20210701_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20210701__20210701_Despesas_Pagamento.csv.json",
+      "count": 28559
+    },
+    {
+      "csv": "despesas/20210701/20210701_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210701__20210701_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 38272
+    },
+    {
+      "csv": "despesas/20210701/20210701_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20210701__20210701_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 159316
+    },
+    {
+      "csv": "despesas/20210701/20210701_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20210701__20210701_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1671
+    },
+    {
+      "csv": "despesas/20210701/20210701_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20210701__20210701_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 1983
+    },
+    {
+      "csv": "despesas/20210701/20210701_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20210701__20210701_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210801/20210801_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20210801__20210801_Despesas_Empenho.csv.json",
+      "count": 7
+    },
+    {
+      "csv": "despesas/20210801/20210801_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20210801__20210801_Despesas_ItemEmpenho.csv.json",
+      "count": 8
+    },
+    {
+      "csv": "despesas/20210801/20210801_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20210801__20210801_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 10
+    },
+    {
+      "csv": "despesas/20210801/20210801_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20210801__20210801_Despesas_Liquidacao.csv.json",
+      "count": 33
+    },
+    {
+      "csv": "despesas/20210801/20210801_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210801__20210801_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 51
+    },
+    {
+      "csv": "despesas/20210801/20210801_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20210801__20210801_Despesas_Pagamento.csv.json",
+      "count": 15
+    },
+    {
+      "csv": "despesas/20210801/20210801_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210801__20210801_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 25
+    },
+    {
+      "csv": "despesas/20210801/20210801_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20210801__20210801_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210801/20210801_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20210801__20210801_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210801/20210801_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20210801__20210801_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210801/20210801_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20210801__20210801_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20210901/20210901_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20210901__20210901_Despesas_Empenho.csv.json",
+      "count": 4631
+    },
+    {
+      "csv": "despesas/20210901/20210901_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20210901__20210901_Despesas_ItemEmpenho.csv.json",
+      "count": 8524
+    },
+    {
+      "csv": "despesas/20210901/20210901_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20210901__20210901_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 12705
+    },
+    {
+      "csv": "despesas/20210901/20210901_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20210901__20210901_Despesas_Liquidacao.csv.json",
+      "count": 14577
+    },
+    {
+      "csv": "despesas/20210901/20210901_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210901__20210901_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 16656
+    },
+    {
+      "csv": "despesas/20210901/20210901_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20210901__20210901_Despesas_Pagamento.csv.json",
+      "count": 31417
+    },
+    {
+      "csv": "despesas/20210901/20210901_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20210901__20210901_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 42397
+    },
+    {
+      "csv": "despesas/20210901/20210901_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20210901__20210901_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 233567
+    },
+    {
+      "csv": "despesas/20210901/20210901_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20210901__20210901_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1695
+    },
+    {
+      "csv": "despesas/20210901/20210901_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20210901__20210901_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 1599
+    },
+    {
+      "csv": "despesas/20210901/20210901_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20210901__20210901_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20211001/20211001_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20211001__20211001_Despesas_Empenho.csv.json",
+      "count": 5822
+    },
+    {
+      "csv": "despesas/20211001/20211001_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20211001__20211001_Despesas_ItemEmpenho.csv.json",
+      "count": 9780
+    },
+    {
+      "csv": "despesas/20211001/20211001_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20211001__20211001_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 12464
+    },
+    {
+      "csv": "despesas/20211001/20211001_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20211001__20211001_Despesas_Liquidacao.csv.json",
+      "count": 13195
+    },
+    {
+      "csv": "despesas/20211001/20211001_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20211001__20211001_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 15702
+    },
+    {
+      "csv": "despesas/20211001/20211001_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20211001__20211001_Despesas_Pagamento.csv.json",
+      "count": 38470
+    },
+    {
+      "csv": "despesas/20211001/20211001_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20211001__20211001_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 48490
+    },
+    {
+      "csv": "despesas/20211001/20211001_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20211001__20211001_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 236908
+    },
+    {
+      "csv": "despesas/20211001/20211001_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20211001__20211001_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1705
+    },
+    {
+      "csv": "despesas/20211001/20211001_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20211001__20211001_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 1618
+    },
+    {
+      "csv": "despesas/20211001/20211001_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20211001__20211001_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20211101/20211101_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20211101__20211101_Despesas_Empenho.csv.json",
+      "count": 1187
+    },
+    {
+      "csv": "despesas/20211101/20211101_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20211101__20211101_Despesas_ItemEmpenho.csv.json",
+      "count": 2532
+    },
+    {
+      "csv": "despesas/20211101/20211101_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20211101__20211101_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 3216
+    },
+    {
+      "csv": "despesas/20211101/20211101_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20211101__20211101_Despesas_Liquidacao.csv.json",
+      "count": 4853
+    },
+    {
+      "csv": "despesas/20211101/20211101_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20211101__20211101_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 5519
+    },
+    {
+      "csv": "despesas/20211101/20211101_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20211101__20211101_Despesas_Pagamento.csv.json",
+      "count": 14579
+    },
+    {
+      "csv": "despesas/20211101/20211101_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20211101__20211101_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 23301
+    },
+    {
+      "csv": "despesas/20211101/20211101_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20211101__20211101_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 31778
+    },
+    {
+      "csv": "despesas/20211101/20211101_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20211101__20211101_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1679
+    },
+    {
+      "csv": "despesas/20211101/20211101_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20211101__20211101_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 699
+    },
+    {
+      "csv": "despesas/20211101/20211101_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20211101__20211101_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20211201/20211201_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20211201__20211201_Despesas_Empenho.csv.json",
+      "count": 11284
+    },
+    {
+      "csv": "despesas/20211201/20211201_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20211201__20211201_Despesas_ItemEmpenho.csv.json",
+      "count": 19138
+    },
+    {
+      "csv": "despesas/20211201/20211201_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20211201__20211201_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 29380
+    },
+    {
+      "csv": "despesas/20211201/20211201_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20211201__20211201_Despesas_Liquidacao.csv.json",
+      "count": 19783
+    },
+    {
+      "csv": "despesas/20211201/20211201_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20211201__20211201_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 22779
+    },
+    {
+      "csv": "despesas/20211201/20211201_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20211201__20211201_Despesas_Pagamento.csv.json",
+      "count": 49504
+    },
+    {
+      "csv": "despesas/20211201/20211201_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20211201__20211201_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 59976
+    },
+    {
+      "csv": "despesas/20211201/20211201_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20211201__20211201_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 100707
+    },
+    {
+      "csv": "despesas/20211201/20211201_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20211201__20211201_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1712
+    },
+    {
+      "csv": "despesas/20211201/20211201_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20211201__20211201_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2244
+    },
+    {
+      "csv": "despesas/20211201/20211201_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20211201__20211201_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220101/20220101_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20220101__20220101_Despesas_Empenho.csv.json",
+      "count": 16
+    },
+    {
+      "csv": "despesas/20220101/20220101_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20220101__20220101_Despesas_ItemEmpenho.csv.json",
+      "count": 33
+    },
+    {
+      "csv": "despesas/20220101/20220101_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20220101__20220101_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 34
+    },
+    {
+      "csv": "despesas/20220101/20220101_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20220101__20220101_Despesas_Liquidacao.csv.json",
+      "count": 59
+    },
+    {
+      "csv": "despesas/20220101/20220101_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220101__20220101_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 63
+    },
+    {
+      "csv": "despesas/20220101/20220101_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20220101__20220101_Despesas_Pagamento.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220101/20220101_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220101__20220101_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220101/20220101_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20220101__20220101_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220101/20220101_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20220101__20220101_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220101/20220101_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20220101__20220101_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220101/20220101_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20220101__20220101_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220201/20220201_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20220201__20220201_Despesas_Empenho.csv.json",
+      "count": 2973
+    },
+    {
+      "csv": "despesas/20220201/20220201_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20220201__20220201_Despesas_ItemEmpenho.csv.json",
+      "count": 4419
+    },
+    {
+      "csv": "despesas/20220201/20220201_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20220201__20220201_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 5103
+    },
+    {
+      "csv": "despesas/20220201/20220201_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20220201__20220201_Despesas_Liquidacao.csv.json",
+      "count": 11721
+    },
+    {
+      "csv": "despesas/20220201/20220201_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220201__20220201_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 13118
+    },
+    {
+      "csv": "despesas/20220201/20220201_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20220201__20220201_Despesas_Pagamento.csv.json",
+      "count": 25222
+    },
+    {
+      "csv": "despesas/20220201/20220201_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220201__20220201_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 32192
+    },
+    {
+      "csv": "despesas/20220201/20220201_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20220201__20220201_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 45983
+    },
+    {
+      "csv": "despesas/20220201/20220201_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20220201__20220201_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1690
+    },
+    {
+      "csv": "despesas/20220201/20220201_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20220201__20220201_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2014
+    },
+    {
+      "csv": "despesas/20220201/20220201_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20220201__20220201_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220301/20220301_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20220301__20220301_Despesas_Empenho.csv.json",
+      "count": 8
+    },
+    {
+      "csv": "despesas/20220301/20220301_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20220301__20220301_Despesas_ItemEmpenho.csv.json",
+      "count": 9
+    },
+    {
+      "csv": "despesas/20220301/20220301_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20220301__20220301_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 9
+    },
+    {
+      "csv": "despesas/20220301/20220301_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20220301__20220301_Despesas_Liquidacao.csv.json",
+      "count": 155
+    },
+    {
+      "csv": "despesas/20220301/20220301_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220301__20220301_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 205
+    },
+    {
+      "csv": "despesas/20220301/20220301_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20220301__20220301_Despesas_Pagamento.csv.json",
+      "count": 16
+    },
+    {
+      "csv": "despesas/20220301/20220301_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220301__20220301_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 31
+    },
+    {
+      "csv": "despesas/20220301/20220301_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20220301__20220301_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220301/20220301_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20220301__20220301_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220301/20220301_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20220301__20220301_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220301/20220301_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20220301__20220301_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220401/20220401_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20220401__20220401_Despesas_Empenho.csv.json",
+      "count": 3954
+    },
+    {
+      "csv": "despesas/20220401/20220401_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20220401__20220401_Despesas_ItemEmpenho.csv.json",
+      "count": 7265
+    },
+    {
+      "csv": "despesas/20220401/20220401_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20220401__20220401_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 8991
+    },
+    {
+      "csv": "despesas/20220401/20220401_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20220401__20220401_Despesas_Liquidacao.csv.json",
+      "count": 12449
+    },
+    {
+      "csv": "despesas/20220401/20220401_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220401__20220401_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 14259
+    },
+    {
+      "csv": "despesas/20220401/20220401_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20220401__20220401_Despesas_Pagamento.csv.json",
+      "count": 27949
+    },
+    {
+      "csv": "despesas/20220401/20220401_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220401__20220401_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 36902
+    },
+    {
+      "csv": "despesas/20220401/20220401_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20220401__20220401_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 44504
+    },
+    {
+      "csv": "despesas/20220401/20220401_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20220401__20220401_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1698
+    },
+    {
+      "csv": "despesas/20220401/20220401_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20220401__20220401_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2095
+    },
+    {
+      "csv": "despesas/20220401/20220401_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20220401__20220401_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220501/20220501_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20220501__20220501_Despesas_Empenho.csv.json",
+      "count": 7
+    },
+    {
+      "csv": "despesas/20220501/20220501_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20220501__20220501_Despesas_ItemEmpenho.csv.json",
+      "count": 26
+    },
+    {
+      "csv": "despesas/20220501/20220501_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20220501__20220501_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 26
+    },
+    {
+      "csv": "despesas/20220501/20220501_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20220501__20220501_Despesas_Liquidacao.csv.json",
+      "count": 50
+    },
+    {
+      "csv": "despesas/20220501/20220501_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220501__20220501_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 53
+    },
+    {
+      "csv": "despesas/20220501/20220501_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20220501__20220501_Despesas_Pagamento.csv.json",
+      "count": 2
+    },
+    {
+      "csv": "despesas/20220501/20220501_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220501__20220501_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 3
+    },
+    {
+      "csv": "despesas/20220501/20220501_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20220501__20220501_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220501/20220501_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20220501__20220501_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220501/20220501_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20220501__20220501_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220501/20220501_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20220501__20220501_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220601/20220601_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20220601__20220601_Despesas_Empenho.csv.json",
+      "count": 6875
+    },
+    {
+      "csv": "despesas/20220601/20220601_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20220601__20220601_Despesas_ItemEmpenho.csv.json",
+      "count": 11084
+    },
+    {
+      "csv": "despesas/20220601/20220601_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20220601__20220601_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 13109
+    },
+    {
+      "csv": "despesas/20220601/20220601_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20220601__20220601_Despesas_Liquidacao.csv.json",
+      "count": 16720
+    },
+    {
+      "csv": "despesas/20220601/20220601_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220601__20220601_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 19001
+    },
+    {
+      "csv": "despesas/20220601/20220601_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20220601__20220601_Despesas_Pagamento.csv.json",
+      "count": 29852
+    },
+    {
+      "csv": "despesas/20220601/20220601_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220601__20220601_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 39458
+    },
+    {
+      "csv": "despesas/20220601/20220601_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20220601__20220601_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 117579
+    },
+    {
+      "csv": "despesas/20220601/20220601_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20220601__20220601_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1698
+    },
+    {
+      "csv": "despesas/20220601/20220601_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20220601__20220601_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2039
+    },
+    {
+      "csv": "despesas/20220601/20220601_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20220601__20220601_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220701/20220701_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20220701__20220701_Despesas_Empenho.csv.json",
+      "count": 5494
+    },
+    {
+      "csv": "despesas/20220701/20220701_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20220701__20220701_Despesas_ItemEmpenho.csv.json",
+      "count": 9830
+    },
+    {
+      "csv": "despesas/20220701/20220701_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20220701__20220701_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 12450
+    },
+    {
+      "csv": "despesas/20220701/20220701_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20220701__20220701_Despesas_Liquidacao.csv.json",
+      "count": 16525
+    },
+    {
+      "csv": "despesas/20220701/20220701_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220701__20220701_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 19157
+    },
+    {
+      "csv": "despesas/20220701/20220701_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20220701__20220701_Despesas_Pagamento.csv.json",
+      "count": 46779
+    },
+    {
+      "csv": "despesas/20220701/20220701_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220701__20220701_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 58016
+    },
+    {
+      "csv": "despesas/20220701/20220701_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20220701__20220701_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 166855
+    },
+    {
+      "csv": "despesas/20220701/20220701_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20220701__20220701_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1758
+    },
+    {
+      "csv": "despesas/20220701/20220701_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20220701__20220701_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2693
+    },
+    {
+      "csv": "despesas/20220701/20220701_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20220701__20220701_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220801/20220801_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20220801__20220801_Despesas_Empenho.csv.json",
+      "count": 6713
+    },
+    {
+      "csv": "despesas/20220801/20220801_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20220801__20220801_Despesas_ItemEmpenho.csv.json",
+      "count": 11568
+    },
+    {
+      "csv": "despesas/20220801/20220801_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20220801__20220801_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 15341
+    },
+    {
+      "csv": "despesas/20220801/20220801_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20220801__20220801_Despesas_Liquidacao.csv.json",
+      "count": 17462
+    },
+    {
+      "csv": "despesas/20220801/20220801_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220801__20220801_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 20665
+    },
+    {
+      "csv": "despesas/20220801/20220801_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20220801__20220801_Despesas_Pagamento.csv.json",
+      "count": 33262
+    },
+    {
+      "csv": "despesas/20220801/20220801_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220801__20220801_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 43234
+    },
+    {
+      "csv": "despesas/20220801/20220801_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20220801__20220801_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 102610
+    },
+    {
+      "csv": "despesas/20220801/20220801_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20220801__20220801_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1732
+    },
+    {
+      "csv": "despesas/20220801/20220801_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20220801__20220801_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2066
+    },
+    {
+      "csv": "despesas/20220801/20220801_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20220801__20220801_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20220901/20220901_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20220901__20220901_Despesas_Empenho.csv.json",
+      "count": 5533
+    },
+    {
+      "csv": "despesas/20220901/20220901_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20220901__20220901_Despesas_ItemEmpenho.csv.json",
+      "count": 11205
+    },
+    {
+      "csv": "despesas/20220901/20220901_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20220901__20220901_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 14852
+    },
+    {
+      "csv": "despesas/20220901/20220901_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20220901__20220901_Despesas_Liquidacao.csv.json",
+      "count": 16127
+    },
+    {
+      "csv": "despesas/20220901/20220901_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220901__20220901_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 18641
+    },
+    {
+      "csv": "despesas/20220901/20220901_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20220901__20220901_Despesas_Pagamento.csv.json",
+      "count": 26623
+    },
+    {
+      "csv": "despesas/20220901/20220901_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20220901__20220901_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 35675
+    },
+    {
+      "csv": "despesas/20220901/20220901_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20220901__20220901_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 71169
+    },
+    {
+      "csv": "despesas/20220901/20220901_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20220901__20220901_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1761
+    },
+    {
+      "csv": "despesas/20220901/20220901_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20220901__20220901_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 1756
+    },
+    {
+      "csv": "despesas/20220901/20220901_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20220901__20220901_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20221001/20221001_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20221001__20221001_Despesas_Empenho.csv.json",
+      "count": 3
+    },
+    {
+      "csv": "despesas/20221001/20221001_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20221001__20221001_Despesas_ItemEmpenho.csv.json",
+      "count": 4
+    },
+    {
+      "csv": "despesas/20221001/20221001_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20221001__20221001_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 7
+    },
+    {
+      "csv": "despesas/20221001/20221001_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20221001__20221001_Despesas_Liquidacao.csv.json",
+      "count": 170
+    },
+    {
+      "csv": "despesas/20221001/20221001_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20221001__20221001_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 184
+    },
+    {
+      "csv": "despesas/20221001/20221001_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20221001__20221001_Despesas_Pagamento.csv.json",
+      "count": 12
+    },
+    {
+      "csv": "despesas/20221001/20221001_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20221001__20221001_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 24
+    },
+    {
+      "csv": "despesas/20221001/20221001_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20221001__20221001_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20221001/20221001_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20221001__20221001_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20221001/20221001_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20221001__20221001_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20221001/20221001_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20221001__20221001_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20221101/20221101_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20221101__20221101_Despesas_Empenho.csv.json",
+      "count": 6059
+    },
+    {
+      "csv": "despesas/20221101/20221101_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20221101__20221101_Despesas_ItemEmpenho.csv.json",
+      "count": 11781
+    },
+    {
+      "csv": "despesas/20221101/20221101_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20221101__20221101_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 17041
+    },
+    {
+      "csv": "despesas/20221101/20221101_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20221101__20221101_Despesas_Liquidacao.csv.json",
+      "count": 20254
+    },
+    {
+      "csv": "despesas/20221101/20221101_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20221101__20221101_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 22791
+    },
+    {
+      "csv": "despesas/20221101/20221101_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20221101__20221101_Despesas_Pagamento.csv.json",
+      "count": 37003
+    },
+    {
+      "csv": "despesas/20221101/20221101_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20221101__20221101_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 45323
+    },
+    {
+      "csv": "despesas/20221101/20221101_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20221101__20221101_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 94209
+    },
+    {
+      "csv": "despesas/20221101/20221101_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20221101__20221101_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1751
+    },
+    {
+      "csv": "despesas/20221101/20221101_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20221101__20221101_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2303
+    },
+    {
+      "csv": "despesas/20221101/20221101_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20221101__20221101_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20221201/20221201_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20221201__20221201_Despesas_Empenho.csv.json",
+      "count": 14726
+    },
+    {
+      "csv": "despesas/20221201/20221201_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20221201__20221201_Despesas_ItemEmpenho.csv.json",
+      "count": 28118
+    },
+    {
+      "csv": "despesas/20221201/20221201_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20221201__20221201_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 55652
+    },
+    {
+      "csv": "despesas/20221201/20221201_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20221201__20221201_Despesas_Liquidacao.csv.json",
+      "count": 21509
+    },
+    {
+      "csv": "despesas/20221201/20221201_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20221201__20221201_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 24973
+    },
+    {
+      "csv": "despesas/20221201/20221201_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20221201__20221201_Despesas_Pagamento.csv.json",
+      "count": 31992
+    },
+    {
+      "csv": "despesas/20221201/20221201_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20221201__20221201_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 41689
+    },
+    {
+      "csv": "despesas/20221201/20221201_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20221201__20221201_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 42176
+    },
+    {
+      "csv": "despesas/20221201/20221201_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20221201__20221201_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1759
+    },
+    {
+      "csv": "despesas/20221201/20221201_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20221201__20221201_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2185
+    },
+    {
+      "csv": "despesas/20221201/20221201_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20221201__20221201_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230101/20230101_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20230101__20230101_Despesas_Empenho.csv.json",
+      "count": 4
+    },
+    {
+      "csv": "despesas/20230101/20230101_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20230101__20230101_Despesas_ItemEmpenho.csv.json",
+      "count": 5
+    },
+    {
+      "csv": "despesas/20230101/20230101_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20230101__20230101_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 6
+    },
+    {
+      "csv": "despesas/20230101/20230101_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20230101__20230101_Despesas_Liquidacao.csv.json",
+      "count": 88
+    },
+    {
+      "csv": "despesas/20230101/20230101_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230101__20230101_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 108
+    },
+    {
+      "csv": "despesas/20230101/20230101_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20230101__20230101_Despesas_Pagamento.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230101/20230101_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230101__20230101_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230101/20230101_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20230101__20230101_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230101/20230101_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20230101__20230101_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230101/20230101_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20230101__20230101_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230101/20230101_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20230101__20230101_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230201/20230201_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20230201__20230201_Despesas_Empenho.csv.json",
+      "count": 3560
+    },
+    {
+      "csv": "despesas/20230201/20230201_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20230201__20230201_Despesas_ItemEmpenho.csv.json",
+      "count": 6113
+    },
+    {
+      "csv": "despesas/20230201/20230201_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20230201__20230201_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 7302
+    },
+    {
+      "csv": "despesas/20230201/20230201_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20230201__20230201_Despesas_Liquidacao.csv.json",
+      "count": 12082
+    },
+    {
+      "csv": "despesas/20230201/20230201_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230201__20230201_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 14061
+    },
+    {
+      "csv": "despesas/20230201/20230201_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20230201__20230201_Despesas_Pagamento.csv.json",
+      "count": 34089
+    },
+    {
+      "csv": "despesas/20230201/20230201_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230201__20230201_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 33719
+    },
+    {
+      "csv": "despesas/20230201/20230201_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20230201__20230201_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 102362
+    },
+    {
+      "csv": "despesas/20230201/20230201_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20230201__20230201_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1722
+    },
+    {
+      "csv": "despesas/20230201/20230201_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20230201__20230201_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2596
+    },
+    {
+      "csv": "despesas/20230201/20230201_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20230201__20230201_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230301/20230301_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20230301__20230301_Despesas_Empenho.csv.json",
+      "count": 5501
+    },
+    {
+      "csv": "despesas/20230301/20230301_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20230301__20230301_Despesas_ItemEmpenho.csv.json",
+      "count": 10988
+    },
+    {
+      "csv": "despesas/20230301/20230301_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20230301__20230301_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 14744
+    },
+    {
+      "csv": "despesas/20230301/20230301_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20230301__20230301_Despesas_Liquidacao.csv.json",
+      "count": 15324
+    },
+    {
+      "csv": "despesas/20230301/20230301_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230301__20230301_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 18642
+    },
+    {
+      "csv": "despesas/20230301/20230301_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20230301__20230301_Despesas_Pagamento.csv.json",
+      "count": 28434
+    },
+    {
+      "csv": "despesas/20230301/20230301_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230301__20230301_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 39124
+    },
+    {
+      "csv": "despesas/20230301/20230301_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20230301__20230301_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 83694
+    },
+    {
+      "csv": "despesas/20230301/20230301_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20230301__20230301_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1744
+    },
+    {
+      "csv": "despesas/20230301/20230301_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20230301__20230301_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2663
+    },
+    {
+      "csv": "despesas/20230301/20230301_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20230301__20230301_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230401/20230401_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20230401__20230401_Despesas_Empenho.csv.json",
+      "count": 4
+    },
+    {
+      "csv": "despesas/20230401/20230401_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20230401__20230401_Despesas_ItemEmpenho.csv.json",
+      "count": 4
+    },
+    {
+      "csv": "despesas/20230401/20230401_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20230401__20230401_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 5
+    },
+    {
+      "csv": "despesas/20230401/20230401_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20230401__20230401_Despesas_Liquidacao.csv.json",
+      "count": 31
+    },
+    {
+      "csv": "despesas/20230401/20230401_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230401__20230401_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 38
+    },
+    {
+      "csv": "despesas/20230401/20230401_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20230401__20230401_Despesas_Pagamento.csv.json",
+      "count": 5
+    },
+    {
+      "csv": "despesas/20230401/20230401_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230401__20230401_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 10
+    },
+    {
+      "csv": "despesas/20230401/20230401_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20230401__20230401_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230401/20230401_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20230401__20230401_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230401/20230401_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20230401__20230401_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230401/20230401_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20230401__20230401_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230501/20230501_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20230501__20230501_Despesas_Empenho.csv.json",
+      "count": 8
+    },
+    {
+      "csv": "despesas/20230501/20230501_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20230501__20230501_Despesas_ItemEmpenho.csv.json",
+      "count": 8
+    },
+    {
+      "csv": "despesas/20230501/20230501_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20230501__20230501_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 10
+    },
+    {
+      "csv": "despesas/20230501/20230501_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20230501__20230501_Despesas_Liquidacao.csv.json",
+      "count": 75
+    },
+    {
+      "csv": "despesas/20230501/20230501_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230501__20230501_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 87
+    },
+    {
+      "csv": "despesas/20230501/20230501_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20230501__20230501_Despesas_Pagamento.csv.json",
+      "count": 5
+    },
+    {
+      "csv": "despesas/20230501/20230501_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230501__20230501_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 15
+    },
+    {
+      "csv": "despesas/20230501/20230501_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20230501__20230501_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230501/20230501_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20230501__20230501_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230501/20230501_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20230501__20230501_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230501/20230501_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20230501__20230501_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230601/20230601_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20230601__20230601_Despesas_Empenho.csv.json",
+      "count": 5411
+    },
+    {
+      "csv": "despesas/20230601/20230601_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20230601__20230601_Despesas_ItemEmpenho.csv.json",
+      "count": 9895
+    },
+    {
+      "csv": "despesas/20230601/20230601_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20230601__20230601_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 12422
+    },
+    {
+      "csv": "despesas/20230601/20230601_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20230601__20230601_Despesas_Liquidacao.csv.json",
+      "count": 16579
+    },
+    {
+      "csv": "despesas/20230601/20230601_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230601__20230601_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 18534
+    },
+    {
+      "csv": "despesas/20230601/20230601_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20230601__20230601_Despesas_Pagamento.csv.json",
+      "count": 35875
+    },
+    {
+      "csv": "despesas/20230601/20230601_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230601__20230601_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 45912
+    },
+    {
+      "csv": "despesas/20230601/20230601_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20230601__20230601_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 93139
+    },
+    {
+      "csv": "despesas/20230601/20230601_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20230601__20230601_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1740
+    },
+    {
+      "csv": "despesas/20230601/20230601_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20230601__20230601_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2485
+    },
+    {
+      "csv": "despesas/20230601/20230601_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20230601__20230601_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230701/20230701_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20230701__20230701_Despesas_Empenho.csv.json",
+      "count": 6
+    },
+    {
+      "csv": "despesas/20230701/20230701_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20230701__20230701_Despesas_ItemEmpenho.csv.json",
+      "count": 9
+    },
+    {
+      "csv": "despesas/20230701/20230701_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20230701__20230701_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 10
+    },
+    {
+      "csv": "despesas/20230701/20230701_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20230701__20230701_Despesas_Liquidacao.csv.json",
+      "count": 52
+    },
+    {
+      "csv": "despesas/20230701/20230701_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230701__20230701_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 67
+    },
+    {
+      "csv": "despesas/20230701/20230701_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20230701__20230701_Despesas_Pagamento.csv.json",
+      "count": 5
+    },
+    {
+      "csv": "despesas/20230701/20230701_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230701__20230701_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 9
+    },
+    {
+      "csv": "despesas/20230701/20230701_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20230701__20230701_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230701/20230701_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20230701__20230701_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230701/20230701_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20230701__20230701_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230701/20230701_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20230701__20230701_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230801/20230801_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20230801__20230801_Despesas_Empenho.csv.json",
+      "count": 6370
+    },
+    {
+      "csv": "despesas/20230801/20230801_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20230801__20230801_Despesas_ItemEmpenho.csv.json",
+      "count": 11411
+    },
+    {
+      "csv": "despesas/20230801/20230801_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20230801__20230801_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 14579
+    },
+    {
+      "csv": "despesas/20230801/20230801_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20230801__20230801_Despesas_Liquidacao.csv.json",
+      "count": 19218
+    },
+    {
+      "csv": "despesas/20230801/20230801_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230801__20230801_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 21321
+    },
+    {
+      "csv": "despesas/20230801/20230801_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20230801__20230801_Despesas_Pagamento.csv.json",
+      "count": 31876
+    },
+    {
+      "csv": "despesas/20230801/20230801_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230801__20230801_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 42180
+    },
+    {
+      "csv": "despesas/20230801/20230801_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20230801__20230801_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 151690
+    },
+    {
+      "csv": "despesas/20230801/20230801_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20230801__20230801_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1803
+    },
+    {
+      "csv": "despesas/20230801/20230801_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20230801__20230801_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2173
+    },
+    {
+      "csv": "despesas/20230801/20230801_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20230801__20230801_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20230901/20230901_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20230901__20230901_Despesas_Empenho.csv.json",
+      "count": 5356
+    },
+    {
+      "csv": "despesas/20230901/20230901_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20230901__20230901_Despesas_ItemEmpenho.csv.json",
+      "count": 9653
+    },
+    {
+      "csv": "despesas/20230901/20230901_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20230901__20230901_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 12378
+    },
+    {
+      "csv": "despesas/20230901/20230901_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20230901__20230901_Despesas_Liquidacao.csv.json",
+      "count": 17220
+    },
+    {
+      "csv": "despesas/20230901/20230901_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230901__20230901_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 19380
+    },
+    {
+      "csv": "despesas/20230901/20230901_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20230901__20230901_Despesas_Pagamento.csv.json",
+      "count": 38658
+    },
+    {
+      "csv": "despesas/20230901/20230901_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20230901__20230901_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 50180
+    },
+    {
+      "csv": "despesas/20230901/20230901_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20230901__20230901_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 192406
+    },
+    {
+      "csv": "despesas/20230901/20230901_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20230901__20230901_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1823
+    },
+    {
+      "csv": "despesas/20230901/20230901_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20230901__20230901_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2615
+    },
+    {
+      "csv": "despesas/20230901/20230901_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20230901__20230901_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20231001/20231001_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20231001__20231001_Despesas_Empenho.csv.json",
+      "count": 2
+    },
+    {
+      "csv": "despesas/20231001/20231001_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20231001__20231001_Despesas_ItemEmpenho.csv.json",
+      "count": 2
+    },
+    {
+      "csv": "despesas/20231001/20231001_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20231001__20231001_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 2
+    },
+    {
+      "csv": "despesas/20231001/20231001_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20231001__20231001_Despesas_Liquidacao.csv.json",
+      "count": 109
+    },
+    {
+      "csv": "despesas/20231001/20231001_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20231001__20231001_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 116
+    },
+    {
+      "csv": "despesas/20231001/20231001_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20231001__20231001_Despesas_Pagamento.csv.json",
+      "count": 3
+    },
+    {
+      "csv": "despesas/20231001/20231001_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20231001__20231001_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 6
+    },
+    {
+      "csv": "despesas/20231001/20231001_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20231001__20231001_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20231001/20231001_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20231001__20231001_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20231001/20231001_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20231001__20231001_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20231001/20231001_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20231001__20231001_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20231101/20231101_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20231101__20231101_Despesas_Empenho.csv.json",
+      "count": 9576
+    },
+    {
+      "csv": "despesas/20231101/20231101_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20231101__20231101_Despesas_ItemEmpenho.csv.json",
+      "count": 17300
+    },
+    {
+      "csv": "despesas/20231101/20231101_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20231101__20231101_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 23845
+    },
+    {
+      "csv": "despesas/20231101/20231101_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20231101__20231101_Despesas_Liquidacao.csv.json",
+      "count": 25846
+    },
+    {
+      "csv": "despesas/20231101/20231101_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20231101__20231101_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 28767
+    },
+    {
+      "csv": "despesas/20231101/20231101_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20231101__20231101_Despesas_Pagamento.csv.json",
+      "count": 47324
+    },
+    {
+      "csv": "despesas/20231101/20231101_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20231101__20231101_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 57829
+    },
+    {
+      "csv": "despesas/20231101/20231101_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20231101__20231101_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 143217
+    },
+    {
+      "csv": "despesas/20231101/20231101_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20231101__20231101_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1889
+    },
+    {
+      "csv": "despesas/20231101/20231101_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20231101__20231101_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2589
+    },
+    {
+      "csv": "despesas/20231101/20231101_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20231101__20231101_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20231201/20231201_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20231201__20231201_Despesas_Empenho.csv.json",
+      "count": 14458
+    },
+    {
+      "csv": "despesas/20231201/20231201_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20231201__20231201_Despesas_ItemEmpenho.csv.json",
+      "count": 23581
+    },
+    {
+      "csv": "despesas/20231201/20231201_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20231201__20231201_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 47449
+    },
+    {
+      "csv": "despesas/20231201/20231201_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20231201__20231201_Despesas_Liquidacao.csv.json",
+      "count": 21660
+    },
+    {
+      "csv": "despesas/20231201/20231201_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20231201__20231201_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 24272
+    },
+    {
+      "csv": "despesas/20231201/20231201_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20231201__20231201_Despesas_Pagamento.csv.json",
+      "count": 42819
+    },
+    {
+      "csv": "despesas/20231201/20231201_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20231201__20231201_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 53442
+    },
+    {
+      "csv": "despesas/20231201/20231201_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20231201__20231201_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 107275
+    },
+    {
+      "csv": "despesas/20231201/20231201_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20231201__20231201_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1906
+    },
+    {
+      "csv": "despesas/20231201/20231201_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20231201__20231201_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2293
+    },
+    {
+      "csv": "despesas/20231201/20231201_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20231201__20231201_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240101/20240101_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20240101__20240101_Despesas_Empenho.csv.json",
+      "count": 11
+    },
+    {
+      "csv": "despesas/20240101/20240101_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20240101__20240101_Despesas_ItemEmpenho.csv.json",
+      "count": 16
+    },
+    {
+      "csv": "despesas/20240101/20240101_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20240101__20240101_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 16
+    },
+    {
+      "csv": "despesas/20240101/20240101_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20240101__20240101_Despesas_Liquidacao.csv.json",
+      "count": 99
+    },
+    {
+      "csv": "despesas/20240101/20240101_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240101__20240101_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 144
+    },
+    {
+      "csv": "despesas/20240101/20240101_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20240101__20240101_Despesas_Pagamento.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240101/20240101_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240101__20240101_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240101/20240101_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20240101__20240101_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240101/20240101_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20240101__20240101_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240101/20240101_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20240101__20240101_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240101/20240101_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20240101__20240101_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240201/20240201_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20240201__20240201_Despesas_Empenho.csv.json",
+      "count": 3437
+    },
+    {
+      "csv": "despesas/20240201/20240201_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20240201__20240201_Despesas_ItemEmpenho.csv.json",
+      "count": 6299
+    },
+    {
+      "csv": "despesas/20240201/20240201_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20240201__20240201_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 8007
+    },
+    {
+      "csv": "despesas/20240201/20240201_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20240201__20240201_Despesas_Liquidacao.csv.json",
+      "count": 13877
+    },
+    {
+      "csv": "despesas/20240201/20240201_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240201__20240201_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 15982
+    },
+    {
+      "csv": "despesas/20240201/20240201_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20240201__20240201_Despesas_Pagamento.csv.json",
+      "count": 26247
+    },
+    {
+      "csv": "despesas/20240201/20240201_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240201__20240201_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 36723
+    },
+    {
+      "csv": "despesas/20240201/20240201_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20240201__20240201_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 64583
+    },
+    {
+      "csv": "despesas/20240201/20240201_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20240201__20240201_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1886
+    },
+    {
+      "csv": "despesas/20240201/20240201_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20240201__20240201_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2452
+    },
+    {
+      "csv": "despesas/20240201/20240201_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20240201__20240201_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240301/20240301_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20240301__20240301_Despesas_Empenho.csv.json",
+      "count": 4169
+    },
+    {
+      "csv": "despesas/20240301/20240301_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20240301__20240301_Despesas_ItemEmpenho.csv.json",
+      "count": 8642
+    },
+    {
+      "csv": "despesas/20240301/20240301_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20240301__20240301_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 9970
+    },
+    {
+      "csv": "despesas/20240301/20240301_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20240301__20240301_Despesas_Liquidacao.csv.json",
+      "count": 13182
+    },
+    {
+      "csv": "despesas/20240301/20240301_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240301__20240301_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 15092
+    },
+    {
+      "csv": "despesas/20240301/20240301_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20240301__20240301_Despesas_Pagamento.csv.json",
+      "count": 25801
+    },
+    {
+      "csv": "despesas/20240301/20240301_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240301__20240301_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 35662
+    },
+    {
+      "csv": "despesas/20240301/20240301_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20240301__20240301_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 76835
+    },
+    {
+      "csv": "despesas/20240301/20240301_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20240301__20240301_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1905
+    },
+    {
+      "csv": "despesas/20240301/20240301_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20240301__20240301_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2244
+    },
+    {
+      "csv": "despesas/20240301/20240301_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20240301__20240301_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240401/20240401_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20240401__20240401_Despesas_Empenho.csv.json",
+      "count": 4096
+    },
+    {
+      "csv": "despesas/20240401/20240401_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20240401__20240401_Despesas_ItemEmpenho.csv.json",
+      "count": 7020
+    },
+    {
+      "csv": "despesas/20240401/20240401_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20240401__20240401_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 9320
+    },
+    {
+      "csv": "despesas/20240401/20240401_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20240401__20240401_Despesas_Liquidacao.csv.json",
+      "count": 17123
+    },
+    {
+      "csv": "despesas/20240401/20240401_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240401__20240401_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 19071
+    },
+    {
+      "csv": "despesas/20240401/20240401_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20240401__20240401_Despesas_Pagamento.csv.json",
+      "count": 27089
+    },
+    {
+      "csv": "despesas/20240401/20240401_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240401__20240401_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 36672
+    },
+    {
+      "csv": "despesas/20240401/20240401_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20240401__20240401_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 60453
+    },
+    {
+      "csv": "despesas/20240401/20240401_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20240401__20240401_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1938
+    },
+    {
+      "csv": "despesas/20240401/20240401_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20240401__20240401_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2279
+    },
+    {
+      "csv": "despesas/20240401/20240401_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20240401__20240401_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240501/20240501_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20240501__20240501_Despesas_Empenho.csv.json",
+      "count": 17
+    },
+    {
+      "csv": "despesas/20240501/20240501_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20240501__20240501_Despesas_ItemEmpenho.csv.json",
+      "count": 19
+    },
+    {
+      "csv": "despesas/20240501/20240501_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20240501__20240501_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 22
+    },
+    {
+      "csv": "despesas/20240501/20240501_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20240501__20240501_Despesas_Liquidacao.csv.json",
+      "count": 115
+    },
+    {
+      "csv": "despesas/20240501/20240501_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240501__20240501_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 140
+    },
+    {
+      "csv": "despesas/20240501/20240501_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20240501__20240501_Despesas_Pagamento.csv.json",
+      "count": 9
+    },
+    {
+      "csv": "despesas/20240501/20240501_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240501__20240501_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 14
+    },
+    {
+      "csv": "despesas/20240501/20240501_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20240501__20240501_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240501/20240501_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20240501__20240501_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240501/20240501_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20240501__20240501_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240501/20240501_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20240501__20240501_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240601/20240601_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20240601__20240601_Despesas_Empenho.csv.json",
+      "count": 4
+    },
+    {
+      "csv": "despesas/20240601/20240601_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20240601__20240601_Despesas_ItemEmpenho.csv.json",
+      "count": 5
+    },
+    {
+      "csv": "despesas/20240601/20240601_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20240601__20240601_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 7
+    },
+    {
+      "csv": "despesas/20240601/20240601_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20240601__20240601_Despesas_Liquidacao.csv.json",
+      "count": 79
+    },
+    {
+      "csv": "despesas/20240601/20240601_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240601__20240601_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 103
+    },
+    {
+      "csv": "despesas/20240601/20240601_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20240601__20240601_Despesas_Pagamento.csv.json",
+      "count": 7
+    },
+    {
+      "csv": "despesas/20240601/20240601_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240601__20240601_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 12
+    },
+    {
+      "csv": "despesas/20240601/20240601_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20240601__20240601_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240601/20240601_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20240601__20240601_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240601/20240601_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20240601__20240601_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240601/20240601_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20240601__20240601_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240701/20240701_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20240701__20240701_Despesas_Empenho.csv.json",
+      "count": 6085
+    },
+    {
+      "csv": "despesas/20240701/20240701_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20240701__20240701_Despesas_ItemEmpenho.csv.json",
+      "count": 12848
+    },
+    {
+      "csv": "despesas/20240701/20240701_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20240701__20240701_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 15600
+    },
+    {
+      "csv": "despesas/20240701/20240701_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20240701__20240701_Despesas_Liquidacao.csv.json",
+      "count": 18651
+    },
+    {
+      "csv": "despesas/20240701/20240701_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240701__20240701_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 21174
+    },
+    {
+      "csv": "despesas/20240701/20240701_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20240701__20240701_Despesas_Pagamento.csv.json",
+      "count": 30391
+    },
+    {
+      "csv": "despesas/20240701/20240701_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240701__20240701_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 41929
+    },
+    {
+      "csv": "despesas/20240701/20240701_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20240701__20240701_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 102698
+    },
+    {
+      "csv": "despesas/20240701/20240701_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20240701__20240701_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1903
+    },
+    {
+      "csv": "despesas/20240701/20240701_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20240701__20240701_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2358
+    },
+    {
+      "csv": "despesas/20240701/20240701_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20240701__20240701_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240801/20240801_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20240801__20240801_Despesas_Empenho.csv.json",
+      "count": 5296
+    },
+    {
+      "csv": "despesas/20240801/20240801_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20240801__20240801_Despesas_ItemEmpenho.csv.json",
+      "count": 11141
+    },
+    {
+      "csv": "despesas/20240801/20240801_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20240801__20240801_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 14255
+    },
+    {
+      "csv": "despesas/20240801/20240801_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20240801__20240801_Despesas_Liquidacao.csv.json",
+      "count": 17290
+    },
+    {
+      "csv": "despesas/20240801/20240801_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240801__20240801_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 19567
+    },
+    {
+      "csv": "despesas/20240801/20240801_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20240801__20240801_Despesas_Pagamento.csv.json",
+      "count": 41774
+    },
+    {
+      "csv": "despesas/20240801/20240801_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240801__20240801_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 52205
+    },
+    {
+      "csv": "despesas/20240801/20240801_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20240801__20240801_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 87832
+    },
+    {
+      "csv": "despesas/20240801/20240801_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20240801__20240801_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1906
+    },
+    {
+      "csv": "despesas/20240801/20240801_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20240801__20240801_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2616
+    },
+    {
+      "csv": "despesas/20240801/20240801_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20240801__20240801_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240901/20240901_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20240901__20240901_Despesas_Empenho.csv.json",
+      "count": 16
+    },
+    {
+      "csv": "despesas/20240901/20240901_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20240901__20240901_Despesas_ItemEmpenho.csv.json",
+      "count": 46
+    },
+    {
+      "csv": "despesas/20240901/20240901_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20240901__20240901_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 46
+    },
+    {
+      "csv": "despesas/20240901/20240901_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20240901__20240901_Despesas_Liquidacao.csv.json",
+      "count": 114
+    },
+    {
+      "csv": "despesas/20240901/20240901_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240901__20240901_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 152
+    },
+    {
+      "csv": "despesas/20240901/20240901_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20240901__20240901_Despesas_Pagamento.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240901/20240901_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20240901__20240901_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240901/20240901_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20240901__20240901_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240901/20240901_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20240901__20240901_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240901/20240901_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20240901__20240901_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20240901/20240901_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20240901__20240901_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20241001/20241001_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20241001__20241001_Despesas_Empenho.csv.json",
+      "count": 8664
+    },
+    {
+      "csv": "despesas/20241001/20241001_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20241001__20241001_Despesas_ItemEmpenho.csv.json",
+      "count": 18952
+    },
+    {
+      "csv": "despesas/20241001/20241001_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20241001__20241001_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 24134
+    },
+    {
+      "csv": "despesas/20241001/20241001_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20241001__20241001_Despesas_Liquidacao.csv.json",
+      "count": 23115
+    },
+    {
+      "csv": "despesas/20241001/20241001_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20241001__20241001_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 26625
+    },
+    {
+      "csv": "despesas/20241001/20241001_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20241001__20241001_Despesas_Pagamento.csv.json",
+      "count": 37273
+    },
+    {
+      "csv": "despesas/20241001/20241001_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20241001__20241001_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 48270
+    },
+    {
+      "csv": "despesas/20241001/20241001_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20241001__20241001_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 135169
+    },
+    {
+      "csv": "despesas/20241001/20241001_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20241001__20241001_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1904
+    },
+    {
+      "csv": "despesas/20241001/20241001_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20241001__20241001_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2577
+    },
+    {
+      "csv": "despesas/20241001/20241001_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20241001__20241001_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20241101/20241101_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20241101__20241101_Despesas_Empenho.csv.json",
+      "count": 5759
+    },
+    {
+      "csv": "despesas/20241101/20241101_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20241101__20241101_Despesas_ItemEmpenho.csv.json",
+      "count": 9965
+    },
+    {
+      "csv": "despesas/20241101/20241101_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20241101__20241101_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 20016
+    },
+    {
+      "csv": "despesas/20241101/20241101_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20241101__20241101_Despesas_Liquidacao.csv.json",
+      "count": 20059
+    },
+    {
+      "csv": "despesas/20241101/20241101_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20241101__20241101_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 22168
+    },
+    {
+      "csv": "despesas/20241101/20241101_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20241101__20241101_Despesas_Pagamento.csv.json",
+      "count": 38067
+    },
+    {
+      "csv": "despesas/20241101/20241101_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20241101__20241101_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 48775
+    },
+    {
+      "csv": "despesas/20241101/20241101_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20241101__20241101_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 126235
+    },
+    {
+      "csv": "despesas/20241101/20241101_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20241101__20241101_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1888
+    },
+    {
+      "csv": "despesas/20241101/20241101_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20241101__20241101_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2431
+    },
+    {
+      "csv": "despesas/20241101/20241101_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20241101__20241101_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20241201/20241201_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20241201__20241201_Despesas_Empenho.csv.json",
+      "count": 21
+    },
+    {
+      "csv": "despesas/20241201/20241201_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20241201__20241201_Despesas_ItemEmpenho.csv.json",
+      "count": 25
+    },
+    {
+      "csv": "despesas/20241201/20241201_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20241201__20241201_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 46
+    },
+    {
+      "csv": "despesas/20241201/20241201_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20241201__20241201_Despesas_Liquidacao.csv.json",
+      "count": 63
+    },
+    {
+      "csv": "despesas/20241201/20241201_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20241201__20241201_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 69
+    },
+    {
+      "csv": "despesas/20241201/20241201_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20241201__20241201_Despesas_Pagamento.csv.json",
+      "count": 2
+    },
+    {
+      "csv": "despesas/20241201/20241201_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20241201__20241201_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 3
+    },
+    {
+      "csv": "despesas/20241201/20241201_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20241201__20241201_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20241201/20241201_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20241201__20241201_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20241201/20241201_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20241201__20241201_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20241201/20241201_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20241201__20241201_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250101/20250101_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20250101__20250101_Despesas_Empenho.csv.json",
+      "count": 36
+    },
+    {
+      "csv": "despesas/20250101/20250101_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20250101__20250101_Despesas_ItemEmpenho.csv.json",
+      "count": 88
+    },
+    {
+      "csv": "despesas/20250101/20250101_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20250101__20250101_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 88
+    },
+    {
+      "csv": "despesas/20250101/20250101_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20250101__20250101_Despesas_Liquidacao.csv.json",
+      "count": 84
+    },
+    {
+      "csv": "despesas/20250101/20250101_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250101__20250101_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 93
+    },
+    {
+      "csv": "despesas/20250101/20250101_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20250101__20250101_Despesas_Pagamento.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250101/20250101_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250101__20250101_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250101/20250101_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20250101__20250101_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250101/20250101_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20250101__20250101_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250101/20250101_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20250101__20250101_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250101/20250101_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20250101__20250101_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250201/20250201_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20250201__20250201_Despesas_Empenho.csv.json",
+      "count": 8
+    },
+    {
+      "csv": "despesas/20250201/20250201_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20250201__20250201_Despesas_ItemEmpenho.csv.json",
+      "count": 21
+    },
+    {
+      "csv": "despesas/20250201/20250201_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20250201__20250201_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 21
+    },
+    {
+      "csv": "despesas/20250201/20250201_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20250201__20250201_Despesas_Liquidacao.csv.json",
+      "count": 66
+    },
+    {
+      "csv": "despesas/20250201/20250201_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250201__20250201_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 73
+    },
+    {
+      "csv": "despesas/20250201/20250201_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20250201__20250201_Despesas_Pagamento.csv.json",
+      "count": 1
+    },
+    {
+      "csv": "despesas/20250201/20250201_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250201__20250201_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 1
+    },
+    {
+      "csv": "despesas/20250201/20250201_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20250201__20250201_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250201/20250201_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20250201__20250201_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250201/20250201_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20250201__20250201_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250201/20250201_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20250201__20250201_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250301/20250301_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20250301__20250301_Despesas_Empenho.csv.json",
+      "count": 4
+    },
+    {
+      "csv": "despesas/20250301/20250301_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20250301__20250301_Despesas_ItemEmpenho.csv.json",
+      "count": 4
+    },
+    {
+      "csv": "despesas/20250301/20250301_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20250301__20250301_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 29
+    },
+    {
+      "csv": "despesas/20250301/20250301_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20250301__20250301_Despesas_Liquidacao.csv.json",
+      "count": 40
+    },
+    {
+      "csv": "despesas/20250301/20250301_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250301__20250301_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 42
+    },
+    {
+      "csv": "despesas/20250301/20250301_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20250301__20250301_Despesas_Pagamento.csv.json",
+      "count": 1
+    },
+    {
+      "csv": "despesas/20250301/20250301_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250301__20250301_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 2
+    },
+    {
+      "csv": "despesas/20250301/20250301_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20250301__20250301_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250301/20250301_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20250301__20250301_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250301/20250301_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20250301__20250301_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250301/20250301_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20250301__20250301_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250401/20250401_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20250401__20250401_Despesas_Empenho.csv.json",
+      "count": 4937
+    },
+    {
+      "csv": "despesas/20250401/20250401_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20250401__20250401_Despesas_ItemEmpenho.csv.json",
+      "count": 9691
+    },
+    {
+      "csv": "despesas/20250401/20250401_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20250401__20250401_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 13830
+    },
+    {
+      "csv": "despesas/20250401/20250401_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20250401__20250401_Despesas_Liquidacao.csv.json",
+      "count": 17633
+    },
+    {
+      "csv": "despesas/20250401/20250401_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250401__20250401_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 20247
+    },
+    {
+      "csv": "despesas/20250401/20250401_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20250401__20250401_Despesas_Pagamento.csv.json",
+      "count": 34703
+    },
+    {
+      "csv": "despesas/20250401/20250401_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250401__20250401_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 43950
+    },
+    {
+      "csv": "despesas/20250401/20250401_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20250401__20250401_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 122005
+    },
+    {
+      "csv": "despesas/20250401/20250401_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20250401__20250401_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1912
+    },
+    {
+      "csv": "despesas/20250401/20250401_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20250401__20250401_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 3170
+    },
+    {
+      "csv": "despesas/20250401/20250401_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20250401__20250401_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250501/20250501_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20250501__20250501_Despesas_Empenho.csv.json",
+      "count": 38
+    },
+    {
+      "csv": "despesas/20250501/20250501_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20250501__20250501_Despesas_ItemEmpenho.csv.json",
+      "count": 40
+    },
+    {
+      "csv": "despesas/20250501/20250501_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20250501__20250501_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 51
+    },
+    {
+      "csv": "despesas/20250501/20250501_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20250501__20250501_Despesas_Liquidacao.csv.json",
+      "count": 255
+    },
+    {
+      "csv": "despesas/20250501/20250501_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250501__20250501_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 298
+    },
+    {
+      "csv": "despesas/20250501/20250501_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20250501__20250501_Despesas_Pagamento.csv.json",
+      "count": 30
+    },
+    {
+      "csv": "despesas/20250501/20250501_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250501__20250501_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 62
+    },
+    {
+      "csv": "despesas/20250501/20250501_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20250501__20250501_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250501/20250501_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20250501__20250501_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250501/20250501_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20250501__20250501_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250501/20250501_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20250501__20250501_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250601/20250601_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20250601__20250601_Despesas_Empenho.csv.json",
+      "count": 9
+    },
+    {
+      "csv": "despesas/20250601/20250601_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20250601__20250601_Despesas_ItemEmpenho.csv.json",
+      "count": 9
+    },
+    {
+      "csv": "despesas/20250601/20250601_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20250601__20250601_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 9
+    },
+    {
+      "csv": "despesas/20250601/20250601_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20250601__20250601_Despesas_Liquidacao.csv.json",
+      "count": 120
+    },
+    {
+      "csv": "despesas/20250601/20250601_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250601__20250601_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 140
+    },
+    {
+      "csv": "despesas/20250601/20250601_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20250601__20250601_Despesas_Pagamento.csv.json",
+      "count": 3
+    },
+    {
+      "csv": "despesas/20250601/20250601_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250601__20250601_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 4
+    },
+    {
+      "csv": "despesas/20250601/20250601_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20250601__20250601_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250601/20250601_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20250601__20250601_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250601/20250601_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20250601__20250601_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250601/20250601_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20250601__20250601_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250701/20250701_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20250701__20250701_Despesas_Empenho.csv.json",
+      "count": 5924
+    },
+    {
+      "csv": "despesas/20250701/20250701_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20250701__20250701_Despesas_ItemEmpenho.csv.json",
+      "count": 9418
+    },
+    {
+      "csv": "despesas/20250701/20250701_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20250701__20250701_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 12352
+    },
+    {
+      "csv": "despesas/20250701/20250701_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20250701__20250701_Despesas_Liquidacao.csv.json",
+      "count": 20327
+    },
+    {
+      "csv": "despesas/20250701/20250701_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250701__20250701_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 22527
+    },
+    {
+      "csv": "despesas/20250701/20250701_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20250701__20250701_Despesas_Pagamento.csv.json",
+      "count": 29217
+    },
+    {
+      "csv": "despesas/20250701/20250701_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250701__20250701_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 39707
+    },
+    {
+      "csv": "despesas/20250701/20250701_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20250701__20250701_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 90546
+    },
+    {
+      "csv": "despesas/20250701/20250701_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20250701__20250701_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1926
+    },
+    {
+      "csv": "despesas/20250701/20250701_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20250701__20250701_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 1813
+    },
+    {
+      "csv": "despesas/20250701/20250701_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20250701__20250701_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250801/20250801_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20250801__20250801_Despesas_Empenho.csv.json",
+      "count": 5437
+    },
+    {
+      "csv": "despesas/20250801/20250801_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20250801__20250801_Despesas_ItemEmpenho.csv.json",
+      "count": 10914
+    },
+    {
+      "csv": "despesas/20250801/20250801_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20250801__20250801_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 16155
+    },
+    {
+      "csv": "despesas/20250801/20250801_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20250801__20250801_Despesas_Liquidacao.csv.json",
+      "count": 21010
+    },
+    {
+      "csv": "despesas/20250801/20250801_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250801__20250801_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 23100
+    },
+    {
+      "csv": "despesas/20250801/20250801_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20250801__20250801_Despesas_Pagamento.csv.json",
+      "count": 28860
+    },
+    {
+      "csv": "despesas/20250801/20250801_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250801__20250801_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 39481
+    },
+    {
+      "csv": "despesas/20250801/20250801_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20250801__20250801_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 87778
+    },
+    {
+      "csv": "despesas/20250801/20250801_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20250801__20250801_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1932
+    },
+    {
+      "csv": "despesas/20250801/20250801_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20250801__20250801_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2187
+    },
+    {
+      "csv": "despesas/20250801/20250801_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20250801__20250801_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
+      "csv": "despesas/20250901/20250901_Despesas_Empenho.csv",
+      "json": "/resources/data/ingested/despesas__20250901__20250901_Despesas_Empenho.csv.json",
+      "count": 7765
+    },
+    {
+      "csv": "despesas/20250901/20250901_Despesas_ItemEmpenho.csv",
+      "json": "/resources/data/ingested/despesas__20250901__20250901_Despesas_ItemEmpenho.csv.json",
+      "count": 15046
+    },
+    {
+      "csv": "despesas/20250901/20250901_Despesas_ItemEmpenhoHistorico.csv",
+      "json": "/resources/data/ingested/despesas__20250901__20250901_Despesas_ItemEmpenhoHistorico.csv.json",
+      "count": 24917
+    },
+    {
+      "csv": "despesas/20250901/20250901_Despesas_Liquidacao.csv",
+      "json": "/resources/data/ingested/despesas__20250901__20250901_Despesas_Liquidacao.csv.json",
+      "count": 23923
+    },
+    {
+      "csv": "despesas/20250901/20250901_Despesas_Liquidacao_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250901__20250901_Despesas_Liquidacao_EmpenhosImpactados.csv.json",
+      "count": 26319
+    },
+    {
+      "csv": "despesas/20250901/20250901_Despesas_Pagamento.csv",
+      "json": "/resources/data/ingested/despesas__20250901__20250901_Despesas_Pagamento.csv.json",
+      "count": 30871
+    },
+    {
+      "csv": "despesas/20250901/20250901_Despesas_Pagamento_EmpenhosImpactados.csv",
+      "json": "/resources/data/ingested/despesas__20250901__20250901_Despesas_Pagamento_EmpenhosImpactados.csv.json",
+      "count": 41562
+    },
+    {
+      "csv": "despesas/20250901/20250901_Despesas_Pagamento_FavorecidosFinais.csv",
+      "json": "/resources/data/ingested/despesas__20250901__20250901_Despesas_Pagamento_FavorecidosFinais.csv.json",
+      "count": 122910
+    },
+    {
+      "csv": "despesas/20250901/20250901_Despesas_Pagamento_ListaBancos.csv",
+      "json": "/resources/data/ingested/despesas__20250901__20250901_Despesas_Pagamento_ListaBancos.csv.json",
+      "count": 1930
+    },
+    {
+      "csv": "despesas/20250901/20250901_Despesas_Pagamento_ListaFaturas.csv",
+      "json": "/resources/data/ingested/despesas__20250901__20250901_Despesas_Pagamento_ListaFaturas.csv.json",
+      "count": 2297
+    },
+    {
+      "csv": "despesas/20250901/20250901_Despesas_Pagamento_ListaPrecatorios.csv",
+      "json": "/resources/data/ingested/despesas__20250901__20250901_Despesas_Pagamento_ListaPrecatorios.csv.json",
+      "count": 0
+    },
+    {
       "csv": "despesas-execucao.csv",
       "json": "/resources/data/ingested/despesas-execucao.csv.json",
       "count": 1285

@@ -12,6 +12,7 @@ Este arquivo lista os secrets usados pelos workflows e scripts do projeto e dá 
 - METRICS_URL
 - RESYNC_ENDPOINT
 - SLACK_WEBHOOK_URL (opcional)
+ - ENABLE_S3_UPLOAD (opcional — definir 'true' para ativar upload para S3 nos workflows)
 
 ## Valores de exemplo (NUNCA com chaves reais)
 ```text
@@ -24,6 +25,7 @@ PROXY_ADMIN_TOKEN=changeme-local-token
 METRICS_URL=https://collector.example/push
 RESYNC_ENDPOINT=https://example.com/resync
 SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T/ID/SECRET
+ENABLE_S3_UPLOAD=true
 ```
 
 ## Como adicionar via interface do GitHub
@@ -77,4 +79,7 @@ gh workflow run monthly-download.yml --repo XavierLimaTI/TransparenciaPolitica
 - Use um bucket de testes (não aplicar mudanças de lifecycle em buckets de produção sem revisão).
 - Prefira `gh secret` ou a UI em vez de commitar chaves em arquivos.
 - Use profiles AWS e IAM com permissão mínima (veja `docs/iam-s3-policy.md`).
+ - A variável `ENABLE_S3_UPLOAD` controla se o workflow mensal fará upload para S3. Por padrão o workflow foi projetado para usar artifacts do GitHub Actions como fallback (mais seguro/sem custos). Defina `ENABLE_S3_UPLOAD=true` apenas se você configurou corretamente `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `S3_BUCKET` e revisou a política de lifecycle.
+
+- Não comite arquivos grandes (zips/CSV/JSON de dados) no repositório. O fluxo padrão é manter os artefatos localmente e enviar para um bucket S3 quando explicitamente habilitado.
 
