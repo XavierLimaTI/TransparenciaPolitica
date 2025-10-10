@@ -202,6 +202,9 @@
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
+                <div class="ml-4 hidden sm:flex items-center">
+                    <button id="openAppBtn" class="px-3 py-2 bg-green-600 text-white rounded text-sm">Abrir app</button>
+                </div>
             </div>
         </div>
         
@@ -216,8 +219,15 @@
         </div>
     </nav>
 
+    <main id="appMain" class="max-w-7xl mx-auto p-6">
+        <section id="datasets" class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">Datasets processados</h2>
+            <div id="datasets-index">Carregando índice...</div>
+        </section>
+    </main>
+
     <!-- Hero Section -->
-    <section class="hero-bg py-20 relative">
+    <section id="heroSection" class="hero-bg py-20 relative">
         <div class="floating-shapes">
             <div class="shape w-16 h-16 bg-yellow-400 rounded-full"></div>
             <div class="shape w-12 h-12 bg-green-400 rounded-full"></div>
@@ -260,7 +270,7 @@
     </section>
 
     <!-- Dashboard Inicial -->
-    <section class="py-16">
+    <section id="dashboardSection" class="py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div id="dashboardStats"></div>
             
@@ -280,7 +290,7 @@
     </section>
 
     <!-- Candidatos em Destaque -->
-    <section class="py-16 bg-white">
+    <section id="candidatosSection" class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-display font-bold text-gray-900 mb-4">Candidatos em Destaque</h2>
@@ -332,7 +342,7 @@
     </section>
 
     <!-- Últimas Votações -->
-    <section class="py-16">
+    <section id="votacoesSection" class="py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-display font-bold text-gray-900 mb-4">Últimas Votações</h2>
@@ -410,12 +420,8 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="api-integration.js"></script>
-    <script src="lib/ui.js"></script>
-    <script src="lib/datasets.js"></script>
-    <script src="main.js"></script>
-    
+    <!-- App scripts (minimal, functional) -->
+    <script src="app/app.js"></script>
     <script>
         // Inicializar gráficos ECharts
         document.addEventListener('DOMContentLoaded', function() {
@@ -538,6 +544,10 @@
         document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
             document.querySelector('.mobile-menu').classList.toggle('hidden');
         });
+    </script>
+
+    <script>
+        // placeholder: app/app.js handles initialization
     </script>
 </body>
 </html>
