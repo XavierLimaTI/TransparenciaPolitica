@@ -1,0 +1,16 @@
+{
+  "datasets": [
+    {
+      "month": "2025-01-01",
+      "files": [
+        "ingested/despesas.json"
+      ]
+    },
+    {
+      "month": "2020-10-01",
+      "files": [
+        "despesas__20201001__20201001_Despesas_Pagamento_FavorecidosFinais.csv.json"
+      ]
+    }
+  ]
+}

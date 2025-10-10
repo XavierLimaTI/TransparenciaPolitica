@@ -33,6 +33,53 @@ Próximos passos recomendados (curto prazo):
 2. Executar testes de integração com `PORTAL_API_KEY` quando disponível.
 3. Documentar plano de manutenção de dados (retention policy / lifecycle) e possíveis custos.
 
+## Publicação automática dos dados ingeridos (GitHub Pages)
+
+Para evitar custos com infraestrutura externa você pode usar o GitHub Pages para hospedar os JSONs gerados pelo pipeline de ingestão. Os dados publicados ficam disponíveis publicamente em uma URL estática e o frontend pode consumi-los diretamente.
+
+- URL pública (padrão):
+
+  https://<OWNER>.github.io/<REPO>/data/
+
+  Exemplo para este repositório:
+
+  https://XavierLimaTI.github.io/TransparenciaPolitica/data/
+
+- Como o app usa essa URL:
+
+  1. O pipeline de ingest gera `resources/data` contendo os arquivos JSON e `manifest.json`.
+  2. O workflow `publish-gh-pages.yml` copia `resources/data` para a branch `gh-pages` e publica o conteúdo em `/data/`.
+  3. O frontend pode apontar para `https://<OWNER>.github.io/<REPO>/data/manifest.json` para localizar os arquivos ingeridos.
+
+- Automatizando atualizações (opções):
+
+  1. Agendamento mensal (recomendado para produção): já existe o workflow `monthly-download.yml` que roda no dia 1 de cada mês. Ele baixa, gera metadados e pode enviar artifacts ou fazer upload opcional para S3/GCS.
+  2. Agendamento diário/weekly (para ambientes de teste ou atualizações frequentes): adicione um workflow agendado para reexecutar o pipeline de ingest e publicar em GitHub Pages (o repositório já contém um workflow de publicação manual `publish-gh-pages.yml`).
+  3. Dispatch manual: você pode disparar `publish-gh-pages.yml` ou o novo workflow agendado manualmente via Actions → Run workflow.
+
+- Permissões necessárias:
+
+  - Para que a publicação automática para `gh-pages` funcione o token usado pelo workflow precisa de permissão de escrita (Settings → Actions → General → Workflow permissions → "Read and write permissions"). O workflow já detecta e avisa caso não tenha permissão.
+
+- Como reexecutar localmente (PowerShell):
+
+```powershell
+# executar downloader + ingest localmente
+$env:PORTAL_API_KEY = 'SUA_CHAVE_AQUI'
+
+# baixar mês anterior (exemplo)
+node scripts/download_portal_monthly.js --start=$(Get-Date -Day 1).AddMonths(-1).ToString('yyyy-MM-01') --end=$(Get-Date -Day 1).AddMonths(-1).ToString('yyyy-MM-01') --type=despesas --extract
+
+# gerar ingest
+node scripts/ingest-datasets.js || npm run ingest
+
+# copiar para a pasta de publicação local (opcional)
+# cp -r resources/data gh-pages-temp/data
+# abra a URL do GitHub Pages quando publicado: https://<OWNER>.github.io/<REPO>/data/
+```
+
+Se quiser que eu adicione um workflow agendado diário/weekly que execute o pipeline de ingest e publique automaticamente para o GitHub Pages, eu já criei um workflow de exemplo no repositório: `.github/workflows/scheduled-ingest-publish.yml`. Ele roda por schedule (diário/weekly/monthly) e também permite `workflow_dispatch` para disparo manual.
+
 Como reproduzir o ambiente de desenvolvimento e testes rápidos:
 
 ```powershell

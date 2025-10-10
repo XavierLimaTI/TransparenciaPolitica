@@ -1,0 +1,95 @@
+name: Scheduled ingest and publish
+
+on:
+  schedule:
+    - cron: '30 3 * * 0'    # weekly on Sunday 03:30 UTC
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Mode to run ingest for (daily|weekly|monthly). Default: weekly'
+        required: false
+        default: 'weekly'
+
+jobs:
+  ingest-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci --include=dev
+
+      - name: Run ingest (safe)
+        id: ingest
+        env:
+          PORTAL_API_KEY: ${{ secrets.PORTAL_API_KEY }}
+        run: |
+          set -euo pipefail
+          MODE="${{ github.event.inputs.mode || 'daily' }}"
+          echo "Running ingest in mode: $MODE"
+          # For daily/weekly we'll run the generic ingest-datasets script which processes any downloaded files.
+          # For monthly mode you may want to call download_portal_monthly.js explicitly (not done here by default).
+          if [ "$MODE" = "monthly" ]; then
+            # compute previous month and call the monthly downloader
+            START=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m-01)
+            echo "Monthly mode: downloading for $START"
+            node scripts/download_portal_monthly.js --start=$START --end=$START --type=despesas --extract || true
+          fi
+
+          # run generic ingest which will convert available CSVs into resources/data
+          if [ -f "scripts/ingest-datasets.js" ]; then
+            node scripts/ingest-datasets.js || true
+          elif npm run -s ingest > /dev/null 2>&1; then
+            npm run ingest || true
+          else
+            echo "No ingest script found (scripts/ingest-datasets.js or npm run ingest). Skipping ingest step." >&2
+          fi
+
+      - name: Validate manifest.json
+        id: validate
+        run: |
+          set -euo pipefail
+          MANIFEST="resources/data/manifest.json"
+          echo "Checking manifest at $MANIFEST"
+          if [ ! -f "$MANIFEST" ]; then
+            echo "manifest.json not found at $MANIFEST. Aborting publish." >&2
+            exit 0
+          fi
+          jq -e '.files and .timestamp' "$MANIFEST" >/dev/null || (echo "manifest.json missing required keys or invalid" >&2; exit 0)
+
+      - name: Prepare publish directory
+        id: prepare
+        run: |
+          set -euo pipefail
+          PUBLISH_DIR="resources/data"
+          echo "Publish dir: $PUBLISH_DIR"
+          if [ ! -d "$PUBLISH_DIR" ]; then
+            echo "Directory $PUBLISH_DIR not found in repository after ingest. Aborting publish." >&2
+            exit 0
+          fi
+          rm -rf ./gh-pages-temp
+          mkdir -p gh-pages-temp
+          cp -r "$PUBLISH_DIR" gh-pages-temp/data
+          ls -la gh-pages-temp
+          echo "publish_path=gh-pages-temp" >> "$GITHUB_OUTPUT"
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ steps.prepare.outputs.publish_path }}
+          publish_branch: gh-pages
+          keep_files: false
+
+      - name: Print public URL
+        run: |
+          REPO="${{ github.repository }}"
+          OWNER=$(echo "$REPO" | cut -d'/' -f1)
+          NAME=$(echo "$REPO" | cut -d'/' -f2)
+          echo "Published to: https://${OWNER}.github.io/${NAME}/data/"
