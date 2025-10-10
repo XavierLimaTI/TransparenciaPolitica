@@ -124,3 +124,8 @@ Thumbs.db
 server/portal_key.json
 server/data.db
 server/db.json
+
+# Temporary debug scripts and local logs
+.tmp/
+.httpserver.log
+.proxy.log

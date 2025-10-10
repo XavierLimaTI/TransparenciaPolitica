@@ -7,6 +7,27 @@ on:
     branches: [ main ]
 
 jobs:
+  lint-check:
+    name: Lint (informational)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Check for eslint
+        run: |
+          echo 'Checking for ESLint...'
+          npm ci --silent || true
+          if npx --no-install eslint -v >/dev/null 2>&1; then
+            echo 'Running eslint --ext .js .'
+            npx eslint --ext .js . || true
+          else
+            echo 'ESLint not configured or not installed; skipping lint run.'
+          fi
+
   unit-tests:
     name: Unit tests (Jest)
     runs-on: ubuntu-latest
@@ -61,6 +82,8 @@ jobs:
     name: E2E (Playwright)
     runs-on: ubuntu-latest
     needs: unit-tests
+    env:
+      PORTAL_KEY: ${{ secrets.PORTAL_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -109,15 +132,11 @@ jobs:
 
       - name: Start static server for tests
         run: |
-          echo 'Starting static server on port 8000 (http-server fallback)'
-          # prefer npx http-server, fallback to a tiny node static server if missing
-          if npx --no-install http-server -v >/dev/null 2>&1; then
-            npx http-server -c-1 -p 8000 &
-            echo $! > .httpserver.pid
-          else
-            node -e "const http=require('http'),fs=require('fs'),p=require('path');const srv=http.createServer((req,res)=>{let reqPath=req.url.split('?')[0]; if(reqPath==='/'||reqPath==='') reqPath='/index.html'; let f=p.join(process.cwd(),reqPath); fs.stat(f,(e,st)=>{ if(e){ res.statusCode=404; res.end('Not found'); return; } if(st.isDirectory()){ const idx=p.join(f,'index.html'); fs.stat(idx,(ei,sti)=>{ if(ei){ res.statusCode=404; res.end('Not found'); return;} fs.createReadStream(idx).pipe(res); }); return; } fs.createReadStream(f).pipe(res); }); }); srv.listen(8000,()=>console.log('tiny server started')); process.on('SIGTERM',()=>srv.close()); console.log('node static server started');" &
-            echo $! > .httpserver.pid
-          fi
+          echo 'Starting static server on port 8000 using npm script start:npm'
+          # start via npm script which prefers http-server if available
+          nohup npm run start:npm > .httpserver.log 2>&1 &
+          echo $! > .httpserver.pid
+          sleep 1 || true
 
       - name: Wait for static server to respond
         run: |
@@ -131,6 +150,77 @@ jobs:
             sleep 1
           done
           echo 'Static server did not respond in time'; exit 1
+
+      - name: Start local proxy for tests
+        run: |
+          echo 'Starting local proxy on port 3001 using npm script start-proxy'
+          nohup npm run start-proxy > .proxy.log 2>&1 &
+          echo $! > .proxy.pid
+          sleep 1 || true
+
+      - name: Start webhook receiver for tests
+        run: |
+          echo 'Starting webhook receiver on port 3002 using node server/webhooks.js'
+          # start directly with node to avoid npm script resolution issues
+          nohup node server/webhooks.js > .webhooks.log 2>&1 &
+          echo $! > .webhooks.pid
+          sleep 2 || true
+
+      - name: Run initial sync (populate server/db.json)
+        run: |
+          echo 'Running initial sync once to populate server/db.json'
+          npm run start:sync || true
+
+      - name: Wait for proxy /health
+        run: |
+          echo 'Waiting for proxy health at http://127.0.0.1:3001/health'
+          for i in {1..30}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3001/health || echo "000")
+            echo "Attempt $i: HTTP status $status"
+            if [ "$status" = "200" ]; then
+              echo 'Proxy is up'; exit 0
+            fi
+            sleep 1
+          done
+          echo 'Proxy did not respond in time'; exit 1
+
+      - name: Wait for webhooks /health
+        run: |
+          echo 'Waiting for webhooks health at http://127.0.0.1:3002/health'
+          for i in {1..60}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3002/health || echo "000")
+            echo "Attempt $i: HTTP status $status"
+            if [ "$status" = "200" ]; then
+              echo 'Webhooks receiver is up'; exit 0
+            fi
+            sleep 1
+          done
+          echo 'Webhooks did not respond in time'; exit 1
+
+      - name: Inject portalKey into proxy (optional)
+        run: |
+          echo 'Checking for PORTAL_KEY secret...'
+          if [ -n "$PORTAL_KEY" ]; then
+            echo 'Sending portal key to local proxy (secret provided)'
+            printf '%s' "{\"key\":\"$PORTAL_KEY\"}" | curl -s -X POST -H 'Content-Type: application/json' --data-binary @- http://127.0.0.1:3001/set-key || true
+          else
+            echo 'No PORTAL_KEY provided; skipping injection'
+          fi
+        env:
+          PORTAL_KEY: ${{ secrets.PORTAL_KEY }}
+
+      - name: Smoke /despesas via proxy (optional)
+        run: |
+          if [ -n "$PORTAL_KEY" ]; then
+            echo 'Running quick smoke against /despesas via proxy to validate portalKey'
+            status=$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:3001/despesas?itens=1" || echo "000")
+            echo "despesas status: $status"
+            if [ "$status" != "200" ]; then
+              echo 'Warning: despesas endpoint did not return 200; continuing but check logs';
+            fi
+          else
+            echo 'No PORTAL_KEY present; skipping despesas smoke'
+          fi
 
       - name: Wait for fixture to be available
         run: |
@@ -151,8 +241,18 @@ jobs:
           echo 'Ensuring Playwright browsers installed (safe)'
           npx playwright install --with-deps || true
           echo 'Running Playwright tests with extended timeout and retries'
-          # run Playwright and produce an HTML report (playwright-report) so CI can upload it on failure
-          npx playwright test tests/e2e --reporter=github,html --timeout=180000 --retries=3 --trace=on-first-retry
+          # export helper envs used by tests: BASE_URL and PROXY_BASE
+          export BASE_URL="http://127.0.0.1:8000"
+          export PROXY_BASE="http://127.0.0.1:3001"
+          export WEBHOOKS_BASE="http://127.0.0.1:3002"
+          # If PORTAL_KEY is present, include the portal-backed spec, otherwise run default suite
+          if [ -n "${PORTAL_KEY}" ]; then
+            echo 'PORTAL_KEY present: including portal-backed despesas spec'
+            npx playwright test tests/e2e tests/e2e/despesas-portal.spec.js --reporter=github,html --timeout=180000 --retries=3 --trace=on-first-retry
+          else
+            echo 'PORTAL_KEY not present: running standard e2e suite (skips portal spec)'
+            npx playwright test tests/e2e --reporter=github,html --timeout=180000 --retries=3 --trace=on-first-retry
+          fi
         env:
           DISPLAY: :99
           # increase default playwright timeout for slower CI runners
@@ -169,7 +269,42 @@ jobs:
       - name: Stop static server
         if: always()
         run: |
+          # Stop http server (PID file) with fallback to pkill
           if [ -f .httpserver.pid ]; then
-            kill "$(cat .httpserver.pid)" || true
+            pid=$(cat .httpserver.pid) || true
+            if [ -n "$pid" ]; then
+              kill "$pid" || true
+            fi
             rm -f .httpserver.pid
+          else
+            pkill -f "http-server" || true
           fi
+          # Ensure portal key removed from proxy
+          if [ -n "$PORTAL_KEY" ]; then
+            echo 'Removing portal key from proxy before shutdown'
+            curl -s -X POST http://127.0.0.1:3001/unset-key || true
+          fi
+          # Stop proxy
+          if [ -f .proxy.pid ]; then
+            p=$(cat .proxy.pid) || true
+            if [ -n "$p" ]; then
+              kill "$p" || true
+            fi
+            rm -f .proxy.pid
+          else
+            pkill -f "proxy-light.js" || true
+          fi
+          # Stop webhook receiver
+          if [ -f .webhooks.pid ]; then
+            w=$(cat .webhooks.pid) || true
+            if [ -n "$w" ]; then
+              kill "$w" || true
+            fi
+            rm -f .webhooks.pid
+          else
+            pkill -f "webhooks.js" || true
+          fi
+          # emit logs for debugging in case of failures
+          if [ -f .httpserver.log ]; then echo '=== httpserver.log ==='; tail -n 200 .httpserver.log || true; fi
+          if [ -f .proxy.log ]; then echo '=== proxy.log ==='; tail -n 200 .proxy.log || true; fi
+          if [ -f .webhooks.log ]; then echo '=== webhooks.log ==='; tail -n 200 .webhooks.log || true; fi

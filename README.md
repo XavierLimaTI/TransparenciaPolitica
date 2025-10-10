@@ -521,6 +521,52 @@ Parar o servidor Python (se em background):
 Get-Process -Name python | Stop-Process
 ```
 
+## Desenvolvimento e Testes (rápido)
+
+Concisamente:
+
+- Habilitar dev hooks (botão de carregar fixture):
+	- Abra a URL com `?dev=1` (ex.: `http://localhost:8000/?dev=1`), ou
+	- No console do navegador: `localStorage.setItem('DEV_LOAD','1')` e recarregue a página.
+
+- Rodar servidor estático (npm/http-server):
+
+```powershell
+Set-Location -LiteralPath 'h:\TransparenciaPolitica'
+npm install --no-audit --no-fund
+npm run dev:npm    # invoca npx http-server -p 8000
+```
+
+- Rodar proxy local (opcional, usado pelos E2E):
+
+```powershell
+# proxy leve
+node server/proxy-light.js
+
+# ou, se preferir o script npm
+npm run start-proxy
+```
+
+- Testes unit (Jest):
+
+```powershell
+npm test
+```
+
+- Testes E2E (Playwright):
+
+```powershell
+# setar variáveis para rodar localmente como o CI faz
+$env:BASE_URL='http://127.0.0.1:8000'; $env:PROXY_BASE='http://127.0.0.1:3001'
+# rodar todos os testes e2e
+npx playwright test tests/e2e -c playwright.config.js --reporter=list
+```
+
+Notas:
+- O CI exporta `BASE_URL` e `PROXY_BASE` antes de executar os testes E2E; `playwright.config.js` lê `BASE_URL` se definido.
+- Fixtures determinísticas estão em `tests/fixtures/despesas.csv`.
+
+
 ## Proxy local e fallback CSV
 
 O projeto pode integrar o Portal da Transparência sem expor a chave API no navegador.
