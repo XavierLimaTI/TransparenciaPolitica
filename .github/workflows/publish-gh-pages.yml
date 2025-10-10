@@ -1,0 +1,49 @@
+name: Publish ingested data to GitHub Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish_dir:
+        description: 'Folder to publish (relative to repo root). Default: resources/data'
+        required: false
+        default: 'resources/data'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare publish directory
+        id: prepare
+        run: |
+          set -euo pipefail
+          PUBLISH_DIR="${{ github.event.inputs.publish_dir }}"
+          echo "Publish dir: $PUBLISH_DIR"
+          if [ ! -d "$PUBLISH_DIR" ]; then
+            echo "Directory $PUBLISH_DIR not found in repository. Aborting." >&2
+            exit 2
+          fi
+          rm -rf ./gh-pages-temp
+          mkdir -p gh-pages-temp
+          # copy all files preserving structure under a data/ prefix
+          cp -r "$PUBLISH_DIR" gh-pages-temp/data
+          ls -la gh-pages-temp
+          echo "publish_path=gh-pages-temp" >> "$GITHUB_OUTPUT"
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ steps.prepare.outputs.publish_path }}
+          publish_branch: gh-pages
+          # prevent removing existing files outside our folder unless needed
+          keep_files: false
+
+      - name: Print public URL
+        run: |
+          REPO="${{ github.repository }}"
+          OWNER=$(echo "$REPO" | cut -d'/' -f1)
+          NAME=$(echo "$REPO" | cut -d'/' -f2)
+          echo "Published to: https://${OWNER}.github.io/${NAME}/data/"
