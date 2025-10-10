@@ -42,17 +42,38 @@ jobs:
           fi
 
       - name: Ensure GCS bucket exists (create if missing)
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: |
-          set -e
-          echo "Writing service account JSON to /tmp/key.json"
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > /tmp/key.json
-          gcloud auth activate-service-account --key-file=/tmp/key.json
-          PROJECT_ID=$(python -c "import json,sys;print(json.load(open('/tmp/key.json'))['project_id'])")
+          set -euo pipefail
+          # If google-github-actions/auth created a creds file, use it
+          CREDS="${GOOGLE_GHA_CREDS_PATH:-}"
+          if [ -z "$CREDS" ]; then
+            echo "GOOGLE_GHA_CREDS_PATH not set, decoding secret to /tmp/key.json"
+            echo "$FIREBASE_SERVICE_ACCOUNT" | base64 --decode > /tmp/key.json || {
+              # fallback: write raw (for older secrets that aren't base64-encoded)
+              printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > /tmp/key.json
+            }
+            CREDS=/tmp/key.json
+          fi
+          echo "Using credentials file: $CREDS"
+          # Extract project_id from the credentials file (python usually present)
+          if command -v python3 >/dev/null 2>&1; then
+            PY=python3
+          else
+            PY=python
+          fi
+          PROJECT_ID=$($PY -c "import json,sys;print(json.load(open('$CREDS')).get('project_id',''))")
           DEST_BUCKET="${{ github.event.inputs.bucket }}"
           echo "Checking gs://$DEST_BUCKET"
           if ! gsutil ls -b "gs://$DEST_BUCKET" >/dev/null 2>&1; then
-            echo "Bucket gs://$DEST_BUCKET not found, creating in project $PROJECT_ID..."
-            gsutil mb -p "$PROJECT_ID" -c STANDARD -l US "gs://$DEST_BUCKET"
+            if [ -z "$PROJECT_ID" ]; then
+              echo "PROJECT_ID empty in credentials, attempting to create bucket without -p"
+              gsutil mb -c STANDARD -l US "gs://$DEST_BUCKET"
+            else
+              echo "Bucket gs://$DEST_BUCKET not found, creating in project $PROJECT_ID..."
+              gsutil mb -p "$PROJECT_ID" -c STANDARD -l US "gs://$DEST_BUCKET"
+            fi
           else
             echo "Bucket gs://$DEST_BUCKET exists"
           fi
