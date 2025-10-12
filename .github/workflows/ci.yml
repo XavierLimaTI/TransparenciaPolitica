@@ -151,9 +151,11 @@ jobs:
       - name: Run downloader for previous month
         env:
           PORTAL_API_KEY: ${{ secrets.PORTAL_API_KEY }}
+          # set tolerance so scheduled job doesn't fail the workflow; set to '0' to enforce failures
+          TOLERATE_DOWNLOAD_ERRORS: '1'
         run: |
           START=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m-01)
-          node scripts/download_portal_monthly.js --start=$START --end=$START --type=despesas --extract || true
+          node scripts/download_portal_monthly.js --start=$START --end=$START --type=despesas --extract --attempts=5
       - name: Upload downloaded artifact (fallback)
         uses: actions/upload-artifact@v4
         with:
