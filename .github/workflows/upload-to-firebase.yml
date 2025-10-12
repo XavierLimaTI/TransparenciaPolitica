@@ -15,7 +15,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Authenticate to Google Cloud
+      - name: Authenticate to Google Cloud (if secret provided)
+        run: |
+          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" ]; then
+            echo "FIREBASE_SERVICE_ACCOUNT not set; skipping GCP auth"
+            exit 0
+          fi
+          echo "Secret present; authenticating via google-github-actions/auth"
+        # call the official action with uses via a separate step when secret is present
+      - name: Call google-github-actions/auth
         uses: google-github-actions/auth@v1
         with:
           credentials_json: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
@@ -45,3 +53,11 @@ jobs:
           echo "Uploading $ARTIFACT -> $DEST"
           gsutil cp "$ARTIFACT" "$DEST"
           echo "Upload finished"
+
+      - name: Notice missing FIREBASE_SERVICE_ACCOUNT secret
+        run: |
+          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" ]; then
+            echo "FIREBASE_SERVICE_ACCOUNT secret not set. This workflow will not authenticate to GCP or upload to GCS. The artifact remains attached to this run for manual download."
+          else
+            echo "FIREBASE_SERVICE_ACCOUNT present; upload should have been attempted."
+          fi
