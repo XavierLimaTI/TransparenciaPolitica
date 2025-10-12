@@ -7,6 +7,196 @@ on:
     branches: [ main ]
   workflow_dispatch: {}
   schedule:
+    - cron: '0 3 1 * *'
+
+jobs:
+  unit-tests:
+    name: Unit tests (Jest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies (including dev)
+        run: npm ci --include=dev
+        env:
+          NODE_ENV: development
+      - name: Run unit tests (Jest)
+        run: npm test --silent
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-lcov
+          path: coverage/lcov.info
+
+  build:
+    name: Build (artifact)
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies (including dev)
+        run: npm ci --include=dev
+      - name: Build
+        run: npm run build
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+  e2e:
+    name: E2E (Playwright)
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies (including dev)
+        run: npm ci --include=dev
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
+      - name: Start static server for tests
+        run: |
+          if npx --no-install http-server -v >/dev/null 2>&1; then
+            npx http-server -c-1 -p 8000 &
+            echo $! > .httpserver.pid
+          else
+            node -e "const http=require('http'),fs=require('fs'),p=require('path');const srv=http.createServer((req,res)=>{let reqPath=req.url.split('?')[0]; if(reqPath==='/'||reqPath==='') reqPath='/index.html'; let f=p.join(process.cwd(),reqPath); fs.stat(f,(e,st)=>{ if(e){ res.statusCode=404; res.end('Not found'); return; } if(st.isDirectory()){ const idx=p.join(f,'index.html'); fs.stat(idx,(ei,sti)=>{ if(ei){ res.statusCode=404; res.end('Not found'); return;} fs.createReadStream(idx).pipe(res); }); return; } fs.createReadStream(f).pipe(res); }); }); srv.listen(8000,()=>console.log('tiny server started')); process.on('SIGTERM',()=>srv.close()); console.log('node static server started');" &
+            echo $! > .httpserver.pid
+          fi
+      - name: Wait for static server
+        run: |
+          for i in {1..30}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8000/ || echo "000")
+            echo "Attempt $i: HTTP status $status"
+            if [ "$status" = "200" ]; then
+              echo 'Static server is up'; exit 0
+            fi
+            sleep 1
+          done
+          echo 'Static server did not respond in time'; exit 1
+      - name: Run Playwright tests
+        run: |
+          npx playwright install --with-deps || true
+          npx playwright test tests/e2e --reporter=github,html --timeout=180000 --retries=1
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+      - name: Stop static server
+        if: always()
+        run: |
+          if [ -f .httpserver.pid ]; then
+            kill "$(cat .httpserver.pid)" || true
+            rm -f .httpserver.pid
+          fi
+
+  monthly-download:
+    name: Monthly Portal download (conditional)
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies (including dev)
+        run: npm ci --include=dev
+      - name: Run downloader for previous month
+        env:
+          PORTAL_API_KEY: ${{ secrets.PORTAL_API_KEY }}
+        run: |
+          START=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m-01)
+          node scripts/download_portal_monthly.js --start=$START --end=$START --type=despesas --extract || true
+      - name: Upload downloaded artifact (fallback)
+        uses: actions/upload-artifact@v4
+        with:
+          name: portal-dataset-prev-month
+          path: resources/data/despesas/
+
+  smoke:
+    name: Smoke (Playwright script)
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies (including dev)
+        run: npm ci --include=dev
+      - name: Build CSS
+        run: npm run build:css
+      - name: Build app
+        run: npm run build
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Start static server
+        run: npx http-server ./dist -p 8001 & echo $! > .httpserver.pid
+      - name: Wait for static server
+        run: |
+          for i in {1..30}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8001/ || echo "000")
+            echo "Attempt $i: HTTP status $status"
+            if [ "$status" = "200" ]; then
+              echo 'Static server is up'; exit 0
+            fi
+            sleep 1
+          done
+          echo 'Static server did not respond in time'; exit 1
+      - name: Run Playwright smoke script
+        run: node scripts/playwright-local-test.js
+      - name: Upload smoke artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-artifacts
+          path: artifacts
+      - name: Stop static server
+        if: always()
+        run: |
+          if [ -f .httpserver.pid ]; then
+            kill "$(cat .httpserver.pid)" || true
+            rm -f .httpserver.pid
+          fi
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: {}
+  schedule:
     # run monthly on the 1st at 03:00 UTC
     - cron: '0 3 1 * *'
 
@@ -37,8 +227,8 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-      - name: Install dependencies
-        run: npm ci
+      - name: Install dependencies (including dev)
+        run: npm ci --include=dev
       - name: Build
         run: npm run build
       - name: Upload dist artifact
@@ -287,3 +477,64 @@ jobs:
         with:
           name: portal-dataset-prev-month
           path: resources/data/despesas/
+
+  smoke:
+    name: Smoke (Playwright script)
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies (including dev)
+        run: npm ci --include=dev
+
+      - name: Build CSS
+        run: npm run build:css
+
+      - name: Build app
+        run: npm run build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Start static server
+        run: |
+          npx http-server ./dist -p 8001 &
+          echo $! > .httpserver.pid
+
+      - name: Wait for static server
+        run: |
+          for i in {1..30}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8001/ || echo "000")
+            echo "Attempt $i: HTTP status $status"
+            if [ "$status" = "200" ]; then
+              echo 'Static server is up'; exit 0
+            fi
+            sleep 1
+          done
+          echo 'Static server did not respond in time'; exit 1
+
+      - name: Run Playwright smoke script
+        run: node scripts/playwright-local-test.js
+
+      - name: Upload smoke artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-artifacts
+          path: artifacts
+
+      - name: Stop static server
+        if: always()
+        run: |
+          if [ -f .httpserver.pid ]; then
+            kill "$(cat .httpserver.pid)" || true
+            rm -f .httpserver.pid
+          fi
