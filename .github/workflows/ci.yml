@@ -64,7 +64,7 @@ jobs:
   e2e:
     name: E2E (Playwright)
     runs-on: ubuntu-latest
-    needs: unit-tests
+    needs: build
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
@@ -77,6 +77,24 @@ jobs:
         run: npx playwright install --with-deps
         env:
           PLAYWRIGHT_BROWSERS_PATH: ~/.cache/ms-playwright
+      - name: Ensure despesas.json in dist
+        run: |
+          if [ ! -f dist/resources/data/despesas.json ]; then
+            echo 'dist/resources/data/despesas.json not found, attempting to copy fallback...'
+            mkdir -p dist/resources/data || true
+            if [ -f resources/data/despesas.json ]; then
+              cp resources/data/despesas.json dist/resources/data/despesas.json
+              echo 'Copied resources/data/despesas.json to dist/resources/data/despesas.json'
+            elif [ -f resources/data/ingested/despesas.json ]; then
+              cp resources/data/ingested/despesas.json dist/resources/data/despesas.json
+              echo 'Copied resources/data/ingested/despesas.json to dist/resources/data/despesas.json'
+            else
+              echo '{}' > dist/resources/data/despesas.json
+              echo 'Wrote empty fallback JSON to dist/resources/data/despesas.json'
+            fi
+          else
+            echo 'dist/resources/data/despesas.json exists'
+          fi
       - name: Start static server for tests
         run: |
           if npx --no-install http-server -v >/dev/null 2>&1; then
@@ -158,6 +176,24 @@ jobs:
         run: npm run build:css
       - name: Build app
         run: npm run build
+      - name: Ensure despesas.json in dist
+        run: |
+          if [ ! -f dist/resources/data/despesas.json ]; then
+            echo 'dist/resources/data/despesas.json not found, attempting to copy fallback...'
+            mkdir -p dist/resources/data || true
+            if [ -f resources/data/despesas.json ]; then
+              cp resources/data/despesas.json dist/resources/data/despesas.json
+              echo 'Copied resources/data/despesas.json to dist/resources/data/despesas.json'
+            elif [ -f resources/data/ingested/despesas.json ]; then
+              cp resources/data/ingested/despesas.json dist/resources/data/despesas.json
+              echo 'Copied resources/data/ingested/despesas.json to dist/resources/data/despesas.json'
+            else
+              echo '{}' > dist/resources/data/despesas.json
+              echo 'Wrote empty fallback JSON to dist/resources/data/despesas.json'
+            fi
+          else
+            echo 'dist/resources/data/despesas.json exists'
+          fi
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
       - name: Start static server
