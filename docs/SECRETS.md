@@ -17,7 +17,7 @@ This document explains how to create and add the repository secrets used by the 
 
 ## Create a GCP Service Account and JSON key (for `FIREBASE_SERVICE_ACCOUNT`)
 
-1. Open Google Cloud Console: https://console.cloud.google.com/
+1. Open Google Cloud Console: <https://console.cloud.google.com/>
 2. Select the project you want to use for CI uploads.
 3. Go to IAM & Admin → Service Accounts → Create Service Account.
    - Name: `politica-ci` (or similar)
@@ -39,6 +39,7 @@ Get-Content .\sa-key.json -Raw | gh secret set FIREBASE_SERVICE_ACCOUNT --body -
 ```
 
 Notes:
+
 - The workflows in this repo accept the JSON raw or base64; the upload scripts attempt to decode if necessary.
 - Ensure the service account has billing/project privileges for creating buckets if you plan to create buckets from CI (recommended: create bucket manually).
 
@@ -74,18 +75,21 @@ gh secret set PROXY_ADMIN_TOKEN --body 'seu_token_proxy'
 ```
 
 ## Adding secrets using GitHub web UI (step-by-step)
-1. Go to: https://github.com/<owner>/<repo>/settings/secrets/actions
+
+1. Go to: <https://github.com/REPO_OWNER/REPO_NAME/settings/secrets/actions>
 2. Click "New repository secret"
 3. Enter Name (e.g. `FIREBASE_SERVICE_ACCOUNT`) and paste the secret value
 4. Click "Add secret"
 
 ## Security notes and best practices
+
 - Limit service account scopes and prefer bucket-level permissions.
 - Rotate keys periodically and remove unused secrets.
 - Prefer organization-level secrets or environments for production workflows.
 - Avoid putting secrets in logs, outputs, or artifacts.
 
 ## Troubleshooting
+
 - If a workflow fails due to missing secrets, check the Run logs. For GCP uploads, if `gsutil` complains about bucket not found, ensure the bucket exists and the service account has storage permissions.
 - If you need help creating service accounts or keys, paste the exact error here and I can guide you step-by-step.
 
