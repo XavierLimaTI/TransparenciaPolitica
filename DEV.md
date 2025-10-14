@@ -17,36 +17,90 @@ Resumo rápido com comandos essenciais para desenvolvimento local.
  python -m http.server 8000
  ```
 
- 1. Testes unitários
+## DEV - quickstart (Windows PowerShell)
 
- ```powershell
- npm test
- ```
+Resumo rápido com comandos essenciais para desenvolvimento e testes locais.
 
- 1. Testes E2E (Playwright)
+1) Instalar dependências
 
- ```powershell
- # instalar browsers (uma vez)
- npx playwright install --with-deps
+```powershell
+npm ci
+```
 
- # rodar todos os e2e
- npx playwright test tests/e2e --reporter=list --workers=1
- ```
+2) Gerar artefatos CJS usados pelos testes (pretest)
 
- 1. Carregar dados locais (no browser Console)
+O repositório mantém fontes ESM em `src/`. Para compatibilidade com a suíte atual de testes (Jest) há um passo que gera artefatos CJS usados por testes e por consumidores legados.
 
- ```javascript
- await window.initPoliticaApp();
- const res = await fetch('/resources/data/despesas.csv');
- const text = await res.text();
- const parsed = window.governmentAPI.loadDespesasFromCSV(text);
- window.governmentAPI.useLocalDespesas(parsed);
- await window.politicaApp.init?.();
- ```
+```powershell
+# roda automaticamente via npm test (pretest)
+npm run pretest
+# ou manualmente
+node scripts/build-test-cjs.js
+```
 
- 1. Scripts úteis
+3) Rodar testes unitários (Jest)
 
-`npm run ingest` - ingest datasets scripts
-`npm run start-proxy` - inicia proxy local
+```powershell
+npm test
+# rodar apenas unit tests
+npm run test:unit
+```
+
+4) Regenerar `lib/` compat (quando atualizar APIs ESM)
+
+```powershell
+node scripts/sync-src-to-lib-cjs.js
+```
+
+5) Gerar a distribuição (bundle JS + copiar resources + gerar CSS Tailwind)
+
+```powershell
+npm run build
+```
+
+Observações:
+- `npm run build` agora gera também um arquivo `dist/datasets-index` (cópia de `dist/resources/data/index.json`) para facilitar previews com servidores estáticos (ex.: `npx http-server ./dist -p 8001`).
+- Se preferir comportamento dinâmico (rota `/datasets-index`, fallback S3, webhook endpoints), rode o proxy `npm run start-proxy` ou `node server/proxy-light.js`.
+
+6) Previews e proxy
+
+- Servidor estático (preview rápido):
+
+```powershell
+npx http-server ./dist -p 8001
+# abra http://127.0.0.1:8001
+```
+
+- Proxy de desenvolvimento (recomendado para comportamento dinâmico):
+
+```powershell
+npm run start-proxy
+# ou
+node server/proxy-light.js
+```
+
+7) Ingestão de dados (Portal da Transparência)
+
+```powershell
+# Defina a chave do portal (se tiver)
+$env:PORTAL_API_KEY = 'SUA_CHAVE_AQUI'
+
+# Baixe um mês e extraia
+node scripts/download_portal_monthly.js --start=2025-09-01 --end=2025-09-01 --type=despesas --extract --attempts=3
+
+# Ingerir os CSVs gerados
+npm run ingest
+```
+
+8) Debug rápido
+
+- Se a UI mostrar "Carregar dados locais" e der erro 404 em `/datasets-index`, rode `npm run build` antes de `http-server`, ou use o proxy.
+
+---
+
+Se quiser, eu posso também:
+- Adicionar instruções para Linux/macOS
+- Incluir passos para regenerar `lib/` e remover temporariamente as compatibility wrappers (plano de migração)
+- Atualizar o `README.md` com um link/trecho deste `DEV.md` (atualmente já há uma nota curta)
 
 
