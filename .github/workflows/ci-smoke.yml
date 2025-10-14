@@ -1,0 +1,57 @@
+name: CI Smoke
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  test-and-smoke:
+    name: Unit + Smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm ci --include=dev
+      - name: Pretest build (CJS artifacts)
+        run: npm run pretest
+      - name: Run unit tests (Jest)
+        run: npm test --silent
+      - name: Build CSS
+        run: npm run build:css
+      - name: Build app
+        run: npm run build
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Start static server
+        run: npx http-server ./dist -p 8001 & echo $! > .httpserver.pid
+      - name: Wait for static server
+        run: |
+          for i in {1..30}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8001/ || echo "000")
+            echo "Attempt $i: HTTP status $status"
+            if [ "$status" = "200" ]; then
+              echo 'Static server is up'; exit 0
+            fi
+            sleep 1
+          done
+          echo 'Static server did not respond in time'; exit 1
+      - name: Run Playwright smoke script
+        run: node scripts/playwright-local-test.js
+      - name: Upload smoke artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-artifacts
+          path: artifacts
+      - name: Stop static server
+        if: always()
+        run: |
+          if [ -f .httpserver.pid ]; then
+            kill "$(cat .httpserver.pid)" || true
+            rm -f .httpserver.pid
+          fi
