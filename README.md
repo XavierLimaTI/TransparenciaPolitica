@@ -236,6 +236,13 @@ Se preferir uma alternativa sem dependências, há um proxy leve em `server/prox
 node server/proxy-light.js
 ```
 
+Nota sobre preview estático
+--------------------------
+
+Ao executar `npm run build` o processo agora gera um arquivo adicional `dist/datasets-index` (sem extensão). O frontend tenta primeiro `/datasets-index` durante a inicialização — essa rota é normalmente fornecida pelo proxy de desenvolvimento. O arquivo `dist/datasets-index` existe para que previews estáticos (por exemplo com `npx http-server ./dist -p 8001`) também possam exibir o índice de datasets sem erro 404.
+
+Se você prefere comportamento dinâmico (ex.: fallback para S3 ou rota administrativa), use o proxy (`npm run start-proxy` ou `node server/proxy-light.js`).
+
 ## Dados de Demonstração
 
 O projeto inclui dados simulados de:
