@@ -73,6 +73,8 @@ jobs:
           if [ -f artifacts/jest-output.json ]; then
             echo '--- artifacts/jest-output.json head ---'
             head -n 200 artifacts/jest-output.json || true
+            echo '--- artifacts/jest-output.json full (truncated at 1000 lines) ---'
+            (set -o pipefail; cat artifacts/jest-output.json | sed -n '1,1000p') || true
           else
             echo 'artifacts/jest-output.json not present'
           fi
@@ -82,6 +84,12 @@ jobs:
         run: |
           echo '--- artifacts directory listing ---'
           ls -la artifacts || echo 'artifacts dir not found or empty'
+          echo '--- artifacts file sizes ---'
+          if [ -d artifacts ]; then
+            du -ah artifacts || true
+            echo '--- artifacts detailed list with file sizes and contents (first 100 files) ---'
+            find artifacts -type f -maxdepth 3 -print0 | xargs -0 ls -la | head -n 100 || true
+          fi
 
       - name: Upload smoke artifacts
         if: always()
