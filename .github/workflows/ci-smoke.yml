@@ -34,8 +34,11 @@ jobs:
             echo 'WARNING: jest.setup.js not found'
           fi
 
+      - name: Prepare artifacts dir
+        run: mkdir -p artifacts
+
       - name: Run unit tests (Jest)
-        run: npm test --silent
+        run: node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --runInBand --json --outputFile=artifacts/jest-output.json
 
       - name: Build CSS
         run: npm run build:css
