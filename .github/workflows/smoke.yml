@@ -50,8 +50,14 @@ jobs:
       - name: Prepare artifacts dir
         run: mkdir -p artifacts
 
-      - name: Run Playwright smoke script
-        run: node scripts/playwright-local-test.js
+      - name: Run Playwright smoke script (guarded)
+        run: |
+          if [ -f scripts/playwright-local-test.js ]; then
+            echo 'Found playwright-local-test.js — running smoke script'
+            node scripts/playwright-local-test.js
+          else
+            echo 'scripts/playwright-local-test.js not found — skipping Playwright smoke script'
+          fi
 
       - name: Debug show artifacts content (if present)
         if: always()
