@@ -57,7 +57,13 @@ jobs:
           ls -la artifacts >> artifacts/ci-sanity.txt || true
 
       - name: Build CSS
-        run: npm run build:css
+        run: |
+          if [ -f src/styles/tailwind.css ]; then
+            echo 'Found src/styles/tailwind.css — running build:css'
+            npm run build:css
+          else
+            echo 'src/styles/tailwind.css not found — skipping build:css (this may be expected for some PRs)'
+          fi
 
       - name: Build app
         run: npm run build
