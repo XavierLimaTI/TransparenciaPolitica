@@ -1,19 +1,85 @@
-name: Smoke Tests
+name: Smoke tests
 
 on:
   push:
+    branches: [ main ]
   pull_request:
+    types: [ opened, synchronize, reopened ]
 
 jobs:
   smoke:
+    name: Build and Playwright smoke
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-      - name: Install
-        run: npm ci
-      - name: Run smoke tests
-        run: npm run test:smoke
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies (including dev)
+        run: npm ci --include=dev
+
+      - name: Build site (JS + CSS)
+        run: npm run build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Start static server
+        run: npx http-server ./dist -p 8001 & echo $! > .httpserver.pid
+
+      - name: Wait for server
+        run: |
+          for i in {1..20}; do
+            if curl -sSf http://127.0.0.1:8001/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          echo "Server failed to start" && exit 1
+
+      - name: Prepare artifacts dir
+        run: mkdir -p artifacts
+
+      - name: Run Playwright smoke script
+        run: node scripts/playwright-local-test.js
+
+      - name: Debug show artifacts content (if present)
+        if: always()
+        run: |
+          if [ -f artifacts/jest-output.json ]; then
+            echo '--- artifacts/jest-output.json head ---'
+            head -n 200 artifacts/jest-output.json || true
+          else
+            echo 'artifacts/jest-output.json not present'
+          fi
+
+      - name: Debug list artifacts
+        if: always()
+        run: |
+          echo '--- artifacts contents ---'
+          ls -la artifacts || true
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-artifacts
+          path: artifacts
+
+      - name: Stop static server
+        if: always()
+        run: |
+          if [ -f .httpserver.pid ]; then
+            kill "$(cat .httpserver.pid)" || true
+            rm -f .httpserver.pid
+          fi
