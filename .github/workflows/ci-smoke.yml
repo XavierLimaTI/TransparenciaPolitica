@@ -40,6 +40,15 @@ jobs:
       - name: Run unit tests (Jest)
         run: node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --runInBand --json --outputFile=artifacts/jest-output.json
 
+      - name: Write CI sanity file
+        if: always()
+        run: |
+          mkdir -p artifacts
+          echo "jest-run: $(date -u +%Y-%m-%dT%H:%M:%SZ)" > artifacts/ci-sanity.txt
+          echo "jest-output-exists: $( [ -f artifacts/jest-output.json ] && echo yes || echo no )" >> artifacts/ci-sanity.txt
+          echo "artifact-listing:" >> artifacts/ci-sanity.txt
+          ls -la artifacts >> artifacts/ci-sanity.txt || true
+
       - name: Build CSS
         run: npm run build:css
 

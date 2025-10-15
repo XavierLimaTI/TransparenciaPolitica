@@ -103,4 +103,25 @@ Se quiser, eu posso também:
 - Incluir passos para regenerar `lib/` e remover temporariamente as compatibility wrappers (plano de migração)
 - Atualizar o `README.md` com um link/trecho deste `DEV.md` (atualmente já há uma nota curta)
 
+## Inspecionar artifacts gerados pelo CI (GitHub Actions)
+
+Quando a pipeline roda no GitHub Actions, os artefatos (por exemplo `smoke-artifacts`, `dist`, `coverage-lcov`) são enviados e ficam disponíveis na página do run. Para inspecionar os artifacts:
+
+- Pelo navegador: abra a página do run (Actions → run do PR) e procure a seção "Artifacts"; clique para baixar.
+
+- Pela linha de comando (requer `gh` CLI autenticada):
+
+```powershell
+# listar runs recentes do PR (substitua <owner>/<repo> se necessário)
+gh run list --repo XavierLimaTI/TransparenciaPolitica
+
+# baixar o artifact chamado 'smoke-artifacts' do run mais recente
+gh run download <run-id> --name smoke-artifacts --repo XavierLimaTI/TransparenciaPolitica -D .\artifacts-download
+
+# inspecionar o conteúdo baixado
+Get-ChildItem .\artifacts-download -Recurse | Select-Object FullName, Length
+```
+
+Se o workflow já inclui um arquivo de sanity (`artifacts/ci-sanity.txt`) ele será pequeno e fácil de abrir no editor para confirmar que o Jest rodou naquele job.
+
 
