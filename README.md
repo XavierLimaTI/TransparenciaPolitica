@@ -8,6 +8,8 @@
 
 Plataforma web inovadora dedicada à transparência política brasileira, permitindo que eleitores consultem informações detalhadas sobre candidatos, seus votos em matérias importantes da Câmara e Senado, e tomem decisões conscientes para as eleições de 2026.
 
+<!-- CI trigger: update README to re-run CI smoke -->
+
 ## Status do Projeto (resumo rápido)
 
 - Branch atual: `infra/add-s3-lifecycle-and-secrets-docs`
