@@ -1,0 +1,151 @@
+name: CI Smoke
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  test-and-smoke:
+    name: Unit + Smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure artifacts directory exists early
+        run: mkdir -p artifacts
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci --include=dev
+
+      - name: Pretest build (CJS artifacts)
+        run: npm run pretest
+
+      - name: Debug list repo root and check jest.setup.js
+        run: |
+          echo '--- repo root files ---'
+          ls -la
+          echo '--- check jest.setup.js ---'
+          if [ -f jest.setup.js ]; then
+            echo 'jest.setup.js exists'
+          else
+            echo 'WARNING: jest.setup.js not found'
+          fi
+
+      - name: Prepare artifacts dir
+        run: mkdir -p artifacts
+
+      - name: Run unit tests (Jest)
+        run: node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --runInBand --json --outputFile=artifacts/jest-output.json
+
+      - name: Make compact Jest summary
+        if: always()
+        run: node scripts/jest-summary.js artifacts/jest-output.json artifacts/jest-summary.json || true
+
+      - name: Write CI sanity file
+        if: always()
+        run: |
+          mkdir -p artifacts
+          echo "jest-run: $(date -u +%Y-%m-%dT%H:%M:%SZ)" > artifacts/ci-sanity.txt
+          echo "jest-output-exists: $( [ -f artifacts/jest-output.json ] && echo yes || echo no )" >> artifacts/ci-sanity.txt
+          echo "artifact-listing:" >> artifacts/ci-sanity.txt
+          ls -la artifacts >> artifacts/ci-sanity.txt || true
+
+      - name: Build CSS
+        run: |
+          if [ -f src/styles/tailwind.css ]; then
+            echo 'Found src/styles/tailwind.css — running build:css'
+            npm run build:css
+          else
+            echo 'src/styles/tailwind.css not found — skipping build:css (this may be expected for some PRs)'
+          fi
+
+      - name: Build app
+        run: npm run build
+
+      - name: Install Playwright browsers (guarded)
+        run: |
+          if [ -f scripts/playwright-local-test.js ]; then
+            echo 'playwright smoke script present — installing browsers'
+            npx playwright install --with-deps
+          else
+            echo 'playwright script not present — skipping browser install'
+          fi
+
+      - name: Start static server (guarded)
+        run: |
+          if [ -f scripts/playwright-local-test.js ]; then
+            npx http-server ./dist -p 8001 & echo $! > .httpserver.pid
+          else
+            echo 'playwright script not present — skipping static server start'
+          fi
+
+      - name: Wait for static server (guarded)
+        run: |
+          if [ -f scripts/playwright-local-test.js ]; then
+            for i in {1..30}; do
+              status=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8001/ || echo "000")
+              echo "Attempt $i: HTTP status $status"
+              if [ "$status" = "200" ]; then
+                echo 'Static server is up'; exit 0
+              fi
+              sleep 1
+            done
+            echo 'Static server did not respond in time'; exit 1
+          else
+            echo 'playwright script not present — skipping wait for static server'
+          fi
+
+      - name: Run Playwright smoke script (guarded)
+        run: |
+          if [ -f scripts/playwright-local-test.js ]; then
+            echo 'Found playwright-local-test.js — running smoke script'
+            node scripts/playwright-local-test.js
+          else
+            echo 'scripts/playwright-local-test.js not found — skipping Playwright smoke script'
+          fi
+
+      - name: Debug show artifacts content (if present)
+        if: always()
+        run: |
+          if [ -f artifacts/jest-output.json ]; then
+            echo '--- artifacts/jest-output.json head ---'
+            head -n 200 artifacts/jest-output.json || true
+            echo '--- artifacts/jest-output.json full (truncated at 1000 lines) ---'
+            (set -o pipefail; cat artifacts/jest-output.json | sed -n '1,1000p') || true
+          else
+            echo 'artifacts/jest-output.json not present'
+          fi
+
+      - name: Debug list artifacts dir before upload
+        if: always()
+        run: |
+          echo '--- artifacts directory listing ---'
+          ls -la artifacts || echo 'artifacts dir not found or empty'
+          echo '--- artifacts file sizes ---'
+          if [ -d artifacts ]; then
+            du -ah artifacts || true
+            echo '--- artifacts detailed list with file sizes and contents (first 100 files) ---'
+            find artifacts -type f -maxdepth 3 -print0 | xargs -0 ls -la | head -n 100 || true
+          fi
+
+      - name: Upload smoke artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-artifacts
+          path: artifacts
+
+      - name: Stop static server
+        if: always()
+        run: |
+          if [ -f .httpserver.pid ]; then
+            kill "$(cat .httpserver.pid)" || true
+            rm -f .httpserver.pid
+          fi
+

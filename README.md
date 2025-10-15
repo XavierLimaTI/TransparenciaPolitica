@@ -8,6 +8,8 @@
 
 Plataforma web inovadora dedicada à transparência política brasileira, permitindo que eleitores consultem informações detalhadas sobre candidatos, seus votos em matérias importantes da Câmara e Senado, e tomem decisões conscientes para as eleições de 2026.
 
+<!-- CI trigger: update README to re-run CI smoke -->
+
 ## Status do Projeto (resumo rápido)
 
 - Branch atual: `infra/add-s3-lifecycle-and-secrets-docs`
@@ -235,6 +237,13 @@ Se preferir uma alternativa sem dependências, há um proxy leve em `server/prox
 ```powershell
 node server/proxy-light.js
 ```
+
+Nota sobre preview estático
+--------------------------
+
+Ao executar `npm run build` o processo agora gera um arquivo adicional `dist/datasets-index` (sem extensão). O frontend tenta primeiro `/datasets-index` durante a inicialização — essa rota é normalmente fornecida pelo proxy de desenvolvimento. O arquivo `dist/datasets-index` existe para que previews estáticos (por exemplo com `npx http-server ./dist -p 8001`) também possam exibir o índice de datasets sem erro 404.
+
+Se você prefere comportamento dinâmico (ex.: fallback para S3 ou rota administrativa), use o proxy (`npm run start-proxy` ou `node server/proxy-light.js`).
 
 ## Dados de Demonstração
 
