@@ -71,8 +71,25 @@ function copy(src, dest) {
   fs.mkdirSync(outdir, { recursive: true });
 
   // Bundle JS
+  // Prefer src/index.js, but fall back to main.js for small PRs or branches
+  // that don't include a src/ directory. This avoids esbuild failing the
+  // whole job when only docs/workflows were changed.
+  let entry = path.join(__dirname, 'src', 'index.js');
+  if (!fs.existsSync(entry)) {
+    // fallback to root-level main.js (older layout)
+    const fallback = path.join(__dirname, 'main.js');
+    if (fs.existsSync(fallback)) {
+      console.log('build.js: src/index.js not found; using fallback main.js');
+      entry = fallback;
+    } else {
+      console.warn('build.js: neither src/index.js nor main.js found; attempting to build anyway and letting esbuild error if needed');
+      entry = path.join(__dirname, 'src', 'index.js');
+    }
+  } else {
+    console.log('build.js: using entry', entry);
+  }
   await esbuild.build({
-    entryPoints: ['src/index.js'],
+    entryPoints: [entry],
     bundle: true,
     minify: true,
     sourcemap: false,

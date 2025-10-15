@@ -12,6 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Ensure artifacts directory exists early
+        run: mkdir -p artifacts
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -39,6 +42,10 @@ jobs:
 
       - name: Run unit tests (Jest)
         run: node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --runInBand --json --outputFile=artifacts/jest-output.json
+
+      - name: Make compact Jest summary
+        if: always()
+        run: node scripts/jest-summary.js artifacts/jest-output.json artifacts/jest-summary.json || true
 
       - name: Write CI sanity file
         if: always()
