@@ -68,6 +68,25 @@ npm run test:playwright
 	- O workflow já inclui um step `npx playwright install --with-deps` antes de rodar `npm run test:playwright`.
 	- Se quiser rodar mais cenários, converta o runner para usar `@playwright/test` e adicione jobs paralelos.
 
+### Rodar smoke localmente (rápido)
+
+Use este fluxo para reproduzir o que o CI faz no job de smoke localmente:
+
+```powershell
+# construir o projeto (gera ./dist)
+npm run build
+
+# subir um servidor estático na porta 8001
+npx http-server ./dist -p 8001
+
+# (em outra janela) rodar o smoke-runner que captura screenshot, HTML e logs
+node scripts/playwright-local-test.js
+```
+
+Observações:
+- O script `scripts/playwright-local-test.js` faz um skip gracioso (exit 0) quando `./dist` não existe — útil em forks/PRs sem assets.
+- Se quiser instalar os browsers Playwright localmente (só precisa ser feito uma vez): `npx playwright install --with-deps`.
+
 
 ## Ativar CI / Codecov
 O projeto já contém um workflow GitHub Actions que roda `npm test` e envia `coverage/lcov.info` para Codecov.
