@@ -7,87 +7,223 @@
   <meta name="description" content="Demo interativa — consulte datasets públicos de transparência" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/demo-ui/assets/styles.css">
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js" defer></script>
-  <!-- tailwind via CDN (safe) -->
-  <script src="https://cdn.tailwindcss.com" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'verde-brasil': '#228B22',
+            'amarelo-brasil': '#FFD700',
+            'azul-brasil': '#1E3A8A',
+          },
+          fontFamily: {
+            'display': ['Playfair Display', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
   <script>if (typeof document !== 'undefined') document.documentElement.classList.add('demo-ui');</script>
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans">
-  <header class="bg-white shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-      <h1 class="text-xl font-semibold">Política Transparente — Demo</h1>
-      <nav class="text-sm text-slate-600">
-        <a href="/index.html" class="mr-4 underline">App original</a>
-        <a href="#datasets">Datasets</a>
-      </nav>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 text-slate-900 font-sans min-h-screen">
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 bg-gradient-to-br from-azul-brasil to-verde-brasil rounded-lg flex items-center justify-center">
+            <i class="fas fa-database text-white text-lg"></i>
+          </div>
+          <div>
+            <h1 class="text-xl font-display font-bold bg-gradient-to-r from-azul-brasil to-verde-brasil bg-clip-text text-transparent">
+              Política Transparente
+            </h1>
+            <p class="text-xs text-slate-500">Explorador de Datasets</p>
+          </div>
+        </div>
+        <nav class="hidden md:flex items-center space-x-6 text-sm">
+          <a href="/index.html" class="text-slate-600 hover:text-azul-brasil transition-colors flex items-center gap-2">
+            <i class="fas fa-home"></i>
+            <span>App Principal</span>
+          </a>
+          <a href="#datasets" class="text-slate-600 hover:text-azul-brasil transition-colors flex items-center gap-2">
+            <i class="fas fa-folder-open"></i>
+            <span>Datasets</span>
+          </a>
+        </nav>
+        <button class="md:hidden text-slate-600">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto p-6">
-    <section class="mb-6">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h2 class="text-2xl font-bold">Explorar datasets publicados</h2>
-          <p class="text-sm text-slate-600">Carregue um dataset (ex.: despesas) e visualize uma amostra. Esta UI é independente e segura (scripts externos).</p>
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Hero Section -->
+    <section class="mb-8 bg-white rounded-2xl shadow-lg p-6 md:p-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div class="flex-1">
+          <h2 class="text-3xl font-display font-bold text-slate-800 mb-2">
+            Explorar Datasets Publicados
+          </h2>
+          <p class="text-slate-600 leading-relaxed">
+            Carregue um dataset (ex.: despesas, candidatos) e visualize uma amostra interativa. 
+            Esta interface é independente, moderna e totalmente segura.
+          </p>
         </div>
-        <div class="flex gap-2 items-center">
-          <input id="searchInput" class="px-3 py-2 border rounded-md w-64" placeholder="Buscar arquivo, nome ou tipo" />
-          <button id="refreshBtn" class="px-3 py-2 bg-blue-600 text-white rounded-md">Atualizar</button>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="relative">
+            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+            <input 
+              id="searchInput" 
+              class="w-full sm:w-64 pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-azul-brasil focus:border-transparent transition-all" 
+              placeholder="Buscar arquivos..." 
+            />
+          </div>
+          <button 
+            id="refreshBtn" 
+            class="px-6 py-3 bg-gradient-to-r from-azul-brasil to-verde-brasil text-white rounded-lg hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium"
+          >
+            <i class="fas fa-sync-alt"></i>
+            <span>Atualizar</span>
+          </button>
         </div>
       </div>
     </section>
 
-    <section id="datasets" class="grid md:grid-cols-3 gap-6">
-      <aside class="col-span-1 bg-white rounded-lg p-4 shadow-sm">
-        <h3 class="font-medium mb-3">Índice de arquivos</h3>
-        <div id="datasetsList" class="space-y-2 text-sm text-slate-700">Carregando manifest...</div>
+    <!-- Datasets Section -->
+    <section id="datasets" class="grid md:grid-cols-4 gap-6">
+      <!-- Sidebar -->
+      <aside class="md:col-span-1 bg-white rounded-2xl shadow-lg p-6 h-fit sticky top-24">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-display font-bold text-lg text-slate-800">Arquivos</h3>
+          <div class="w-8 h-8 bg-azul-brasil/10 rounded-lg flex items-center justify-center">
+            <i class="fas fa-folder text-azul-brasil text-sm"></i>
+          </div>
+        </div>
+        <div id="datasetsList" class="space-y-1 text-sm">
+          <div class="flex items-center justify-center py-8">
+            <span class="spinner"></span>
+          </div>
+        </div>
       </aside>
 
-      <div class="col-span-2 space-y-6">
-        <div id="datasetMeta" class="bg-white rounded-lg p-4 shadow-sm hidden">
-          <div class="flex items-start justify-between">
-            <div>
-              <h3 id="datasetTitle" class="font-semibold text-lg">Título</h3>
-              <div id="datasetInfo" class="text-sm text-slate-600">Meta</div>
+      <!-- Main Content Area -->
+      <div class="md:col-span-3 space-y-6">
+        <!-- Dataset Meta Info -->
+        <div id="datasetMeta" class="bg-white rounded-2xl shadow-lg p-6 hidden fade-in">
+          <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-file-alt text-white"></i>
+                </div>
+                <h3 id="datasetTitle" class="font-display font-bold text-xl text-slate-800">Título</h3>
+              </div>
+              <div id="datasetInfo" class="text-sm text-slate-600 ml-13">Meta informações</div>
             </div>
-            <div class="flex gap-2">
-              <button id="downloadBtn" class="px-3 py-2 bg-emerald-600 text-white rounded-md text-sm">Baixar JSON</button>
-              <button id="openRawBtn" class="px-3 py-2 border rounded-md text-sm">Abrir raw</button>
+            <div class="flex gap-3">
+              <button 
+                id="downloadBtn" 
+                class="px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg hover:shadow-md transition-all text-sm font-medium flex items-center gap-2"
+              >
+                <i class="fas fa-download"></i>
+                <span>Baixar</span>
+              </button>
+              <button 
+                id="openRawBtn" 
+                class="px-4 py-2.5 border-2 border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-all text-sm font-medium flex items-center gap-2"
+              >
+                <i class="fas fa-external-link-alt"></i>
+                <span>Raw</span>
+              </button>
             </div>
           </div>
         </div>
 
-        <div id="previewPanel" class="bg-white rounded-lg p-4 shadow-sm">
-          <div id="previewControls" class="flex items-center justify-between mb-3">
-            <div class="text-sm text-slate-600">Preview / Amostra</div>
-            <div class="flex items-center gap-2">
-              <label class="text-sm text-slate-600">Linhas</label>
-              <select id="sampleSize" class="border rounded px-2 py-1 text-sm">
+        <!-- Preview Panel -->
+        <div id="previewPanel" class="bg-white rounded-2xl shadow-lg p-6">
+          <div id="previewControls" class="flex items-center justify-between mb-6 pb-4 border-b border-slate-200">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                <i class="fas fa-table text-blue-600 text-sm"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-slate-800">Preview dos Dados</h4>
+                <p class="text-xs text-slate-500">Visualização em tabela</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <label class="text-sm text-slate-600 font-medium">Linhas:</label>
+              <select id="sampleSize" class="border-2 border-slate-300 rounded-lg px-3 py-2 text-sm font-medium focus:ring-2 focus:ring-azul-brasil focus:border-transparent transition-all">
                 <option value="10">10</option>
                 <option value="25" selected>25</option>
                 <option value="50">50</option>
+                <option value="100">100</option>
                 <option value="200">200</option>
               </select>
             </div>
           </div>
 
-          <div id="previewTableWrapper" class="overflow-auto text-sm"></div>
+          <div id="previewTableWrapper" class="overflow-auto rounded-lg border border-slate-200 max-h-[500px]">
+            <div class="flex items-center justify-center py-16">
+              <div class="text-center">
+                <i class="fas fa-table text-4xl text-slate-300 mb-3"></i>
+                <p class="text-slate-500">Selecione um dataset para visualizar</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div id="chartsPanel" class="bg-white rounded-lg p-4 shadow-sm hidden">
-          <h4 class="font-medium mb-3">Visualizações</h4>
-          <div id="chartArea" style="height:320px;"></div>
+        <!-- Charts Panel -->
+        <div id="chartsPanel" class="bg-white rounded-2xl shadow-lg p-6 hidden fade-in">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+              <i class="fas fa-chart-pie text-purple-600 text-sm"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold text-slate-800">Visualizações</h4>
+              <p class="text-xs text-slate-500">Gráficos interativos</p>
+            </div>
+          </div>
+          <div id="chartArea" class="rounded-lg" style="height:400px;"></div>
         </div>
-
       </div>
     </section>
 
-    <div class="mt-8 text-sm text-slate-500">Dica: se não houver manifest, rode <code>npm run verify:data</code> ou publique `resources/data` em gh-pages.</div>
+    <!-- Info Banner -->
+    <div class="mt-8 bg-blue-50 border-l-4 border-azul-brasil rounded-lg p-4">
+      <div class="flex items-start gap-3">
+        <i class="fas fa-info-circle text-azul-brasil mt-0.5"></i>
+        <div class="text-sm text-slate-700">
+          <p class="font-medium mb-1">Dica:</p>
+          <p>Se não houver manifest disponível, execute <code class="bg-white px-2 py-0.5 rounded">npm run verify:data</code> 
+          ou publique <code class="bg-white px-2 py-0.5 rounded">resources/data</code> no GitHub Pages.</p>
+        </div>
+      </div>
+    </div>
   </main>
 
-  <footer class="mt-12 py-6 text-center text-sm text-slate-600">Demo UI — não altera o app principal</footer>
+  <!-- Footer -->
+  <footer class="mt-16 py-8 border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center">
+        <p class="text-sm text-slate-600 mb-2">
+          <i class="fas fa-shield-alt text-verde-brasil"></i>
+          Demo UI — Interface independente e segura
+        </p>
+        <p class="text-xs text-slate-500">
+          © 2024 Política Transparente Brasil. Todos os direitos reservados.
+        </p>
+      </div>
+    </div>
+  </footer>
 
   <script type="module" src="/demo-ui/assets/index.js"></script>
 </body>
