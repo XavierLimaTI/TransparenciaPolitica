@@ -34,6 +34,8 @@ jobs:
           mkdir -p gh-pages-temp
           # copy all files preserving structure under a data/ prefix
           cp -r "$PUBLISH_DIR" gh-pages-temp/data
+          # create a simple index.html at repository root that redirects to /data/
+          printf '%s\n' '<!doctype html>' '<meta charset="utf-8">' '<meta http-equiv="refresh" content="0; url=./data/">' '<title>TransparenciaPolitica - Dados publicados</title>' '<p>If you are not redirected, open <a href="./data/">/data/</a>.</p>' > gh-pages-temp/index.html
           ls -la gh-pages-temp
           echo "publish_path=gh-pages-temp" >> "$GITHUB_OUTPUT"
 
