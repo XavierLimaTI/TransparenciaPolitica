@@ -113,6 +113,29 @@ Verificação rápida:
 1. Abra https://<your-user>.github.io/<repo>/ em modo incógnito.
 2. Confirme que `index.html` carrega `./assets/index.js` (script externo) e que não há erros de CSP bloqueando a execução.
 3. Inspecione a resposta do `data/<arquivo>` e verifique `Content-Type` e outros cabeçalhos via DevTools → Network.
+
+Verificar programaticamente os dados publicados
+
+Você pode rodar um verificador simples que baixa `data/manifest.json` do site publicado e testa alguns arquivos amostrais para garantir que os dados estão acessíveis e com Content-Type correto.
+
+Usando npm (recomendado):
+
+```powershell
+npm run verify:data
+```
+
+Ou diretamente:
+
+```powershell
+node scripts/verify_data.js
+```
+
+O script mostrará uma amostra dos arquivos (status HTTP e content-type). Para apontar a uma instalação diferente do Pages, defina a variável de ambiente `PAGES_BASE`, por exemplo:
+
+```powershell
+$env:PAGES_BASE = 'https://meu-hosting.com' ; npm run verify:data
+```
+
 Se quiser que eu adicione um workflow agendado diário/weekly que execute o pipeline de ingest e publique automaticamente para o GitHub Pages, eu já criei um workflow de exemplo no repositório: `.github/workflows/scheduled-ingest-publish.yml`. Ele roda por schedule (diário/weekly/monthly) e também permite `workflow_dispatch` para disparo manual.
 
 Como reproduzir o ambiente de desenvolvimento e testes rápidos:
