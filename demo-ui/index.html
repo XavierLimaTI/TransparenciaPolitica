@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Política Transparente — Demo UI</title>
+  <meta name="description" content="Demo interativa — consulte datasets públicos de transparência" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/demo-ui/assets/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js" defer></script>
+  <!-- tailwind via CDN (safe) -->
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  <script>if (typeof document !== 'undefined') document.documentElement.classList.add('demo-ui');</script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans">
+  <header class="bg-white shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <h1 class="text-xl font-semibold">Política Transparente — Demo</h1>
+      <nav class="text-sm text-slate-600">
+        <a href="/index.html" class="mr-4 underline">App original</a>
+        <a href="#datasets">Datasets</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto p-6">
+    <section class="mb-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-bold">Explorar datasets publicados</h2>
+          <p class="text-sm text-slate-600">Carregue um dataset (ex.: despesas) e visualize uma amostra. Esta UI é independente e segura (scripts externos).</p>
+        </div>
+        <div class="flex gap-2 items-center">
+          <input id="searchInput" class="px-3 py-2 border rounded-md w-64" placeholder="Buscar arquivo, nome ou tipo" />
+          <button id="refreshBtn" class="px-3 py-2 bg-blue-600 text-white rounded-md">Atualizar</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="datasets" class="grid md:grid-cols-3 gap-6">
+      <aside class="col-span-1 bg-white rounded-lg p-4 shadow-sm">
+        <h3 class="font-medium mb-3">Índice de arquivos</h3>
+        <div id="datasetsList" class="space-y-2 text-sm text-slate-700">Carregando manifest...</div>
+      </aside>
+
+      <div class="col-span-2 space-y-6">
+        <div id="datasetMeta" class="bg-white rounded-lg p-4 shadow-sm hidden">
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 id="datasetTitle" class="font-semibold text-lg">Título</h3>
+              <div id="datasetInfo" class="text-sm text-slate-600">Meta</div>
+            </div>
+            <div class="flex gap-2">
+              <button id="downloadBtn" class="px-3 py-2 bg-emerald-600 text-white rounded-md text-sm">Baixar JSON</button>
+              <button id="openRawBtn" class="px-3 py-2 border rounded-md text-sm">Abrir raw</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="previewPanel" class="bg-white rounded-lg p-4 shadow-sm">
+          <div id="previewControls" class="flex items-center justify-between mb-3">
+            <div class="text-sm text-slate-600">Preview / Amostra</div>
+            <div class="flex items-center gap-2">
+              <label class="text-sm text-slate-600">Linhas</label>
+              <select id="sampleSize" class="border rounded px-2 py-1 text-sm">
+                <option value="10">10</option>
+                <option value="25" selected>25</option>
+                <option value="50">50</option>
+                <option value="200">200</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="previewTableWrapper" class="overflow-auto text-sm"></div>
+        </div>
+
+        <div id="chartsPanel" class="bg-white rounded-lg p-4 shadow-sm hidden">
+          <h4 class="font-medium mb-3">Visualizações</h4>
+          <div id="chartArea" style="height:320px;"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="mt-8 text-sm text-slate-500">Dica: se não houver manifest, rode <code>npm run verify:data</code> ou publique `resources/data` em gh-pages.</div>
+  </main>
+
+  <footer class="mt-12 py-6 text-center text-sm text-slate-600">Demo UI — não altera o app principal</footer>
+
+  <script type="module" src="/demo-ui/assets/index.js"></script>
+</body>
+</html>

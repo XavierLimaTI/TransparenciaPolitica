@@ -1,0 +1,10 @@
+:root{--bg:#0f172a;--muted:#94a3b8}
+body.demo-ui{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+/* small utilities */
+#datasetsList a{display:block;padding:8px;border-radius:6px;text-decoration:none}
+#datasetsList a:hover{background:#f1f5f9}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:8px;border-bottom:1px solid #e6eef6;text-align:left}
+.preview-head{display:flex;justify-content:space-between;align-items:center}
+.progress{height:6px;background:#e6eef6;border-radius:4px;overflow:hidden}
+.progress > i{display:block;height:100%;background:#34d399;width:0%}
