@@ -1,0 +1,136 @@
+[
+  {
+    "type": "request",
+    "method": "GET",
+    "url": "http://127.0.0.1:8001/"
+  },
+  {
+    "type": "response",
+    "status": 200,
+    "url": "http://127.0.0.1:8001/"
+  },
+  {
+    "type": "request",
+    "method": "GET",
+    "url": "https://cdn.tailwindcss.com/"
+  },
+  {
+    "type": "request",
+    "method": "GET",
+    "url": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap"
+  },
+  {
+    "type": "request",
+    "method": "GET",
+    "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  },
+  {
+    "type": "request",
+    "method": "GET",
+    "url": "https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"
+  },
+  {
+    "type": "request",
+    "method": "GET",
+    "url": "https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+  },
+  {
+    "type": "request",
+    "method": "GET",
+    "url": "http://127.0.0.1:8001/app/app.js"
+  },
+  {
+    "type": "response",
+    "status": 404,
+    "url": "http://127.0.0.1:8001/app/app.js"
+  },
+  {
+    "type": "error",
+    "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  },
+  {
+    "type": "requestfailed",
+    "method": "GET",
+    "url": "http://127.0.0.1:8001/app/app.js",
+    "error": "net::ERR_ABORTED"
+  },
+  {
+    "type": "response",
+    "status": 200,
+    "url": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap"
+  },
+  {
+    "type": "response",
+    "status": 302,
+    "url": "https://cdn.tailwindcss.com/"
+  },
+  {
+    "type": "request",
+    "method": "GET",
+    "url": "https://cdn.tailwindcss.com/3.4.17"
+  },
+  {
+    "type": "response",
+    "status": 200,
+    "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  },
+  {
+    "type": "response",
+    "status": 200,
+    "url": "https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+  },
+  {
+    "type": "response",
+    "status": 200,
+    "url": "https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"
+  },
+  {
+    "type": "response",
+    "status": 200,
+    "url": "https://cdn.tailwindcss.com/3.4.17"
+  },
+  {
+    "type": "warning",
+    "text": "cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation"
+  },
+  {
+    "type": "request",
+    "method": "GET",
+    "url": "http://127.0.0.1:8001/resources/hero-bg.svg"
+  },
+  {
+    "type": "request",
+    "method": "GET",
+    "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
+  },
+  {
+    "type": "request",
+    "method": "GET",
+    "url": "https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2"
+  },
+  {
+    "type": "request",
+    "method": "GET",
+    "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2"
+  },
+  {
+    "type": "response",
+    "status": 200,
+    "url": "http://127.0.0.1:8001/resources/hero-bg.svg"
+  },
+  {
+    "type": "response",
+    "status": 200,
+    "url": "https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2"
+  },
+  {
+    "type": "response",
+    "status": 200,
+    "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
+  },
+  {
+    "type": "response",
+    "status": 200,
+    "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2"
+  }
+]

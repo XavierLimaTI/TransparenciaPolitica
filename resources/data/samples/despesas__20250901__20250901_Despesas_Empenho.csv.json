@@ -1,0 +1,4 @@
+[
+  { "dataDocumento": "2025-09-01", "favorecido": "Fornecedor Exemplo 1", "descricao": "Empenho 1", "valor": 100.0, "parlamentar": "Fulano" },
+  { "dataDocumento": "2025-09-02", "favorecido": "Fornecedor Exemplo 2", "descricao": "Empenho 2", "valor": 200.5, "parlamentar": "Ciclano" }
+]

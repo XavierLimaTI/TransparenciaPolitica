@@ -20,6 +20,8 @@ Você pode usar o `http-server` incluído nos devDependencies:
 ```powershell
 npx http-server -c-1 -p 8000
 Start-Process http://localhost:8000
+npx http-server -c-1 -p 8000
+Start-Process http://127.0.0.1:8000
 ```
 
 Também há um server proxy para desenvolvimento:
@@ -29,6 +31,31 @@ npm run start-proxy
 # ou o proxy leve
 node server/proxy-light.js
 ```
+### Carregar demo de despesas (fluxo rápido)
+
+Um dataset de demonstração está disponível em `resources/data/despesas.json` para desenvolvimento e demonstrações locais. Para carregar o demo na interface:
+
+1. Inicie o servidor estático (ver comando acima).
+2. Abra a página no navegador: http://127.0.0.1:8000/
+3. No painel "Datasets" (ou na tela principal), clique no botão "Carregar demo (despesas)" para injetar os dados de `resources/data/despesas.json`.
+
+Ao carregar, a aplicação dispara um evento `localDespesasUsed` e tenta chamar o helper `window.governmentAPI.useLocalDespesas(data)` quando disponível — isso integra os dados ao fluxo existente da UI.
+
+### Teste E2E rápido com Playwright
+
+Há um teste Playwright de fumaça que valida o fluxo do botão de demo: `scripts/playwright/load-demo.spec.js`.
+
+Para executá-lo localmente:
+
+```powershell
+npx playwright test scripts/playwright/load-demo.spec.js
+```
+
+O teste abre a aplicação em um navegador headless, clica no botão e espera o diálogo de confirmação.
+
+### Observações
+
+- Os arquivos em `resources/data/ingested/` presentes neste branch são placeholders usados para evitar 404s durante demonstrações locais. Você pode removê-los ou regenerá-los a partir do pipeline de ingestão conforme necessário.
 
 ## Testes
 - Executar toda a suíte (com coverage):

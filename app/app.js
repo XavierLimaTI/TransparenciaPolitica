@@ -21,7 +21,16 @@
       const ul = create('ul', 'list-disc ml-6 mt-2');
       (ds.files || []).forEach(f => {
         const li = create('li');
-        const a = create('a'); a.href = '#'; a.textContent = f; a.dataset.path = '/resources/data/' + f.replace(/^\/*/, '');
+          const a = create('a'); a.href = '#'; a.textContent = f;
+          // normalize path so we don't end up with /resources/data/data/...
+          function normalizeResourcePath(p){
+            if (!p) return p;
+            if (p.startsWith('/resources')) return p;
+            if (p.startsWith('resources')) return '/' + p;
+            if (p.startsWith('data/')) return '/resources/' + p; // data/ingested/... -> /resources/data/ingested/...
+            return '/resources/data/' + p.replace(/^\/*/, '');
+          }
+          a.dataset.path = normalizeResourcePath(f);
         a.addEventListener('click', async (e) => { e.preventDefault(); loadAndShowJson(a.dataset.path); });
         li.appendChild(a); ul.appendChild(li);
       });

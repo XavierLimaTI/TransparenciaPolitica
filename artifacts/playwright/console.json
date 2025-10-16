@@ -1,0 +1,13 @@
+[
+  {
+    "type": "request",
+    "method": "GET",
+    "url": "http://127.0.0.1:8001/"
+  },
+  {
+    "type": "requestfailed",
+    "method": "GET",
+    "url": "http://127.0.0.1:8001/",
+    "error": "net::ERR_CONNECTION_REFUSED"
+  }
+]

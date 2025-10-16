@@ -1,0 +1,9 @@
+jest-run: 2025-10-15T21:30:23Z
+jest-output-exists: yes
+artifact-listing:
+total 300
+drwxr-xr-x  2 runner runner   4096 Oct 15 21:30 .
+drwxr-xr-x 19 runner runner   4096 Oct 15 21:30 ..
+-rw-r--r--  1 runner runner     73 Oct 15 21:30 ci-sanity.txt
+-rw-r--r--  1 runner runner 288953 Oct 15 21:30 jest-output.json
+-rw-r--r--  1 runner runner    152 Oct 15 21:30 jest-summary.json

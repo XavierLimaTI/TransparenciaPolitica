@@ -1,0 +1,23 @@
+[
+  {
+    "dataDocumento": "2025-09-01",
+    "favorecido": "Empresa Exemplo LTDA",
+    "descricao": "Compra de material de escritório",
+    "valor": 1234.56,
+    "parlamentar": "Fulano de Tal"
+  },
+  {
+    "dataDocumento": "2025-09-02",
+    "favorecido": "Serviços ABC",
+    "descricao": "Prestação de serviços de limpeza",
+    "valor": 789.1,
+    "parlamentar": "Ciclano da Silva"
+  },
+  {
+    "dataDocumento": "2025-09-03",
+    "favorecido": "Transporte XYZ",
+    "descricao": "Locação de veículos",
+    "valor": 450.0,
+    "parlamentar": "Beltrana Pereira"
+  }
+]

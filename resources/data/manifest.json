@@ -1,6 +1,11 @@
 {
   "files": [
     {
+      "csv": "despesas.json",
+      "json": "/resources/data/despesas.json",
+      "count": 3
+    },
+    {
       "csv": "20250101_Despesas.zip_extracted/20250101_Despesas_Empenho.csv",
       "json": "/resources/data/ingested/20250101_Despesas.zip_extracted__20250101_Despesas_Empenho.csv.json",
       "count": 36
