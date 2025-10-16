@@ -9,6 +9,16 @@ jobs:
   download-prev-month:
     name: Download previous month dataset
     runs-on: ubuntu-latest
+    env:
+      ENABLE_S3_UPLOAD: ${{ secrets.ENABLE_S3_UPLOAD }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+      RESYNC_ENDPOINT: ${{ secrets.RESYNC_ENDPOINT }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      METRICS_URL: ${{ secrets.METRICS_URL }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -119,7 +129,7 @@ jobs:
           path: artifacts/metadata.json
 
       - name: Configure AWS credentials
-        if: ${{ secrets.ENABLE_S3_UPLOAD == 'true' && secrets.AWS_ACCESS_KEY_ID != '' && secrets.AWS_SECRET_ACCESS_KEY != '' && secrets.S3_BUCKET != '' }}
+        if: ${{ env.ENABLE_S3_UPLOAD == 'true' && env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' && env.S3_BUCKET != '' }}
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -127,16 +137,16 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Install AWS CLI
-        if: ${{ secrets.ENABLE_S3_UPLOAD == 'true' && secrets.AWS_ACCESS_KEY_ID != '' && secrets.AWS_SECRET_ACCESS_KEY != '' && secrets.S3_BUCKET != '' }}
+        if: ${{ env.ENABLE_S3_UPLOAD == 'true' && env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' && env.S3_BUCKET != '' }}
         run: |
           python3 -m pip install --upgrade pip
           python3 -m pip install awscli
 
       - name: Upload to S3 (opt-in)
-        if: ${{ secrets.ENABLE_S3_UPLOAD == 'true' && secrets.AWS_ACCESS_KEY_ID != '' && secrets.AWS_SECRET_ACCESS_KEY != '' && secrets.S3_BUCKET != '' }}
+        if: ${{ env.ENABLE_S3_UPLOAD == 'true' && env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' && env.S3_BUCKET != '' }}
         env:
           START: ${{ steps.compute.outputs.start }}
-          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          S3_BUCKET: ${{ env.S3_BUCKET }}
         run: |
           echo "Uploading resources/data/despesas to s3://$S3_BUCKET/datasets/$START/"
           ARCHIVE_NAME="despesas_${START}.tar.gz"
@@ -176,17 +186,17 @@ jobs:
           fi
 
       - name: Update S3 index (index.json) (opt-in)
-        if: ${{ secrets.ENABLE_S3_UPLOAD == 'true' && secrets.AWS_ACCESS_KEY_ID != '' && secrets.AWS_SECRET_ACCESS_KEY != '' && secrets.S3_BUCKET != '' }}
+        if: ${{ env.ENABLE_S3_UPLOAD == 'true' && env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' && env.S3_BUCKET != '' }}
         env:
           START: ${{ steps.compute.outputs.start }}
-          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          S3_BUCKET: ${{ env.S3_BUCKET }}
         run: |
           python3 scripts/update_s3_index.py
 
       - name: Notify metrics exporter (success)
         if: ${{ success() && env.METRICS_URL != '' }}
         env:
-          METRICS_URL: ${{ secrets.METRICS_URL }}
+          METRICS_URL: ${{ env.METRICS_URL }}
           START: ${{ steps.compute.outputs.start }}
         run: |
           # increment monthly_success and downloads
@@ -195,16 +205,16 @@ jobs:
         shell: bash
 
       - name: Trigger webhook resync (optional)
-        if: ${{ success() && secrets.RESYNC_ENDPOINT != '' }}
+        if: ${{ success() && env.RESYNC_ENDPOINT != '' }}
         env:
           START: ${{ steps.compute.outputs.start }}
-          RESYNC_ENDPOINT: ${{ secrets.RESYNC_ENDPOINT }}
+          RESYNC_ENDPOINT: ${{ env.RESYNC_ENDPOINT }}
         run: |
           curl -s -X POST -H "Content-Type: application/json" -d "{\"start\": \"$START\"}" $RESYNC_ENDPOINT || true
         shell: bash
 
       - name: Upload downloaded artifact (GitHub Actions fallback)
-        if: ${{ secrets.AWS_ACCESS_KEY_ID == '' || secrets.AWS_SECRET_ACCESS_KEY == '' || secrets.S3_BUCKET == '' }}
+        if: ${{ env.AWS_ACCESS_KEY_ID == '' || env.AWS_SECRET_ACCESS_KEY == '' || env.S3_BUCKET == '' }}
         uses: actions/upload-artifact@v4
         with:
           name: portal-dataset-prev-month
@@ -213,9 +223,9 @@ jobs:
       # (artifact upload handled above conditionally: S3 upload when secrets present, otherwise upload-artifact)
 
       - name: Notify on failure (Slack)
-        if: ${{ failure() && secrets.SLACK_WEBHOOK_URL != '' }}
+        if: ${{ failure() && env.SLACK_WEBHOOK_URL != '' }}
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ env.SLACK_WEBHOOK_URL }}
           START: ${{ steps.compute.outputs.start }}
         run: |
           TEXT="Monthly download for $START failed on $GITHUB_REPOSITORY (run: $GITHUB_RUN_ID). Check logs: $GITHUB_RUN_URL"
@@ -224,9 +234,9 @@ jobs:
         shell: bash
 
       - name: Create GitHub issue on failure
-        if: ${{ failure() && secrets.SLACK_WEBHOOK_URL == '' && secrets.GITHUB_TOKEN != '' }}
+        if: ${{ failure() && env.SLACK_WEBHOOK_URL == '' && env.GITHUB_TOKEN != '' }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
           START: ${{ steps.compute.outputs.start }}
         run: |
           repo="$GITHUB_REPOSITORY"
@@ -240,7 +250,7 @@ jobs:
       - name: Notify metrics exporter (failure)
         if: ${{ failure() && env.METRICS_URL != '' }}
         env:
-          METRICS_URL: ${{ secrets.METRICS_URL }}
+          METRICS_URL: ${{ env.METRICS_URL }}
           START: ${{ steps.compute.outputs.start }}
         run: |
           curl -s -X POST -H "Content-Type: application/json" -d "{\"metric\":\"monthly_failed\",\"value\":1}" $METRICS_URL/increment || true
