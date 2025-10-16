@@ -15,7 +15,7 @@ try {
   db = require('./db');
   if (db && typeof db.init === 'function') db.init();
 } catch (e) {
-  console.warn('Could not initialize DB module:', e && e.message);
+  try { const log = require('../lib/log'); log && log.debug && log.debug('Could not initialize DB module:', e && e.message); } catch(e) { console.warn('Could not initialize DB module:', e && e.message); }
   db = null;
 }
 
@@ -31,11 +31,11 @@ try {
           const existing = db.getPortalKey && db.getPortalKey();
           if (!existing) {
             db.setPortalKey && db.setPortalKey(parsed.key);
-            console.log('Migrated portal_key.json into DB store');
+            try { const log = require('../lib/log'); log && log.info && log.info('Migrated portal_key.json into DB store'); } catch(e) { console.log('Migrated portal_key.json into DB store'); }
           }
         }
       } catch (e) {
-        console.warn('Failed to migrate portal_key.json:', e && e.message);
+        try { const log = require('../lib/log'); log && log.debug && log.debug('Failed to migrate portal_key.json:', e && e.message); } catch(e) { console.warn('Failed to migrate portal_key.json:', e && e.message); }
       }
     }
   }
@@ -60,9 +60,16 @@ const ADMIN_TOKEN = process.env.PROXY_ADMIN_TOKEN || null;
 // Helper to persist portal key
 function persistPortalKey(key) {
   try {
-    if (db && typeof db.setPortalKey === 'function') db.setPortalKey(key);
-    else fs.writeFileSync(KEY_FILE, JSON.stringify({ key }, null, 2), { encoding: 'utf8' });
-  } catch (e) { console.warn('Could not persist portal key:', e && e.message); }
+    if (db && typeof db.setPortalKey === 'function') {
+      db.setPortalKey(key);
+    } else {
+      // fallback: write to file
+      try { fs.writeFileSync(KEY_FILE, JSON.stringify({ key }), 'utf8'); } catch (e) { /* swallow */ }
+    }
+    try { const log = require('../lib/log'); log && log.debug && log.debug('Persisted portal key'); } catch (e) { /* ignore */ }
+  } catch (e) {
+    try { const log = require('../lib/log'); log && log.error && log.error('Could not persist portal key:', e && e.message); } catch (e2) { console.warn('Could not persist portal key:', e && e.message); }
+  }
 }
 
 app.post('/set-key', (req, res) => {
@@ -73,7 +80,8 @@ app.post('/set-key', (req, res) => {
   const { key } = req.body || {};
   if (!key) return res.status(400).json({ error: 'missing_key' });
   portalKey = key;
-  persistPortalKey(portalKey);
+  try { persistPortalKey(key); } catch (e) { /* ignore */ }
+  try { const log = require('../lib/log'); log && log.info && log.info('Portal key set'); } catch (e) { /* ignore */ }
   return res.json({ ok: true });
 });
 
@@ -114,9 +122,9 @@ app.get('/despesas', async (req, res) => {
     const found = files.find(fn => fn.toLowerCase().includes('despesas'));
     if (!found) return res.status(portalKey ? 502 : 401).json({ error: portalKey ? 'upstream_failed' : 'API_KEY_MISSING', message: 'No local data available' });
     const jsonPath = path.join(ingestedDir, found);
-    const content = JSON.parse(fs.readFileSync(jsonPath, 'utf8') || '[]');
+        try { const log = require('../lib/log'); log && log.warn && log.warn('Upstream despesas failed with status', r.status); } catch(e) { console.warn('Upstream despesas failed with status', r.status); }
     let results = Array.isArray(content) ? content : (content.rows || []);
-    // filters
+        try { const log = require('../lib/log'); log && log.warn && log.warn('Upstream despesas fetch error', err && err.message); } catch(e) { console.warn('Upstream despesas fetch error', err && err.message); }
     if (req.query.cpf) {
       const cpfNorm = String(req.query.cpf).replace(/\D/g, '');
       results = results.filter(d => (d.cnpjCpf || '').toString().replace(/\D/g, '').includes(cpfNorm));
@@ -263,4 +271,9 @@ app.get('/health', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Portal proxy server listening on http://localhost:${PORT}`));
+try {
+  const log = require('../lib/log');
+  app.listen(PORT, () => { try { log && log.info && log.info(`Portal proxy server listening on http://localhost:${PORT}`); } catch (e) { /* ignore */ } });
+} catch (e) {
+  app.listen(PORT, () => { console.log(`Portal proxy server listening on http://localhost:${PORT}`); });
+}
