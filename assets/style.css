@@ -1,0 +1,6 @@
+body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;margin:24px;color:#111}
+header h1{margin:0 0 12px 0;font-size:20px}
+main p{color:#333}
+#datasets{margin-top:12px;padding-left:20px}
+#datasets li{margin:6px 0}
+footer{margin-top:24px;color:#666;font-size:13px}
