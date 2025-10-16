@@ -63,6 +63,18 @@ Para evitar custos com infraestrutura externa você pode usar o GitHub Pages par
 
   - Para que a publicação automática para `gh-pages` funcione o token usado pelo workflow precisa de permissão de escrita (Settings → Actions → General → Workflow permissions → "Read and write permissions"). O workflow já detecta e avisa caso não tenha permissão.
 
+Nota sobre acesso alternativo (raw):
+
+- Se o GitHub Pages não estiver habilitado para este repositório, os arquivos ainda podem ser acessados diretamente a partir do branch `gh-pages` usando a URL raw do GitHub:
+
+  https://raw.githubusercontent.com/<OWNER>/<REPO>/gh-pages/data/<ARQUIVO>
+
+  Exemplo para este repositório (arquivo `despesas.csv.json`):
+
+  https://raw.githubusercontent.com/XavierLimaTI/TransparenciaPolitica/gh-pages/data/despesas.csv.json
+
+  Observação: usar `raw.githubusercontent.com` é uma forma simples e imediata de consumir os JSONs publicados quando o Pages estiver desativado ou você preferir referências "diretas" aos arquivos.
+
 - Como reexecutar localmente (PowerShell):
 
 ```powershell

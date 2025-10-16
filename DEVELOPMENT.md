@@ -41,6 +41,20 @@ Um dataset de demonstração está disponível em `resources/data/despesas.json`
 
 Ao carregar, a aplicação dispara um evento `localDespesasUsed` e tenta chamar o helper `window.governmentAPI.useLocalDespesas(data)` quando disponível — isso integra os dados ao fluxo existente da UI.
 
+Acesso aos dados publicados (raw & Pages):
+
+- Se você publicou com o workflow `publish-gh-pages.yml`, os arquivos ficam no branch `gh-pages` sob `data/` e, quando o Pages estiver habilitado, estarão disponíveis em:
+
+	https://<OWNER>.github.io/<REPO>/data/
+
+- Como alternativa imediata (quando Pages estiver desativado), é possível consumir os arquivos diretamente via raw URL:
+
+	https://raw.githubusercontent.com/<OWNER>/<REPO>/gh-pages/data/<ARQUIVO>
+
+	Exemplo:
+
+	https://raw.githubusercontent.com/XavierLimaTI/TransparenciaPolitica/gh-pages/data/despesas.csv.json
+
 ### Teste E2E rápido com Playwright
 
 Há um teste Playwright de fumaça que valida o fluxo do botão de demo: `scripts/playwright/load-demo.spec.js`.
