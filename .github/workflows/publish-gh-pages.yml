@@ -34,8 +34,15 @@ jobs:
           mkdir -p gh-pages-temp
           # copy all files preserving structure under a data/ prefix
           cp -r "$PUBLISH_DIR" gh-pages-temp/data
-          # create a simple index.html at repository root that redirects to /data/
-          printf '%s\n' '<!doctype html>' '<meta charset="utf-8">' '<meta http-equiv="refresh" content="0; url=./data/">' '<title>TransparenciaPolitica - Dados publicados</title>' '<p>If you are not redirected, open <a href="./data/">/data/</a>.</p>' > gh-pages-temp/index.html
+          # create a more complete index.html (lang, title, viewport) and external assets
+          mkdir -p gh-pages-temp/assets
+          printf '%s\n' '<!doctype html>' '<html lang="pt-BR">' '<head>' '<meta charset="utf-8">' '<meta name="viewport" content="width=device-width,initial-scale=1">' '<title>Transparência Política — Dados publicados</title>' '<link rel="stylesheet" href="./assets/style.css">' '</head>' '<body>' '<header><h1>Transparência Política — Dados publicadas</h1></header>' '<main>' '<p>Esta página lista os datasets publicados pelo pipeline de ingestão. Clique em um arquivo para abri-lo.</p>' '<div id="manifest-loading">Carregando manifest...</div>' '<ul id="datasets"></ul>' '</main>' '<footer><p>Dados estáticos publicados via GitHub Pages.</p></footer>' '<script src="./assets/index.js"></script>' '</body>' '</html>' > gh-pages-temp/index.html
+
+          # create a small JS file that loads manifest.json (or index.json) and renders links
+          printf '%s\n' "(function(){" "  function elt(tag, text){ const e=document.createElement(tag); if(text) e.textContent=text; return e }" "  const out=document.getElementById('datasets');" "  const info=document.getElementById('manifest-loading');" "  function listFiles(manifest){" "    info.style.display='none';" "    const files=manifest.files || (manifest.rows? [{name:manifest.source, count:manifest.count}]:[]);" "    if(Array.isArray(files) && files.length){" "      files.forEach(f => { let li=document.createElement('li'); let name=(f.name||f).replace(/^\/+/, ''); let a=document.createElement('a'); a.href='./data/'+name; a.textContent = name + (f.count? (' — '+f.count+' rows') : ''); a.target='_blank'; li.appendChild(a); out.appendChild(li); });" "    } else { out.appendChild(elt('li','Nenhum dataset encontrado.')) }" "  }" "  fetch('./data/manifest.json').then(r=>r.json()).then(listFiles).catch(_=>fetch('./data/index.json').then(r=>r.json()).then(listFiles).catch(e=>{ info.textContent='Não foi possível carregar manifest/index: '+(e&&e.message||e); }))" "})();" > gh-pages-temp/assets/index.js
+
+          # create a minimal stylesheet
+          printf '%s\n' 'body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;margin:24px;color:#111}' 'header h1{margin:0 0 12px 0;font-size:20px}' 'main p{color:#333}' '#datasets{margin-top:12px;padding-left:20px}' '#datasets li{margin:6px 0}' 'footer{margin-top:24px;color:#666;font-size:13px}' > gh-pages-temp/assets/style.css
           ls -la gh-pages-temp
           echo "publish_path=gh-pages-temp" >> "$GITHUB_OUTPUT"
 
