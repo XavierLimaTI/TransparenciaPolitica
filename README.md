@@ -248,10 +248,35 @@ Se você prefere comportamento dinâmico (ex.: fallback para S3 ou rota administ
 ## Dados de Demonstração
 
 O projeto inclui dados simulados de:
-- **6 candidatos** de diferentes partidos e estados
-- **3 votações importantes** (PEC da Bandidagem, Reforma Tributária, Marco Legal das Startups)
-- **Histórico de votos** detalhado para cada candidato
 - **Projetos e promessas** de campanha
+## Demo rápido & PR
+
+Se quiser testar rapidamente o fluxo de ingestão local sem fornecer `PORTAL_API_KEY`, há um demo pronto neste branch:
+
+- Branch: `feat/demo-loader`
+- Pull request aberto: https://github.com/XavierLimaTI/TransparenciaPolitica/pull/18
+
+Passos rápidos:
+
+1. Na raiz do repositório execute:
+
+```powershell
+npx http-server -c-1 -p 8000
+Start-Process http://127.0.0.1:8000
+```
+
+2. Abra http://127.0.0.1:8000 no navegador e clique no botão "Carregar demo (despesas)".
+
+3. Para validar automaticamente, execute o teste Playwright previsto no branch:
+
+```powershell
+npx playwright test scripts/playwright/load-demo.spec.js
+```
+
+Notas:
+
+- O demo carrega `resources/data/despesas.json` e dispara o evento `localDespesasUsed` para integrar os dados à UI.
+- Arquivos placeholder foram movidos (ou podem ser movidos) para `resources/data/samples/` para deixar claro que são exemplos locais.
 
 ## Características Técnicas
 
