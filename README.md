@@ -75,6 +75,15 @@ Nota sobre acesso alternativo (raw):
 
   Observação: usar `raw.githubusercontent.com` é uma forma simples e imediata de consumir os JSONs publicados quando o Pages estiver desativado ou você preferir referências "diretas" aos arquivos.
 
+Testar disponibilidade (rápido)
+
+Se quiser checar rapidamente se o Pages está servindo os arquivos ou usar o fallback raw, execute o script PowerShell incluído:
+
+```powershell
+# checar Pages e fallback raw (mostra as primeiras linhas do arquivo)
+.\scripts\check-pages.ps1 -Owner 'XavierLimaTI' -Repo 'TransparenciaPolitica' -File 'data/despesas.csv.json'
+```
+
 - Como reexecutar localmente (PowerShell):
 
 ```powershell
