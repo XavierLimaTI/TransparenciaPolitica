@@ -39,7 +39,6 @@ Próximos passos recomendados (curto prazo):
 
 Para evitar custos com infraestrutura externa você pode usar o GitHub Pages para hospedar os JSONs gerados pelo pipeline de ingestão. Os dados publicados ficam disponíveis publicamente em uma URL estática e o frontend pode consumi-los diretamente.
 
-- URL pública (padrão):
 
   https://<OWNER>.github.io/<REPO>/data/
 
@@ -47,25 +46,21 @@ Para evitar custos com infraestrutura externa você pode usar o GitHub Pages par
 
   https://XavierLimaTI.github.io/TransparenciaPolitica/data/
 
-- Como o app usa essa URL:
 
   1. O pipeline de ingest gera `resources/data` contendo os arquivos JSON e `manifest.json`.
   2. O workflow `publish-gh-pages.yml` copia `resources/data` para a branch `gh-pages` e publica o conteúdo em `/data/`.
   3. O frontend pode apontar para `https://<OWNER>.github.io/<REPO>/data/manifest.json` para localizar os arquivos ingeridos.
 
-- Automatizando atualizações (opções):
 
   1. Agendamento mensal (recomendado para produção): já existe o workflow `monthly-download.yml` que roda no dia 1 de cada mês. Ele baixa, gera metadados e pode enviar artifacts ou fazer upload opcional para S3/GCS.
   2. Agendamento diário/weekly (para ambientes de teste ou atualizações frequentes): adicione um workflow agendado para reexecutar o pipeline de ingest e publicar em GitHub Pages (o repositório já contém um workflow de publicação manual `publish-gh-pages.yml`).
   3. Dispatch manual: você pode disparar `publish-gh-pages.yml` ou o novo workflow agendado manualmente via Actions → Run workflow.
 
-- Permissões necessárias:
 
   - Para que a publicação automática para `gh-pages` funcione o token usado pelo workflow precisa de permissão de escrita (Settings → Actions → General → Workflow permissions → "Read and write permissions"). O workflow já detecta e avisa caso não tenha permissão.
 
 Nota sobre acesso alternativo (raw):
 
-- Se o GitHub Pages não estiver habilitado para este repositório, os arquivos ainda podem ser acessados diretamente a partir do branch `gh-pages` usando a URL raw do GitHub:
 
   https://raw.githubusercontent.com/<OWNER>/<REPO>/gh-pages/data/<ARQUIVO>
 
@@ -84,7 +79,6 @@ Se quiser checar rapidamente se o Pages está servindo os arquivos ou usar o fal
 .\scripts\check-pages.ps1 -Owner 'XavierLimaTI' -Repo 'TransparenciaPolitica' -File 'data/despesas.csv.json'
 ```
 
-- Como reexecutar localmente (PowerShell):
 
 ```powershell
 # executar downloader + ingest localmente
@@ -99,6 +93,47 @@ node scripts/ingest-datasets.js || npm run ingest
 # copiar para a pasta de publicação local (opcional)
 # cp -r resources/data gh-pages-temp/data
 # abra a URL do GitHub Pages quando publicado: https://<OWNER>.github.io/<REPO>/data/
+```
+
+## Notas sobre publicação (GitHub Pages) e cabeçalhos HTTP
+
+O projeto publica dados estáticos em `gh-pages` (pasta `data/`) para demonstrações e para consumo público. Atenção aos limites do GitHub Pages:
+
+- GitHub Pages controla alguns cabeçalhos HTTP e não permite definir livremente cabeçalhos como `X-Content-Type-Options` ou políticas de cache específicas para caminhos individuais. Isso pode causar avisos no console do navegador sobre segurança ou detecção de tipos de conteúdo.
+- A página 404 padrão do GitHub Pages aplica uma política de CSP que pode bloquear scripts inline. Para mitigar, o workflow de publicação gera agora `index.html` com scripts externos em `assets/` (nenhum script inline importante é necessário para a listagem de datasets).
+
+Soluções e recomendações:
+
+- Se você precisa de controle granular de cabeçalhos (por exemplo, `X-Content-Type-Options: nosniff` ou cabeçalhos de cache específicos), considere usar um proxy reverso (Cloudflare, Netlify, Fastly) ou hospedar em um servidor que permita configurar cabeçalhos.
+- Para ambientes de produção com requisitos de segurança rígidos, prefira um host que permita configurar cabeçalhos HTTP ou configure um servidor intermediário (ex: Cloudflare Workers) que injete os cabeçalhos desejados.
+- Enquanto isso, o site publicado foi alterado para evitar scripts inline e inclui metadados essenciais (lang/title/viewport) no `index.html` para reduzir os avisos de acessibilidade.
+
+Verificação rápida:
+
+1. Abra https://<your-user>.github.io/<repo>/ em modo incógnito.
+2. Confirme que `index.html` carrega `./assets/index.js` (script externo) e que não há erros de CSP bloqueando a execução.
+3. Inspecione a resposta do `data/<arquivo>` e verifique `Content-Type` e outros cabeçalhos via DevTools → Network.
+
+Verificar programaticamente os dados publicados
+
+Você pode rodar um verificador simples que baixa `data/manifest.json` do site publicado e testa alguns arquivos amostrais para garantir que os dados estão acessíveis e com Content-Type correto.
+
+Usando npm (recomendado):
+
+```powershell
+npm run verify:data
+```
+
+Ou diretamente:
+
+```powershell
+node scripts/verify_data.js
+```
+
+O script mostrará uma amostra dos arquivos (status HTTP e content-type). Para apontar a uma instalação diferente do Pages, defina a variável de ambiente `PAGES_BASE`, por exemplo:
+
+```powershell
+$env:PAGES_BASE = 'https://meu-hosting.com' ; npm run verify:data
 ```
 
 Se quiser que eu adicione um workflow agendado diário/weekly que execute o pipeline de ingest e publique automaticamente para o GitHub Pages, eu já criei um workflow de exemplo no repositório: `.github/workflows/scheduled-ingest-publish.yml`. Ele roda por schedule (diário/weekly/monthly) e também permite `workflow_dispatch` para disparo manual.

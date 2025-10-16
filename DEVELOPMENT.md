@@ -1,3 +1,35 @@
+### Cabeçalhos HTTP e GitHub Pages
+
+Ao publicar os datasets em `gh-pages` (pasta `data/`), é importante entender que o GitHub Pages limita o controle sobre alguns cabeçalhos HTTP. Isso pode causar mensagens no console do navegador relacionadas a segurança ou detecção de tipo de conteúdo.
+
+Pontos importantes:
+
+- GitHub Pages não permite customizar livremente cabeçalhos como `X-Content-Type-Options` ou cabeçalhos de cache para arquivos individuais.
+- A página 404 padrão do Pages pode incluir políticas CSP que bloqueiam scripts inline — por isso o fluxo de publicação aqui gera `index.html` que usa scripts externos (em `assets/`) para evitar esse bloqueio.
+
+Alternativas e soluções:
+
+1. Cloudflare (proxy): use Cloudflare na frente do GitHub Pages para injetar cabeçalhos como `X-Content-Type-Options: nosniff` e `Cache-Control` personalizados. Requer configurar DNS/registro e roteamento pelo Cloudflare.
+2. Netlify/Vercel ou outro host: migre o hosting para plataformas que permitam configurar cabeçalhos e regras de cache (Netlify tem `_headers`, Vercel permite `headers()` em `vercel.json`).
+3. Proxy customizado / servidor próprio: hospede os arquivos em um servidor (NGINX/Apache) onde você controla `add_header` / `Header set` para políticas de segurança.
+4. Cloudflare Workers / Edge Workers: para quem quer continuar com GitHub Pages mas precisa ajustar cabeçalhos dinamicamente, um Worker pode reescrever respostas e injetar cabeçalhos antes de chegar ao cliente.
+
+Como verificar os cabeçalhos localmente (exemplo usando PowerShell / curl):
+
+PowerShell:
+
+```powershell
+# inspecionar cabeçalhos (substitua OWNER e REPO)
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/{OWNER}/{REPO}/gh-pages/data/despesas.csv.json" -Method Head | Select-Object -ExpandProperty Headers
+```
+
+curl (linha de comando):
+
+```bash
+curl -I "https://raw.githubusercontent.com/{OWNER}/{REPO}/gh-pages/data/despesas.csv.json"
+```
+
+Se precisar, posso adicionar exemplos práticos de configuração do Cloudflare Worker ou um bloco `_headers` para Netlify — me diga qual solução você prefere e eu preparo um patch/PR.
 # Desenvolvimento — Política Transparente Brasil
 
 Este documento descreve como configurar o ambiente de desenvolvimento, rodar testes e ativar o CI para o projeto.
