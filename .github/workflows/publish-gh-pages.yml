@@ -39,10 +39,24 @@ jobs:
           printf '%s\n' '<!doctype html>' '<html lang="pt-BR">' '<head>' '<meta charset="utf-8">' '<meta name="viewport" content="width=device-width,initial-scale=1">' '<title>Transparência Política — Dados publicados</title>' '<link rel="stylesheet" href="./assets/style.css">' '</head>' '<body>' '<header><h1>Transparência Política — Dados publicadas</h1></header>' '<main>' '<p>Esta página lista os datasets publicados pelo pipeline de ingestão. Clique em um arquivo para abri-lo.</p>' '<div id="manifest-loading">Carregando manifest...</div>' '<ul id="datasets"></ul>' '</main>' '<footer><p>Dados estáticos publicados via GitHub Pages.</p></footer>' '<script src="./assets/index.js"></script>' '</body>' '</html>' > gh-pages-temp/index.html
 
           # create a small JS file that loads manifest.json (or index.json) and renders links
-          printf '%s\n' "(function(){" "  function elt(tag, text){ const e=document.createElement(tag); if(text) e.textContent=text; return e }" "  const out=document.getElementById('datasets');" "  const info=document.getElementById('manifest-loading');" "  function listFiles(manifest){" "    info.style.display='none';" "    const files=manifest.files || (manifest.rows? [{name:manifest.source, count:manifest.count}]:[]);" "    if(Array.isArray(files) && files.length){" "      files.forEach(f => { let li=document.createElement('li'); let name=(f.name||f).replace(/^\/+/, ''); let a=document.createElement('a'); a.href='./data/'+name; a.textContent = name + (f.count? (' — '+f.count+' rows') : ''); a.target='_blank'; li.appendChild(a); out.appendChild(li); });" "    } else { out.appendChild(elt('li','Nenhum dataset encontrado.')) }" "  }" "  fetch('./data/manifest.json').then(r=>r.json()).then(listFiles).catch(_=>fetch('./data/index.json').then(r=>r.json()).then(listFiles).catch(e=>{ info.textContent='Não foi possível carregar manifest/index: '+(e&&e.message||e); }))" "})();" > gh-pages-temp/assets/index.js
+          printf '%s\n' "(function(){" "  function elt(tag, text){ const e=document.createElement(tag); if(text) e.textContent=text; return e }" "  function human(n){ if(!n && n!==0) return ''; var u=['bytes','KB','MB','GB']; var i=0; while(n>1024 && i<u.length-1){ n/=1024; i++; } return ' — '+(Math.round(n*10)/10)+' '+u[i]; }" "  const out=document.getElementById('datasets');" "  const info=document.getElementById('manifest-loading');" "  function listFiles(manifest){" "    info.style.display='none';" "    const files=manifest.files || (manifest.rows? [{name:manifest.source, count:manifest.count}]:[]);" "    if(Array.isArray(files) && files.length){" "      files.forEach(f => { let li=document.createElement('li'); let name=(f.name||f).replace(/^\/+/, ''); let a=document.createElement('a'); a.href='./data/'+name; a.target='_blank'; let label = name + (f.count? (' — '+f.count+' rows') : ''); if(f.size) label += human(f.size); a.textContent = label; li.appendChild(a); out.appendChild(li); });" "    } else { out.appendChild(elt('li','Nenhum dataset encontrado.')) }" "  }" "  fetch('./data/manifest.json').then(r=>r.json()).then(listFiles).catch(_=>fetch('./data/index.json').then(r=>r.json()).then(listFiles).catch(e=>{ info.textContent='Não foi possível carregar manifest/index: '+(e&&e.message||e); }))" "})();" > gh-pages-temp/assets/index.js
 
           # create a minimal stylesheet
           printf '%s\n' 'body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;margin:24px;color:#111}' 'header h1{margin:0 0 12px 0;font-size:20px}' 'main p{color:#333}' '#datasets{margin-top:12px;padding-left:20px}' '#datasets li{margin:6px 0}' 'footer{margin-top:24px;color:#666;font-size:13px}' > gh-pages-temp/assets/style.css
+          # generate a manifest.json with relative file names and sizes
+          echo '{"files":[' > gh-pages-temp/data/manifest.json
+          first=true
+          while IFS= read -r -d $'\0' file; do
+            rel=${file#gh-pages-temp/data/}
+            size=$(stat -c%s "$file")
+            if [ "$first" = true ]; then
+              first=false
+            else
+              echo ',' >> gh-pages-temp/data/manifest.json
+            fi
+            printf '  {"name":"%s","size":%s}' "$rel" "$size" >> gh-pages-temp/data/manifest.json
+          done < <(find gh-pages-temp/data -type f -print0)
+          echo ']}' >> gh-pages-temp/data/manifest.json
           ls -la gh-pages-temp
           echo "publish_path=gh-pages-temp" >> "$GITHUB_OUTPUT"
 
