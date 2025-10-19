@@ -1,0 +1,1626 @@
+{
+  "source": "20250101_Despesas.zip_extracted/20250101_Despesas_Liquidacao_EmpenhosImpactados.csv",
+  "count": 90,
+  "rows": [
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "110062000012025NS001456",
+        "cdigoempenho": "110062000012025NE000001",
+        "cdigonaturezadespesacompleta": "31901101",
+        "subitem": "VENCIMENTOS E SALARIOS",
+        "valorliquidador": "5440,71",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "110062000012025NS001456",
+        "cdigoempenho": "110062000012024NE000001",
+        "cdigonaturezadespesacompleta": "31901101",
+        "subitem": "VENCIMENTOS E SALARIOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "113203115012025NS000635",
+        "cdigoempenho": "113203115012023NE000226",
+        "cdigonaturezadespesacompleta": "33903905",
+        "subitem": "SERVICOS TECNICOS PROFISSIONAIS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "120069000012025NS000022",
+        "cdigoempenho": "120633000012024NE001380",
+        "cdigonaturezadespesacompleta": "33903004",
+        "subitem": "GAS E OUTROS MATERIAIS ENGARRAFADOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "120069000012025NS000024",
+        "cdigoempenho": "120633000012024NE001985",
+        "cdigonaturezadespesacompleta": "33903004",
+        "subitem": "GAS E OUTROS MATERIAIS ENGARRAFADOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "120069000012025NS000024",
+        "cdigoempenho": "120633000012024NE001380",
+        "cdigonaturezadespesacompleta": "33903004",
+        "subitem": "GAS E OUTROS MATERIAIS ENGARRAFADOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "120069000012025NS000029",
+        "cdigoempenho": "120633000012024NE003183",
+        "cdigonaturezadespesacompleta": "33903018",
+        "subitem": "MATERIAIS E MEDICAMENTOS P/ USO VETERINARIO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "120069000012025NS000057",
+        "cdigoempenho": "120633000012024NE003356",
+        "cdigonaturezadespesacompleta": "33903024",
+        "subitem": "MATERIAL P/ MANUT.DE BENS IMOVEIS/INSTALACOES",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "120069000012025NS000078",
+        "cdigoempenho": "120633000012024NE001667",
+        "cdigonaturezadespesacompleta": "33903024",
+        "subitem": "MATERIAL P/ MANUT.DE BENS IMOVEIS/INSTALACOES",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "120069000012025NS000079",
+        "cdigoempenho": "120633000012024NE001205",
+        "cdigonaturezadespesacompleta": "33903024",
+        "subitem": "MATERIAL P/ MANUT.DE BENS IMOVEIS/INSTALACOES",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "135345222112025NS000158",
+        "cdigoempenho": "135345222112025NE000042",
+        "cdigonaturezadespesacompleta": "33903950",
+        "subitem": "SERV.MEDICO-HOSPITAL.,ODONTOL.E LABORATORIAIS",
+        "valorliquidador": "16022,80",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "135345222112025NS000159",
+        "cdigoempenho": "135345222112025NE000044",
+        "cdigonaturezadespesacompleta": "33903950",
+        "subitem": "SERV.MEDICO-HOSPITAL.,ODONTOL.E LABORATORIAIS",
+        "valorliquidador": "537,68",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "135396222112025NS000006",
+        "cdigoempenho": "135396222112024NE000009",
+        "cdigonaturezadespesacompleta": "33903906",
+        "subitem": "CAPATAZIA, ESTIVA E PESAGEM",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "152144264282025NS000008",
+        "cdigoempenho": "152144264282024NE000041",
+        "cdigonaturezadespesacompleta": "33903919",
+        "subitem": "MANUTENCAO E CONSERV. DE VEICULOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "152144264282025NS000008",
+        "cdigoempenho": "152144264282024NE000037",
+        "cdigonaturezadespesacompleta": "33903919",
+        "subitem": "MANUTENCAO E CONSERV. DE VEICULOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "153045152242025NS012828",
+        "cdigoempenho": "153045152242025NE000770",
+        "cdigonaturezadespesacompleta": "33909237",
+        "subitem": "LOCACAO DE MAO-DE-OBRA",
+        "valorliquidador": "3060,64",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "153046152252025NS000096",
+        "cdigoempenho": "153046152252024NE001266",
+        "cdigonaturezadespesacompleta": "33903925",
+        "subitem": "TAXA DE ADMINISTRACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "153046152252025NS000096",
+        "cdigoempenho": "153046152252024NE000228",
+        "cdigonaturezadespesacompleta": "33903925",
+        "subitem": "TAXA DE ADMINISTRACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "153165152392025NS001600",
+        "cdigoempenho": "153165152392024NE000086",
+        "cdigonaturezadespesacompleta": "33903958",
+        "subitem": "SERVICOS DE TELECOMUNICACOES",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "153293152292025NS000006",
+        "cdigoempenho": "153293152292024NE000235",
+        "cdigonaturezadespesacompleta": "33903943",
+        "subitem": "SERVICOS DE ENERGIA ELETRICA",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "153293152292025NS000006",
+        "cdigoempenho": "153293152292024NE000008",
+        "cdigonaturezadespesacompleta": "33904722",
+        "subitem": "CONTRIBUICAO P/ CUSTEIO DE ILUMINACAO PUBLICA",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "154034152552025NS000073",
+        "cdigoempenho": "154034152552024NE000207",
+        "cdigonaturezadespesacompleta": "33903965",
+        "subitem": "SERVICOS DE APOIO AO ENSINO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "154034152552025NS000076",
+        "cdigoempenho": "154034152552024NE000218",
+        "cdigonaturezadespesacompleta": "33903965",
+        "subitem": "SERVICOS DE APOIO AO ENSINO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "155591264112025NS000050",
+        "cdigoempenho": "155591264112024NE000137",
+        "cdigonaturezadespesacompleta": "44905233",
+        "subitem": "EQUIPAMENTOS PARA AUDIO, VIDEO E FOTO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "155591264112025NS000052",
+        "cdigoempenho": "155591264112024NE000082",
+        "cdigonaturezadespesacompleta": "33903916",
+        "subitem": "MANUTENCAO E CONSERV. DE BENS IMOVEIS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "155591264112025NS000053",
+        "cdigoempenho": "155591264112024NE000152",
+        "cdigonaturezadespesacompleta": "33903944",
+        "subitem": "SERVICOS DE AGUA, ESGOTO E RESIDUOS SOLIDOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "155910264432025NS000009",
+        "cdigoempenho": "155910264432024NE001336",
+        "cdigonaturezadespesacompleta": "33903009",
+        "subitem": "MATERIAL FARMACOLOGICO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "155910264432025NS000013",
+        "cdigoempenho": "155910264432024NE001428",
+        "cdigonaturezadespesacompleta": "33903009",
+        "subitem": "MATERIAL FARMACOLOGICO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "155910264432025NS000018",
+        "cdigoempenho": "155910264432024NE001412",
+        "cdigonaturezadespesacompleta": "33903009",
+        "subitem": "MATERIAL FARMACOLOGICO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "155910264432025NS000025",
+        "cdigoempenho": "155910264432024NE001327",
+        "cdigonaturezadespesacompleta": "33903009",
+        "subitem": "MATERIAL FARMACOLOGICO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "155910264432025NS000063",
+        "cdigoempenho": "155910264432024NE001260",
+        "cdigonaturezadespesacompleta": "33903009",
+        "subitem": "MATERIAL FARMACOLOGICO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "155910264432025NS000068",
+        "cdigoempenho": "155910264432024NE001312",
+        "cdigonaturezadespesacompleta": "33903009",
+        "subitem": "MATERIAL FARMACOLOGICO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "158133264052025NS000056",
+        "cdigoempenho": "158133264052024NE000284",
+        "cdigonaturezadespesacompleta": "33904009",
+        "subitem": "HOSPEDAGENS DE SISTEMAS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "158133264052025NS000076",
+        "cdigoempenho": "158133264052024NE000528",
+        "cdigonaturezadespesacompleta": "44905191",
+        "subitem": "OBRAS EM ANDAMENTO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "158133264052025NS000076",
+        "cdigoempenho": "158133264052024NE000224",
+        "cdigonaturezadespesacompleta": "44905191",
+        "subitem": "OBRAS EM ANDAMENTO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "158133264052025NS000101",
+        "cdigoempenho": "158133264052024NE000043",
+        "cdigonaturezadespesacompleta": "33903925",
+        "subitem": "TAXA DE ADMINISTRACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "158133264052025NS000102",
+        "cdigoempenho": "158133264052024NE000043",
+        "cdigonaturezadespesacompleta": "33903925",
+        "subitem": "TAXA DE ADMINISTRACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "158133264052025NS000123",
+        "cdigoempenho": "158133264052024NE000256",
+        "cdigonaturezadespesacompleta": "33903701",
+        "subitem": "APOIO ADMINISTRATIVO, TECNICO E OPERACIONAL",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "158133264052025NS000123",
+        "cdigoempenho": "158133264052024NE000254",
+        "cdigonaturezadespesacompleta": "33903705",
+        "subitem": "SERVICOS DE COPA E COZINHA",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "158133264052025NS000123",
+        "cdigoempenho": "158133264052024NE000255",
+        "cdigonaturezadespesacompleta": "33903701",
+        "subitem": "APOIO ADMINISTRATIVO, TECNICO E OPERACIONAL",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "158133264052025NS000178",
+        "cdigoempenho": "158133264052024NE000021",
+        "cdigonaturezadespesacompleta": "33903925",
+        "subitem": "TAXA DE ADMINISTRACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "158133264052025NS000206",
+        "cdigoempenho": "158133264052024NE000230",
+        "cdigonaturezadespesacompleta": "33903944",
+        "subitem": "SERVICOS DE AGUA, ESGOTO E RESIDUOS SOLIDOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "158413264112025NS000013",
+        "cdigoempenho": "158413264112024NE000091",
+        "cdigonaturezadespesacompleta": "33903919",
+        "subitem": "MANUTENCAO E CONSERV. DE VEICULOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "158413264112025NS000017",
+        "cdigoempenho": "158413264112024NE000092",
+        "cdigonaturezadespesacompleta": "33903039",
+        "subitem": "MATERIAL P/ MANUTENCAO DE VEICULOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "160386000012025NS000015",
+        "cdigoempenho": "160386000012024NE000337",
+        "cdigonaturezadespesacompleta": "33903007",
+        "subitem": "GENEROS DE ALIMENTACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "160386000012025NS000016",
+        "cdigoempenho": "160386000012024NE000337",
+        "cdigonaturezadespesacompleta": "33903007",
+        "subitem": "GENEROS DE ALIMENTACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "160386000012025NS000018",
+        "cdigoempenho": "160386000012024NE000320",
+        "cdigonaturezadespesacompleta": "33903007",
+        "subitem": "GENEROS DE ALIMENTACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "160386000012025NS000019",
+        "cdigoempenho": "160386000012024NE000269",
+        "cdigonaturezadespesacompleta": "33903007",
+        "subitem": "GENEROS DE ALIMENTACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "160386000012025NS000020",
+        "cdigoempenho": "160386000012024NE000318",
+        "cdigonaturezadespesacompleta": "33903007",
+        "subitem": "GENEROS DE ALIMENTACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "160386000012025NS000021",
+        "cdigoempenho": "160386000012024NE000405",
+        "cdigonaturezadespesacompleta": "33903007",
+        "subitem": "GENEROS DE ALIMENTACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "170195000012025NS000112",
+        "cdigoempenho": "170195000012024NE000165",
+        "cdigonaturezadespesacompleta": "33903504",
+        "subitem": "CONSULTORIA EM TECNOLOGIA DA INFORMACAO E COMUNICACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "170347000012025NS000001",
+        "cdigoempenho": "170347000012024NE400165",
+        "cdigonaturezadespesacompleta": "33903007",
+        "subitem": "GENEROS DE ALIMENTACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "170347000012025NS000012",
+        "cdigoempenho": "170347000012024NE400059",
+        "cdigonaturezadespesacompleta": "33903917",
+        "subitem": "MANUT. E CONSERV. DE MAQUINAS E EQUIPAMENTOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "194026192082025NS000356",
+        "cdigoempenho": "194026192082025NE000099",
+        "cdigonaturezadespesacompleta": "33909292",
+        "subitem": "MATERIAL DE CONSUMO",
+        "valorliquidador": "7221,03",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "200006000012025NS000009",
+        "cdigoempenho": "200006000012024NE000050",
+        "cdigonaturezadespesacompleta": "31911302",
+        "subitem": "CONTRIBUICOES PREVIDENCIARIAS - INSS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240003000012025NS000004",
+        "cdigoempenho": "240003000012024NE000035",
+        "cdigonaturezadespesacompleta": "33903905",
+        "subitem": "SERVICOS TECNICOS PROFISSIONAIS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240003000012025NS000005",
+        "cdigoempenho": "240003000012024NE000193",
+        "cdigonaturezadespesacompleta": "33904007",
+        "subitem": "MANUTENCAO CORRETIVA/ADAPTATIVA E SUSTENTACAO SOFTWARES",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240003000012025NS000009",
+        "cdigoempenho": "240003000012024NE000137",
+        "cdigonaturezadespesacompleta": "33903916",
+        "subitem": "MANUTENCAO E CONSERV. DE BENS IMOVEIS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240003000012025NS000014",
+        "cdigoempenho": "240003000012024NE000135",
+        "cdigonaturezadespesacompleta": "33903958",
+        "subitem": "SERVICOS DE TELECOMUNICACOES",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240003000012025NS000018",
+        "cdigoempenho": "240003000012024NE000005",
+        "cdigonaturezadespesacompleta": "33904014",
+        "subitem": "TELEFONIA FIXA E MOVEL - PACOTE DE COMUNICACAO DE DADOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240003000012025NS000019",
+        "cdigoempenho": "240003000012024NE000001",
+        "cdigonaturezadespesacompleta": "33903007",
+        "subitem": "GENEROS DE ALIMENTACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240003000012025NS000020",
+        "cdigoempenho": "240003000012024NE000025",
+        "cdigonaturezadespesacompleta": "33903001",
+        "subitem": "COMBUSTIVEIS E LUBRIFICANTES AUTOMOTIVOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240003000012025NS000043",
+        "cdigoempenho": "240003000012024NE000044",
+        "cdigonaturezadespesacompleta": "33903701",
+        "subitem": "APOIO ADMINISTRATIVO, TECNICO E OPERACIONAL",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240003000012025NS000045",
+        "cdigoempenho": "240003000012024NE000062",
+        "cdigonaturezadespesacompleta": "33903702",
+        "subitem": "LIMPEZA E CONSERVACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240003000012025NS000049",
+        "cdigoempenho": "240003000012024NE000011",
+        "cdigonaturezadespesacompleta": "33903701",
+        "subitem": "APOIO ADMINISTRATIVO, TECNICO E OPERACIONAL",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240003000012025NS000137",
+        "cdigoempenho": "240003000012024NE000136",
+        "cdigonaturezadespesacompleta": "33903977",
+        "subitem": "VIGILANCIA OSTENSIVA/MONITORADA/RASTREAMENTO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240241000012025NS000085",
+        "cdigoempenho": "240241000012025NE000002",
+        "cdigonaturezadespesacompleta": "33903978",
+        "subitem": "LIMPEZA E CONSERVACAO",
+        "valorliquidador": "5321,63",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240241000012025NS000087",
+        "cdigoempenho": "240241000012025NE000003",
+        "cdigonaturezadespesacompleta": "33903978",
+        "subitem": "LIMPEZA E CONSERVACAO",
+        "valorliquidador": "8176,10",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "240241000012025NS000089",
+        "cdigoempenho": "240241000012025NE000032",
+        "cdigonaturezadespesacompleta": "33904016",
+        "subitem": "OUTSOURCING DE IMPRESSAO",
+        "valorliquidador": "2521,97",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "275060272082025NS000356",
+        "cdigoempenho": "275060272082025NE400830",
+        "cdigonaturezadespesacompleta": "31909108",
+        "subitem": "SENTENCA JUDICIAL PARCELA UNICA - ATIVO CIVIL",
+        "valorliquidador": "146914,30",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "275060272082025NS000919",
+        "cdigoempenho": "275060272082024NE003304",
+        "cdigonaturezadespesacompleta": "33903054",
+        "subitem": "MATERIAL P/MANUT.CONSERV.DE ESTRADAS E VIAS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "275075272112025NS000038",
+        "cdigoempenho": "275075272112023NE000375",
+        "cdigonaturezadespesacompleta": "33903309",
+        "subitem": "TRANSPORTE DE SERVIDORES",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "275075272112025NS000051",
+        "cdigoempenho": "275075272112024NE000034",
+        "cdigonaturezadespesacompleta": "33903910",
+        "subitem": "LOCACAO DE IMOVEIS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "275075272112025NS000052",
+        "cdigoempenho": "275075272112024NE000052",
+        "cdigonaturezadespesacompleta": "33903301",
+        "subitem": "PASSAGENS PARA O PAIS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "275075272112025NS000073",
+        "cdigoempenho": "275075272112024NE000077",
+        "cdigonaturezadespesacompleta": "33903922",
+        "subitem": "EXPOSICOES, CONGRESSOS E CONFERENCIAS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "275075272112025NS000101",
+        "cdigoempenho": "275075272112024NE000353",
+        "cdigonaturezadespesacompleta": "33904007",
+        "subitem": "MANUTENCAO CORRETIVA/ADAPTATIVA E SUSTENTACAO SOFTWARES",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "275075272112025NS000107",
+        "cdigoempenho": "275075272112024NE000353",
+        "cdigonaturezadespesacompleta": "33904007",
+        "subitem": "MANUTENCAO CORRETIVA/ADAPTATIVA E SUSTENTACAO SOFTWARES",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "275075272112025NS000315",
+        "cdigoempenho": "275075272112024NE000179",
+        "cdigonaturezadespesacompleta": "33913990",
+        "subitem": "SERVICOS DE PUBLICIDADE LEGAL",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "366003362102025NS011489",
+        "cdigoempenho": "366003362102025NE000326",
+        "cdigonaturezadespesacompleta": "33903944",
+        "subitem": "SERVICOS DE AGUA, ESGOTO E RESIDUOS SOLIDOS",
+        "valorliquidador": "20574,91",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "373046372012025NS000007",
+        "cdigoempenho": "373046372012024NE000050",
+        "cdigonaturezadespesacompleta": "33903916",
+        "subitem": "MANUTENCAO E CONSERV. DE BENS IMOVEIS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "393001392502025NS000945",
+        "cdigoempenho": "393001392502024NE000576",
+        "cdigonaturezadespesacompleta": "33903958",
+        "subitem": "SERVICOS DE TELECOMUNICACOES",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "423002422072025NS001638",
+        "cdigoempenho": "423002422072024NE000316",
+        "cdigonaturezadespesacompleta": "33904006",
+        "subitem": "LOCACAO DE SOFTWARES",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "423002422072025NS001638",
+        "cdigoempenho": "423002422072024NE000077",
+        "cdigonaturezadespesacompleta": "33904006",
+        "subitem": "LOCACAO DE SOFTWARES",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "443033442072025NS004740",
+        "cdigoempenho": "443033442072025NE000904",
+        "cdigonaturezadespesacompleta": "33909293",
+        "subitem": "INDENIZACOES E RESTITUICOES",
+        "valorliquidador": "66,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "495130292082025NS000058",
+        "cdigoempenho": "495130292082024NE000001",
+        "cdigonaturezadespesacompleta": "31901101",
+        "subitem": "VENCIMENTOS E SALARIOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "2821,17",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "580003000012025NS000261",
+        "cdigoempenho": "580003000012024NE000076",
+        "cdigonaturezadespesacompleta": "33903948",
+        "subitem": "SERVICO DE SELECAO E TREINAMENTO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "764000000012025NS000001",
+        "cdigoempenho": "764000000012024NE000635",
+        "cdigonaturezadespesacompleta": "33903059",
+        "subitem": "MATERIAL PARA DIVULGACAO",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "764000000012025NS000002",
+        "cdigoempenho": "764000000012024NE000765",
+        "cdigonaturezadespesacompleta": "33903042",
+        "subitem": "FERRAMENTAS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "771260000012025NS000012",
+        "cdigoempenho": "771300000012024NE020534",
+        "cdigonaturezadespesacompleta": "33903023",
+        "subitem": "UNIFORMES, TECIDOS E AVIAMENTOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    },
+    {
+      "dataDocumento": null,
+      "descricao": "",
+      "valor": 0,
+      "favorecido": "",
+      "cnpjCpf": null,
+      "origem": null,
+      "detalhe": {
+        "cdigoliquidao": "771260000012025NS000013",
+        "cdigoempenho": "771300000012024NE018796",
+        "cdigonaturezadespesacompleta": "33903023",
+        "subitem": "UNIFORMES, TECIDOS E AVIAMENTOS",
+        "valorliquidador": "0,00",
+        "valorrestosapagarinscritosr": "0,00",
+        "valorrestosapagarcancelador": "0,00",
+        "valorrestosapagarpagosr": "0,00"
+      }
+    }
+  ]
+}
